@@ -6,4 +6,28 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+    <TextView
+        android:text="User agreement"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#1D1259"
+        android:layout_marginTop="25dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:id="@+id/SCROLLER_ID"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:scrollbars="vertical"
+        android:fillViewport="true">
+        <TextView
+            android:id="@+id/useragreementView"
+            android:text="@string/lorem"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" />
+    </ScrollView>
 </LinearLayout>

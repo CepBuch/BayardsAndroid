@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
 namespace Bayards_Android
 {
     class Repository
@@ -18,6 +11,22 @@ namespace Bayards_Android
         {
             return password == "hsepassword";
         }
+
+        
+        //public  string getLorem()
+        //{
+
+        //    var url = "http://lorem.vn/api/?type=meat-and-filler";
+
+        //    using (var client = new HttpClient())
+        //    {
+        //        var response = client.GetStringAsync(url).Result;
+        //        return response;
+        //    }
+            
+        //}
+
+
 
     }
 }

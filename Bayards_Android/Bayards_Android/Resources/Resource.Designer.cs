@@ -1687,6 +1687,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0058
 			public const int NlLayout = 2131361880;
 			
+			// aapt resource value: 0x7f0a0076
+			public const int SCROLLER_ID = 2131361910;
+			
 			// aapt resource value: 0x7f0a005c
 			public const int action0 = 2131361884;
 			
@@ -2026,6 +2029,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0012
 			public const int useLogo = 2131361810;
 			
+			// aapt resource value: 0x7f0a0077
+			public const int useragreementView = 2131361911;
+			
 			// aapt resource value: 0x7f0a0073
 			public const int warningLayout = 2131361907;
 			
@@ -2352,6 +2358,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f050023
 			public const int lan_holland = 2131034147;
+			
+			// aapt resource value: 0x7f05002b
+			public const int lorem = 2131034155;
 			
 			// aapt resource value: 0x7f050026
 			public const int password = 2131034150;

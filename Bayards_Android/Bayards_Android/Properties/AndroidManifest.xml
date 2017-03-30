@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Bayards_Android.Bayards_Android" android:versionCode="1" android:versionName="1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Bayards_Android.Bayards_Android" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="17" />
-	<application android:label="Bayards_Android" android:theme="@android:style/Theme.DeviceDefault.Light"></application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:theme="@android:style/Theme.DeviceDefault.Light" android:label="Bayards_Android"></application>
 </manifest>
