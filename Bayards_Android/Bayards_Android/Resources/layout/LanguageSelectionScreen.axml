@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:splitMotionEvents="false">
+    <LinearLayout
+        android:layout_marginTop="-50dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Choose your language:"
+            android:textSize="26sp"
+            android:textColor="#1D1259"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/language_layout_shape"
+        android:id="@+id/EngLayout">
+        <ImageView
+            android:src="@drawable/en_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1" />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:text="@string/lan_english"
+            android:textColor="#1D1259"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/language_layout_shape"
+        android:clickable="true"
+        android:id="@+id/NlLayout">
+        <ImageView
+            android:src="@drawable/nl_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:text="@string/lan_holland"
+            android:textColor="#1D1259"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

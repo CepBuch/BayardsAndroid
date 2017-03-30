@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">Добро пожаловать в Bayards! </string>
+  <string name="cont">  Продолжить  </string>
+  <string name="password">Пароль: </string>
+  <string name="enter_password">Введите ваш пароль:</string>
+  <string name="incorrect_password">Вы ввели неверный пароль: </string>
+  <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
+</resources>

@@ -45,7 +45,22 @@ namespace Bayards_Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int button_shape = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int button_text = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int en_logo = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int Icon = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int language_layout_shape = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int nl_logo = 2130837509;
 			
 			static Drawable()
 			{
@@ -57,11 +72,51 @@ namespace Bayards_Android
 			}
 		}
 		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int EngLayout = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int NlLayout = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int body = 2131099651;
+			
+			// aapt resource value: 0x7f060005
+			public const int continueButton = 2131099653;
+			
+			// aapt resource value: 0x7f060001
+			public const int imageView1 = 2131099649;
+			
+			// aapt resource value: 0x7f060004
+			public const int password_text = 2131099652;
+			
+			// aapt resource value: 0x7f060006
+			public const int warningLayout = 2131099654;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
 		public partial class Layout
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int LanguageSelectionScreen = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int PasswordScreen = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int UserAgreementScreen = 2130903042;
 			
 			static Layout()
 			{
@@ -76,11 +131,32 @@ namespace Bayards_Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
-			
 			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			public const int ApplicationName = 2130968576;
+			
+			// aapt resource value: 0x7f040004
+			public const int cont = 2130968580;
+			
+			// aapt resource value: 0x7f040006
+			public const int enter_password = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int incorrect_password = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int incorrect_password_advice = 2130968584;
+			
+			// aapt resource value: 0x7f040001
+			public const int lan_english = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int lan_holland = 2130968578;
+			
+			// aapt resource value: 0x7f040005
+			public const int password = 2130968581;
+			
+			// aapt resource value: 0x7f040003
+			public const int welcome = 2130968579;
 			
 			static String()
 			{
@@ -88,6 +164,22 @@ namespace Bayards_Android
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int custom_button = 2131034112;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}
