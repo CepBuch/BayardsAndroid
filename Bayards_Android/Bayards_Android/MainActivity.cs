@@ -29,7 +29,6 @@ namespace Bayards_Android
             StartActivity(intent);
         }
 
-
         protected void changeAppLanguage(string language_code)
         {
             var res = this.Resources;

@@ -9,5 +9,6 @@
   <string name="enter_password">Enter your password</string>
   <string name="incorrect_password">The password is incorrect</string>
   <string name="incorrect_password_advice">Pleaase, ask your instructor the correct password</string>
+  <string name="bayards">Bayards Nieuw - Lekkerland</string>
 
 </resources>
