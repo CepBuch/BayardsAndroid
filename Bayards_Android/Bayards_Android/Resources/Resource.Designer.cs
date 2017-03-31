@@ -1656,17 +1656,23 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f020060
 			public const int notification_icon_background = 2130837600;
 			
-			// aapt resource value: 0x7f020063
-			public const int notification_template_icon_bg = 2130837603;
+			// aapt resource value: 0x7f020065
+			public const int notification_template_icon_bg = 2130837605;
 			
-			// aapt resource value: 0x7f020064
-			public const int notification_template_icon_low_bg = 2130837604;
+			// aapt resource value: 0x7f020066
+			public const int notification_template_icon_low_bg = 2130837606;
 			
 			// aapt resource value: 0x7f020061
 			public const int notification_tile_bg = 2130837601;
 			
 			// aapt resource value: 0x7f020062
 			public const int notify_panel_notification_icon_bg = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int switch_thumb = 2130837603;
+			
+			// aapt resource value: 0x7f020064
+			public const int switch_track = 2130837604;
 			
 			static Drawable()
 			{

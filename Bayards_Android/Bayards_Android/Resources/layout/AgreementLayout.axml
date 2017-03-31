@@ -57,6 +57,8 @@
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track"
                 android:textOn="@string/yes"
                 android:textOff="@string/no"
                 android:id="@+id/agreement_switch" />
