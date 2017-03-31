@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
 using Android.Support.V4.View;
+using Android.Preferences;
 
 namespace Bayards_Android
 {
@@ -19,10 +20,19 @@ namespace Bayards_Android
         TextView userText;
         Switch agreeSwitch;
         Button contButton;
+
+        ISharedPreferences _prefs;
+        ISharedPreferencesEditor _editor;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.AgreementLayout);
+
+
+            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            _editor = _prefs.Edit();
+
 
             //Accepting custom toolbar 
             Android.Support.V7.Widget.Toolbar toolbar = 
@@ -40,16 +50,26 @@ namespace Bayards_Android
             userText.Text = getLorem(3);
 
             agreeSwitch.CheckedChange += AgreeSwitch_CheckedChange;
+            contButton.Click += ContButton_Click;
+        }
+
+        private void ContButton_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this,typeof(MainActivity));
+            StartActivity(intent);
+
+            //Remember that agreement is accepted.
+            _editor.PutBoolean("isAcceptedAgreement", true);
+            _editor.Apply();
 
 
+            this.Finish();
         }
 
         private void AgreeSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             contButton.Enabled = agreeSwitch.Checked;
         }
-
-
 
         //Temporary method
         public string getLorem(int times)

@@ -3,7 +3,7 @@
   <string name="welcome">Добро пожаловать в Bayards! </string>
   <string name="cont">  Продолжить  </string>
   <string name="password">Пароль: </string>
-  <string name="enter_password">Введите ваш пароль:</string>
+  <string name="enter_password">Введите ваш пароль</string>
   <string name="incorrect_password">Вы ввели неверный пароль: </string>
   <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
   <string name ="user_agreement">Пользовательское соглашение</string>
@@ -11,5 +11,6 @@
   <string name="yes">да</string>
   <string name="no">нет</string>
   <string name ="wait">Пожалуйста, подождите пока мы проверяем данные</string>
+  <string name="under_development">Скоро всё будет...</string>
 
 </resources>

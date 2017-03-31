@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Preferences;
 
 namespace Bayards_Android
 {
@@ -17,15 +18,21 @@ namespace Bayards_Android
     {
         EditText passwordBox;
         Button contButton;
-        LinearLayout warningLayout;
-        LinearLayout waitLayout;
+        LinearLayout warningLayout, waitLayout;
 
-        Repository _repo = new Repository();
+        CreditnailsProvider _provider;
+        ISharedPreferences _prefs;
+        ISharedPreferencesEditor _editor;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PasswordLayout);
+
+            _provider = new CreditnailsProvider();
+            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            _editor = _prefs.Edit();
+
 
             passwordBox = FindViewById<EditText>(Resource.Id.password_text);
             contButton = FindViewById<Button>(Resource.Id.continuePasswordButton);
@@ -56,7 +63,7 @@ namespace Bayards_Android
 
 
             //get response from a server
-            var correctPassword = await _repo.sendPassword(passwordBox.Text);
+            var correctPassword = await _provider.sendPassword(passwordBox.Text);
 
             //Remove "wait" message and enable button
             contButton.Enabled = true;
@@ -67,8 +74,12 @@ namespace Bayards_Android
             //Checking if password is correct, otherwise show "incorrect password" message
             if (correctPassword)
             {
+                //Remember that user is authorized and open main page
+                _editor.PutBoolean("isAuthorized", true);
+                _editor.Apply();
                 var intent = new Intent(this, typeof(AgreementActivity));
                 StartActivity(intent);
+                this.Finish();
             }
             else warningLayout.Visibility = ViewStates.Visible;
         }

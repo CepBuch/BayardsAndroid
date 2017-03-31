@@ -21,5 +21,6 @@
   <string name="yes">yes</string>
   <string name="no">no</string>
   <string name ="wait">Please, wait while we are checking data</string>
+  <string name="under_development">Under development...</string>
 
 </resources>

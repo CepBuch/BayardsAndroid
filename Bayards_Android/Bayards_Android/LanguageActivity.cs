@@ -10,16 +10,25 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Preferences;
 
 namespace Bayards_Android
 {
     [Activity(Label = "Login page", Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
     public class LanguageActivity : Activity
     {
+
+        ISharedPreferences _prefs;
+        ISharedPreferencesEditor _editor;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LanguageSelectionLayout);
+
+
+            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            _editor = _prefs.Edit();
+
 
             LinearLayout engLayout = FindViewById<LinearLayout>(Resource.Id.EngLayout);
             LinearLayout nlLayout = FindViewById<LinearLayout>(Resource.Id.NlLayout);
@@ -28,14 +37,7 @@ namespace Bayards_Android
             nlLayout.Click += (sender, e) => chooseLanguage("nl");
         }
 
-        protected void chooseLanguage(string language_code)
-        {
-            changeAppLanguage(language_code);
-            var intent = new Intent(this, typeof(PasswordActivity));
-            StartActivity(intent);
-        }
-
-        protected void changeAppLanguage(string language_code)
+        protected void applyAppLanguage(string language_code)
         {
             var res = this.Resources;
             DisplayMetrics dm = res.DisplayMetrics;
@@ -43,5 +45,27 @@ namespace Bayards_Android
             conf.SetLocale(new Java.Util.Locale(language_code));
             res.UpdateConfiguration(conf, dm);
         }
+
+        protected void chooseLanguage(string language_code)
+        {
+            applyAppLanguage(language_code);
+            var isAuthorized = _prefs.GetBoolean("isAuthorized", false);
+            Intent intent;
+            if (!isAuthorized)
+                intent = new Intent(this, typeof(PasswordActivity));
+            else
+                intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+
+            //Remember that language is chosen.
+            _editor.PutBoolean("isLanguageChosen", true);
+            _editor.PutString("languageCode", language_code);
+            _editor.Apply();
+
+            this.Finish();
+        }
+
+
+
     }
 }
