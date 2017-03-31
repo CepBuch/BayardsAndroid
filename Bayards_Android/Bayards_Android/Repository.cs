@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Bayards_Android
 {
     class Repository
     {
-        public bool sendPassword(string password)
+        public async Task<bool> sendPassword(string password)
         {
+            await Task.Delay(5000);
             return password == "hsepassword";
         }
 

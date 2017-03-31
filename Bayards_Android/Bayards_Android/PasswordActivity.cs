@@ -15,20 +15,35 @@ namespace Bayards_Android
     [Activity(Label = "PasswordActivity", Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
     public class PasswordActivity : Activity
     {
+        EditText passwordBox;
+        Button contButton;
+        LinearLayout warningLayout;
+
+        Repository _repo = new Repository();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.PasswordScreen);
+            SetContentView(Resource.Layout.PasswordLayout);
 
-            EditText passwordBox = FindViewById<EditText>(Resource.Id.password_text);
-            Button contButton = FindViewById<Button>(Resource.Id.continuePasswordButton);
-            LinearLayout warningLayout = FindViewById<LinearLayout>(Resource.Id.warningLayout);
+            passwordBox = FindViewById<EditText>(Resource.Id.password_text);
+            contButton = FindViewById<Button>(Resource.Id.continuePasswordButton);
+            warningLayout = FindViewById<LinearLayout>(Resource.Id.warningLayout);
 
-            Repository repo = new Repository();
 
-            contButton.Click += delegate
+            contButton.Click += ContButton_Click;
+
+            passwordBox.TextChanged += delegate
             {
-                if (repo.sendPassword(passwordBox.Text) == true)
+                warningLayout.Visibility = ViewStates.Invisible;
+            };
+
+
+        }
+
+        private async void ContButton_Click(object sender, EventArgs e)
+        {
+                if (await _repo.sendPassword(passwordBox.Text) == true)
                 {
                     warningLayout.Visibility = ViewStates.Invisible;
                     var intent = new Intent(this, typeof(AgreementActivity));
@@ -39,13 +54,6 @@ namespace Bayards_Android
                     passwordBox.Text = string.Empty;
                     warningLayout.Visibility = ViewStates.Visible;
                 }
-            };
-            passwordBox.TextChanged += delegate
-            {
-                warningLayout.Visibility = ViewStates.Invisible;
-            };
-
-
         }
     }
 }

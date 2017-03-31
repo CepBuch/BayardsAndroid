@@ -7,22 +7,24 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_below="@+id/toolbar"
+        android:gravity="center">
         <TextView
             android:text="@string/user_agreement"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#1D1259"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp"
+            android:layout_weight="15" />
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="250dp"
+            android:layout_height="0dp"
+            android:layout_weight="50"
             android:layout_marginTop="20dp"
             android:scrollbars="vertical"
             android:fillViewport="true">
@@ -38,7 +40,8 @@
         </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="15"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -58,13 +61,20 @@
                 android:textOff="@string/no"
                 android:id="@+id/agreement_switch" />
         </LinearLayout>
-        <Button
-            android:text="@string/cont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:layout_marginTop="20dp"
-            android:id="@+id/continueUserButton"
-            style="@style/custom_button" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:text="@string/cont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/continueUserButton"
+                style="@style/custom_button" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

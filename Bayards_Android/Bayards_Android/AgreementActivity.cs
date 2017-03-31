@@ -22,7 +22,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.UserAgreementScreen);
+            SetContentView(Resource.Layout.AgreementLayout);
 
             //Accepting custom toolbar 
             Android.Support.V7.Widget.Toolbar toolbar = 

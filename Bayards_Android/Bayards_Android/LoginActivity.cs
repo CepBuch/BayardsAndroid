@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 
 namespace Bayards_Android
 {
@@ -18,7 +19,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.LanguageSelectionScreen);
+            SetContentView(Resource.Layout.LanguageSelectionLayout);
 
             LinearLayout engLayout = FindViewById<LinearLayout>(Resource.Id.EngLayout);
             LinearLayout nlLayout = FindViewById<LinearLayout>(Resource.Id.NlLayout);

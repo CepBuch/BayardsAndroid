@@ -98,19 +98,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\PasswordScreen.axml">
+    <AndroidResource Include="Resources\layout\PasswordLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\UserAgreementScreen.axml">
+    <AndroidResource Include="Resources\layout\toolbar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\toolbar.axml">
+    <AndroidResource Include="Resources\layout\AgreementLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\LanguageSelectionScreen.axml">
+    <AndroidResource Include="Resources\layout\LanguageSelectionLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
