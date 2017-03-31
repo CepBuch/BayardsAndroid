@@ -4,12 +4,12 @@ using Android.OS;
 using Android.Util;
 using Android.Content;
 using Android.Preferences;
+using Android.Support.V7.App;
 
 namespace Bayards_Android
 {
-    [Activity(Label = "Bayards_Android", MainLauncher = true,
-        Theme = "@android:style/Theme.DeviceDefault.Light")]
-    public class MainActivity : Activity
+    [Activity(MainLauncher = true, Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
+    public class MainActivity : ActionBarActivity
     {
         ISharedPreferences _prefs;
 
@@ -30,6 +30,17 @@ namespace Bayards_Android
                 language_code = _prefs.GetString("languageCode", "en");
                 applyAppLanguage(language_code);
             }
+
+            //Accepting custom toolbar 
+            Android.Support.V7.Widget.Toolbar toolbar =
+                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
+            TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title_main);
+            SetSupportActionBar(toolbar);
+            //Disabling default title and showing title from resources
+            SupportActionBar.SetDisplayShowTitleEnabled(false);
+            toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
+
+
 
             //Temporary
             TextView languageTxt = FindViewById<TextView>(Resource.Id.languageTxt);

@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
     <include
         android:layout_centerHorizontal="true"
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_agreement"
         layout="@layout/toolbar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="100"
         android:orientation="vertical"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/toolbar_agreement"
         android:gravity="center">
         <TextView
             android:text="@string/user_agreement"
@@ -20,12 +20,12 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="15" />
+            android:layout_weight="10" />
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="50"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:scrollbars="vertical"
             android:fillViewport="true">
             <TextView

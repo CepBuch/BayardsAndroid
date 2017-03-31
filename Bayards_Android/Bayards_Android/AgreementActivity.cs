@@ -36,7 +36,7 @@ namespace Bayards_Android
 
             //Accepting custom toolbar 
             Android.Support.V7.Widget.Toolbar toolbar = 
-                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_agreement);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
             SetSupportActionBar(toolbar);
             //Disabling default title and showing title from resources

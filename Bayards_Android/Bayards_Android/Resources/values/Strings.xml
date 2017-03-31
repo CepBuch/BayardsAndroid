@@ -2,7 +2,7 @@
 <resources>
   <string name="ApplicationName">Bayards_Android</string>
   <string name="lan_english">English</string>
-  <string name="lan_holland">Holland</string>
+  <string name="lan_holland">Dutch</string>
   <string name="welcome">Welcome to Bayards!</string>
   <string name="cont"> Continue</string>
   <string name="password">Password</string>

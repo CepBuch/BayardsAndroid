@@ -4,7 +4,7 @@
   <string name="cont">  Продолжить  </string>
   <string name="password">Пароль: </string>
   <string name="enter_password">Введите ваш пароль</string>
-  <string name="incorrect_password">Вы ввели неверный пароль: </string>
+  <string name="incorrect_password">Вы ввели неверный пароль</string>
   <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
   <string name ="user_agreement">Пользовательское соглашение</string>
   <string name="read_and_agree">Я прочитал и согласен с пользовательским соглашением</string>
