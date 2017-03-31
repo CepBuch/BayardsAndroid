@@ -14,7 +14,7 @@ using Android.Util;
 namespace Bayards_Android
 {
     [Activity(Label = "Login page", Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
-    public class LoginActivity : Activity
+    public class LanguageActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {

@@ -10,4 +10,6 @@
   <string name="read_and_agree">Я прочитал и согласен с пользовательским соглашением</string>
   <string name="yes">да</string>
   <string name="no">нет</string>
+  <string name ="wait">Пожалуйста, подождите пока мы проверяем данные</string>
+
 </resources>

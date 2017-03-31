@@ -18,6 +18,7 @@ namespace Bayards_Android
         EditText passwordBox;
         Button contButton;
         LinearLayout warningLayout;
+        LinearLayout waitLayout;
 
         Repository _repo = new Repository();
 
@@ -29,13 +30,17 @@ namespace Bayards_Android
             passwordBox = FindViewById<EditText>(Resource.Id.password_text);
             contButton = FindViewById<Button>(Resource.Id.continuePasswordButton);
             warningLayout = FindViewById<LinearLayout>(Resource.Id.warningLayout);
-
+            waitLayout = FindViewById<LinearLayout>(Resource.Id.waitLayout);
 
             contButton.Click += ContButton_Click;
 
+
+            //Deleting "incorrect password" message when user starts to enter password (if prev. attempt was fail)
+            //Enabling button only when password box is not empty
             passwordBox.TextChanged += delegate
             {
-                warningLayout.Visibility = ViewStates.Invisible;
+                warningLayout.Visibility = ViewStates.Gone;
+                contButton.Enabled = !string.IsNullOrWhiteSpace(passwordBox.Text);
             };
 
 
@@ -43,17 +48,29 @@ namespace Bayards_Android
 
         private async void ContButton_Click(object sender, EventArgs e)
         {
-                if (await _repo.sendPassword(passwordBox.Text) == true)
-                {
-                    warningLayout.Visibility = ViewStates.Invisible;
-                    var intent = new Intent(this, typeof(AgreementActivity));
-                    StartActivity(intent);
-                }
-                else
-                {
-                    passwordBox.Text = string.Empty;
-                    warningLayout.Visibility = ViewStates.Visible;
-                }
+            //Show "wait" message and disable controls while wating response from a server
+            warningLayout.Visibility = ViewStates.Gone;
+            waitLayout.Visibility = ViewStates.Visible;
+            contButton.Enabled = false;
+            passwordBox.Enabled = false;
+
+
+            //get response from a server
+            var correctPassword = await _repo.sendPassword(passwordBox.Text);
+
+            //Remove "wait" message and enable button
+            contButton.Enabled = true;
+            passwordBox.Enabled = true;
+            passwordBox.Text = string.Empty;
+            waitLayout.Visibility = ViewStates.Gone;
+
+            //Checking if password is correct, otherwise show "incorrect password" message
+            if (correctPassword)
+            {
+                var intent = new Intent(this, typeof(AgreementActivity));
+                StartActivity(intent);
+            }
+            else warningLayout.Visibility = ViewStates.Visible;
         }
     }
 }

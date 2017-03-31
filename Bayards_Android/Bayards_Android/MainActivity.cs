@@ -10,9 +10,16 @@ namespace Bayards_Android
         Theme = "@android:style/Theme.DeviceDefault.Light")]
     public class MainActivity : Activity
     {
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            var intent = new Intent(this, typeof(LanguageActivity));
+            StartActivity(intent);
+
+
+
         }
+    }
 }
 

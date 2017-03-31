@@ -2017,8 +2017,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0056
 			public const int toolbar = 2131361878;
 			
-			// aapt resource value: 0x7f0a0078
-			public const int toolbar_title = 2131361912;
+			// aapt resource value: 0x7f0a0079
+			public const int toolbar_title = 2131361913;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int top = 2131361827;
@@ -2036,7 +2036,10 @@ namespace Bayards_Android
 			public const int useragreementText = 2131361879;
 			
 			// aapt resource value: 0x7f0a0077
-			public const int warningLayout = 2131361911;
+			public const int waitLayout = 2131361911;
+			
+			// aapt resource value: 0x7f0a0078
+			public const int warningLayout = 2131361912;
 			
 			// aapt resource value: 0x7f0a0021
 			public const int withText = 2131361825;
@@ -2382,6 +2385,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f05002c
 			public const int user_agreement = 2131034156;
+			
+			// aapt resource value: 0x7f050030
+			public const int wait = 2131034160;
 			
 			// aapt resource value: 0x7f050024
 			public const int welcome = 2131034148;

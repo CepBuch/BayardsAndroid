@@ -20,5 +20,6 @@
   <string name="read_and_agree">I have read and agreed to the user agreement</string>
   <string name="yes">yes</string>
   <string name="no">no</string>
+  <string name ="wait">Please, wait while we are checking data</string>
 
 </resources>
