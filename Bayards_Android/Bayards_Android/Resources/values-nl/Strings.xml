@@ -6,5 +6,8 @@
   <string name="enter_password">Введите ваш пароль:</string>
   <string name="incorrect_password">Вы ввели неверный пароль: </string>
   <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
-  <string name="bayards">Баярдс Nieuw - Lekkerland</string>
+  <string name ="user_agreement">Пользовательское соглашение</string>
+  <string name="read_and_agree">Я прочитал и согласен с пользовательским соглашением</string>
+  <string name="yes">да</string>
+  <string name="no">нет</string>
 </resources>

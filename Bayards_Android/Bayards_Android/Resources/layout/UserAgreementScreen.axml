@@ -1,33 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
+        android:layout_centerHorizontal="true"
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <TextView
-        android:text="User agreement"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#1D1259"
-        android:layout_marginTop="25dp"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ScrollView
-        android:id="@+id/SCROLLER_ID"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
         <TextView
-            android:id="@+id/useragreementView"
-            android:text="@string/lorem"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0" />
-    </ScrollView>
-</LinearLayout>
+            android:text="@string/user_agreement"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#1D1259"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+            <TextView
+                android:id="@+id/useragreementText"
+                android:text="@string/lorem"
+                android:maxWidth="400dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0" />
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/read_and_agree"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#1D1259"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginRight="30dp" />
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="@string/yes"
+                android:textOff="@string/no"
+                android:id="@+id/agreement_switch" />
+        </LinearLayout>
+        <Button
+            android:text="@string/cont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:layout_marginTop="20dp"
+            android:id="@+id/continueUserButton"
+            style="@style/custom_button" />
+    </LinearLayout>
+</RelativeLayout>

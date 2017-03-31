@@ -1687,9 +1687,6 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0058
 			public const int NlLayout = 2131361880;
 			
-			// aapt resource value: 0x7f0a0076
-			public const int SCROLLER_ID = 2131361910;
-			
 			// aapt resource value: 0x7f0a005c
 			public const int action0 = 2131361884;
 			
@@ -1753,6 +1750,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0013
 			public const int add = 2131361811;
 			
+			// aapt resource value: 0x7f0a0077
+			public const int agreement_switch = 2131361911;
+			
 			// aapt resource value: 0x7f0a003b
 			public const int alertTitle = 2131361851;
 			
@@ -1787,7 +1787,10 @@ namespace Bayards_Android
 			public const int contentPanel = 2131361841;
 			
 			// aapt resource value: 0x7f0a0072
-			public const int continueButton = 2131361906;
+			public const int continuePasswordButton = 2131361906;
+			
+			// aapt resource value: 0x7f0a0078
+			public const int continueUserButton = 2131361912;
 			
 			// aapt resource value: 0x7f0a0038
 			public const int custom = 2131361848;
@@ -2029,8 +2032,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0012
 			public const int useLogo = 2131361810;
 			
-			// aapt resource value: 0x7f0a0077
-			public const int useragreementView = 2131361911;
+			// aapt resource value: 0x7f0a0076
+			public const int useragreementText = 2131361910;
 			
 			// aapt resource value: 0x7f0a0073
 			public const int warningLayout = 2131361907;
@@ -2362,8 +2365,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f05002b
 			public const int lorem = 2131034155;
 			
+			// aapt resource value: 0x7f05002f
+			public const int no = 2131034159;
+			
 			// aapt resource value: 0x7f050026
 			public const int password = 2131034150;
+			
+			// aapt resource value: 0x7f05002d
+			public const int read_and_agree = 2131034157;
 			
 			// aapt resource value: 0x7f050013
 			public const int search_menu_title = 2131034131;
@@ -2371,8 +2380,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f050014
 			public const int status_bar_notification_info_overflow = 2131034132;
 			
+			// aapt resource value: 0x7f05002c
+			public const int user_agreement = 2131034156;
+			
 			// aapt resource value: 0x7f050024
 			public const int welcome = 2131034148;
+			
+			// aapt resource value: 0x7f05002e
+			public const int yes = 2131034158;
 			
 			static String()
 			{

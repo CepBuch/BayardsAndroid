@@ -4,7 +4,7 @@
   <string name="lan_english">English</string>
   <string name="lan_holland">Holland</string>
   <string name="welcome">Welcome to Bayards!</string>
-  <string name="cont">   Continue   </string>
+  <string name="cont"> Continue</string>
   <string name="password">Password</string>
   <string name="enter_password">Enter your password</string>
   <string name="incorrect_password">The password is incorrect</string>
@@ -16,5 +16,9 @@
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </string>
+  <string name ="user_agreement">User agreement</string>
+  <string name="read_and_agree">I have read and agreed to the user agreement</string>
+  <string name="yes">yes</string>
+  <string name="no">no</string>
 
 </resources>

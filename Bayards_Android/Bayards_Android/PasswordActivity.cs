@@ -21,7 +21,7 @@ namespace Bayards_Android
             SetContentView(Resource.Layout.PasswordScreen);
 
             EditText passwordBox = FindViewById<EditText>(Resource.Id.password_text);
-            Button contButton = FindViewById<Button>(Resource.Id.continueButton);
+            Button contButton = FindViewById<Button>(Resource.Id.continuePasswordButton);
             LinearLayout warningLayout = FindViewById<LinearLayout>(Resource.Id.warningLayout);
 
             Repository repo = new Repository();

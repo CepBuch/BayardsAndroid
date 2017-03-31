@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgreementActivity.cs" />
+    <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PasswordActivity.cs" />
     <Compile Include="Repository.cs" />

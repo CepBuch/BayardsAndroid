@@ -16,6 +16,9 @@ namespace Bayards_Android
     [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class AgreementActivity : ActionBarActivity
     {
+        TextView userText;
+        Switch agreeSwitch;
+        Button contButton;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -29,13 +32,26 @@ namespace Bayards_Android
             //Disabling default title and showing title from resources
             SupportActionBar.SetDisplayShowTitleEnabled(false);
             toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
-            TextView userView = FindViewById<TextView>(Resource.Id.useragreementView);
 
 
-            userView.Text = getLorem(3);
+            userText = FindViewById<TextView>(Resource.Id.useragreementText);
+            agreeSwitch = FindViewById<Switch>(Resource.Id.agreement_switch);
+            contButton = FindViewById<Button>(Resource.Id.continueUserButton);
+            userText.Text = getLorem(3);
+
+            agreeSwitch.CheckedChange += AgreeSwitch_CheckedChange;
+
 
         }
 
+        private void AgreeSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            contButton.Enabled = agreeSwitch.Checked;
+        }
+
+
+
+        //Temporary method
         public string getLorem(int times)
         {
             string result = string.Empty;
