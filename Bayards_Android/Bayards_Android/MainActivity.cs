@@ -5,6 +5,7 @@ using Android.Util;
 using Android.Content;
 using Android.Preferences;
 using Android.Support.V7.App;
+using Android.Views;
 
 namespace Bayards_Android
 {
@@ -34,11 +35,18 @@ namespace Bayards_Android
             //Accepting custom toolbar 
             Android.Support.V7.Widget.Toolbar toolbar =
                 FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
-            TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title_main);
+            //SearchView searchView = FindViewById<SearchView>(Resource.Id.searchView);
+            //TextView cancellSearchButton = FindViewById<TextView>(Resource.Id.cancell_searchButton);
+            
+            //cancellSearchButton.Click += delegate
+            // {
+            //     searchView.Iconified = true;
+            // };
+            //TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title_main);
             SetSupportActionBar(toolbar);
             //Disabling default title and showing title from resources
             SupportActionBar.SetDisplayShowTitleEnabled(false);
-            toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
+            //toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
 
 
 
@@ -59,6 +67,8 @@ namespace Bayards_Android
                  editor.Apply();
                  this.Recreate();
              };
+
+            
             //End of temporary
 
             if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement)
@@ -70,7 +80,7 @@ namespace Bayards_Android
                     intent = new Intent(this, typeof(PasswordActivity));
                 else
                     intent = new Intent(this, typeof(AgreementActivity));
-
+                
                 StartActivity(intent);
                 this.Finish();
             }
@@ -88,6 +98,13 @@ namespace Bayards_Android
             conf.SetLocale(new Java.Util.Locale(language_code));
             res.UpdateConfiguration(conf, dm);
         }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+            return base.OnPrepareOptionsMenu(menu);
+        }
+
 
 
 

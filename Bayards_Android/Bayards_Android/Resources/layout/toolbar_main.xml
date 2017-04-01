@@ -8,12 +8,4 @@
     android:background="?attr/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/bayards"
-      android:textColor="#B0586E"
-      android:textSize="18sp"
-      android:layout_gravity="center"
-      android:id="@+id/toolbar_title_main" />
 </android.support.v7.widget.Toolbar>

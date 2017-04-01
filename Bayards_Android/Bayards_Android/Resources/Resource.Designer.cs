@@ -1744,6 +1744,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0026
 			public const int action_mode_close_button = 2131361830;
 			
+			// aapt resource value: 0x7f0a007f
+			public const int action_search = 2131361919;
+			
 			// aapt resource value: 0x7f0a0064
 			public const int action_text = 2131361892;
 			
@@ -1878,6 +1881,15 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f0a0068
 			public const int media_actions = 2131361896;
+			
+			// aapt resource value: 0x7f0a0080
+			public const int menu_overflow = 2131361920;
+			
+			// aapt resource value: 0x7f0a0081
+			public const int menu_overflow_item1 = 2131361921;
+			
+			// aapt resource value: 0x7f0a0082
+			public const int menu_overflow_item2 = 2131361922;
 			
 			// aapt resource value: 0x7f0a001c
 			public const int middle = 2131361820;
@@ -2040,9 +2052,6 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f0a007e
 			public const int toolbar_title = 2131361918;
-			
-			// aapt resource value: 0x7f0a007f
-			public const int toolbar_title_main = 2131361919;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int top = 2131361827;
@@ -2271,6 +2280,22 @@ namespace Bayards_Android
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int menu_main = 2131492864;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

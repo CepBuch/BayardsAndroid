@@ -41,7 +41,6 @@ namespace Bayards_Android
 
             contButton.Click += ContButton_Click;
 
-
             //Deleting "incorrect password" message when user starts to enter password (if prev. attempt was fail)
             //Enabling button only when password box is not empty
             passwordBox.TextChanged += delegate
