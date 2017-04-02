@@ -17,7 +17,7 @@
         <TextView
             android:text="@string/user_agreement"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#1D1259"
+            android:textColor="@color/dark_blue"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -31,7 +31,6 @@
             android:fillViewport="true">
             <TextView
                 android:id="@+id/useragreementText"
-                android:text="@string/lorem"
                 android:maxWidth="400dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
@@ -49,7 +48,7 @@
             <TextView
                 android:text="@string/read_and_agree"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#1D1259"
+                android:textColor="@color/dark_blue"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"

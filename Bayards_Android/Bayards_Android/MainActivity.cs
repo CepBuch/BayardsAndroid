@@ -17,77 +17,48 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.MainLayout);
-            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
 
-            //Checking whether the user is authorized. Otherwise open authorization page
+
+            //Getting info about user's authorization process from shared preferences.
+            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             var isLanguageChosen = _prefs.GetBoolean("isLanguageChosen", false);
             var isAuthorized = _prefs.GetBoolean("isAuthorized", false);
             var isAcceptedAgreement = _prefs.GetBoolean("isAcceptedAgreement", false);
 
-            string language_code = "en";
+            //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
             {
-                language_code = _prefs.GetString("languageCode", "en");
+                string language_code = _prefs.GetString("languageCode", "en");
                 applyAppLanguage(language_code);
             }
 
-            //Accepting custom toolbar 
-            Android.Support.V7.Widget.Toolbar toolbar =
-                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
-            //SearchView searchView = FindViewById<SearchView>(Resource.Id.searchView);
-            //TextView cancellSearchButton = FindViewById<TextView>(Resource.Id.cancell_searchButton);
-            
-            //cancellSearchButton.Click += delegate
-            // {
-            //     searchView.Iconified = true;
-            // };
-            //TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title_main);
-            SetSupportActionBar(toolbar);
-            //Disabling default title and showing title from resources
-            SupportActionBar.SetDisplayShowTitleEnabled(false);
-            //toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
-
-
-
-            //Temporary
-            TextView languageTxt = FindViewById<TextView>(Resource.Id.languageTxt);
-            TextView authTxt = FindViewById<TextView>(Resource.Id.authTxt);
-            TextView agreementTxt = FindViewById<TextView>(Resource.Id.agreementTxt);
-            Button logoutBtn = FindViewById<Button>(Resource.Id.logout_button);
-            ISharedPreferencesEditor editor = _prefs.Edit();
-            languageTxt.Text  += isLanguageChosen.ToString();
-            authTxt.Text += isAuthorized.ToString();
-            agreementTxt.Text += isAcceptedAgreement.ToString();
-            logoutBtn.Click += delegate
-             {
-                 editor.PutBoolean("isLanguageChosen", false);
-                 editor.PutBoolean("isAuthorized", false);
-                 editor.PutBoolean("isAcceptedAgreement", false);
-                 editor.Apply();
-                 this.Recreate();
-             };
-
-            
-            //End of temporary
-
+            //Showing the corresponding authorizatin page.
+            //If all checks have been completed, just continue. 
             if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement)
             {
                 Intent intent;
                 if (!isLanguageChosen)
                     intent = new Intent(this, typeof(LanguageActivity));
-                else if(!isAuthorized)
+                else if (!isAuthorized)
                     intent = new Intent(this, typeof(PasswordActivity));
                 else
                     intent = new Intent(this, typeof(AgreementActivity));
-                
+
                 StartActivity(intent);
                 this.Finish();
             }
-            //else
-            //{
-            //    SetContentView(Resource.Layout.MainLayout);
-            //}
+
+            //Setting up the main page
+            SetContentView(Resource.Layout.MainLayout);
+            //Accepting custom toolbar 
+            Android.Support.V7.Widget.Toolbar toolbar =
+                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
+            SetSupportActionBar(toolbar);
+            //Disabling default title (as custom title with another style is shown (toolbar_main.xml)
+            SupportActionBar.SetDisplayShowTitleEnabled(false);
+
+
+
         }
 
         protected void applyAppLanguage(string language_code)
@@ -104,6 +75,29 @@ namespace Bayards_Android
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return base.OnPrepareOptionsMenu(menu);
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.menu_logout:
+                    {
+                        //Logout process
+                        ISharedPreferencesEditor editor = _prefs.Edit();
+                        editor.PutBoolean("isLanguageChosen", false);
+                        editor.PutBoolean("isAuthorized", false);
+                        editor.PutBoolean("isAcceptedAgreement", false);
+                        editor.Apply();
+                        this.Recreate();
+                        return true;
+                    }
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+
+
+
 
 
 

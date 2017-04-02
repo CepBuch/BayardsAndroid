@@ -18,8 +18,8 @@
   </string>
   <string name ="user_agreement">User agreement</string>
   <string name="read_and_agree">I have read and agreed to the user agreement</string>
-  <string name="yes">yes</string>
-  <string name="no">no</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
   <string name ="wait">Please, wait while we are checking data</string>
   <string name="under_development">Under development...</string>
 

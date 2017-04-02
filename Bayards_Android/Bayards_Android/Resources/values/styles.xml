@@ -9,4 +9,8 @@
     <item name="android:clickable">true</item>
   </style>
 
+  <!--<style name="ToolbarColoredBackArrow" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:textColorSecondary">@color/dark_blue</item>
+  </style>-->
+
 </resources>

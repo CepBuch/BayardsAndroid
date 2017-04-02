@@ -8,8 +8,8 @@
   <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
   <string name ="user_agreement">Пользовательское соглашение</string>
   <string name="read_and_agree">Я прочитал и согласен с пользовательским соглашением</string>
-  <string name="yes">да</string>
-  <string name="no">нет</string>
+  <string name="yes">Да</string>
+  <string name="no">Нет</string>
   <string name ="wait">Пожалуйста, подождите пока мы проверяем данные</string>
   <string name="under_development">Скоро всё будет...</string>
 

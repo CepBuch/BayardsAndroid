@@ -2,36 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-      android:id="@+id/action_search"
-      android:icon="@android:drawable/ic_menu_search"
+      android:id="@+id/main_search"
+      android:icon="@drawable/lup_icon"
       app:showAsAction="always|collapseActionView"
       app:actionViewClass="android.support.v7.widget.SearchView"
-      android:title="Search"/>
-
-  <item
-        android:id="@+id/menu_overflow"
-        android:icon="@drawable/en_logo"
-        android:orderInCategory="11111"
-        android:showAsAction="always">
-    <menu>
-      <item
-          android:id="@+id/menu_overflow_item1"
-          android:showAsAction="never"
-          android:icon="@drawable/en_logo"/>
-      <item
-          android:id="@+id/menu_overflow_item2"
-          android:showAsAction="never"
-          android:icon="@drawable/nl_logo"/>
-    </menu>
-  </item>
-  
-  
-  <!--<item
-      android:id="@+id/miProfile"
-      android:icon="@drawable/nl_logo"
-      app:showAsAction="always|collapseActionView">
-  </item>
-  <item android:id="@+id/action_settings"
-      android:title="aaa"
-      app:showAsAction="never"/>-->
+      android:title="Search"/>  
+  <item android:id="@+id/menu_settings"
+      android:title="Settings"
+      app:showAsAction="never"/>
+  <item android:id="@+id/menu_logout"
+      android:title="Logout"
+      app:showAsAction="never"/>
 </menu>
+
+
+<!--android:icon="@android:drawable/ic_menu_search"-->
