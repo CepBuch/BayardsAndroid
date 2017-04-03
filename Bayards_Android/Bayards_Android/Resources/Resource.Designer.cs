@@ -2426,6 +2426,12 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f050023
 			public const int lan_holland = 2131034147;
 			
+			// aapt resource value: 0x7f050034
+			public const int logout_message = 2131034164;
+			
+			// aapt resource value: 0x7f050032
+			public const int logout_pref = 2131034162;
+			
 			// aapt resource value: 0x7f05002b
 			public const int lorem = 2131034155;
 			
@@ -2440,6 +2446,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f050013
 			public const int search_menu_title = 2131034131;
+			
+			// aapt resource value: 0x7f050033
+			public const int settings_pref = 2131034163;
 			
 			// aapt resource value: 0x7f050014
 			public const int status_bar_notification_info_overflow = 2131034132;

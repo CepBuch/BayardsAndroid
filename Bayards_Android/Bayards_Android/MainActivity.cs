@@ -17,8 +17,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-
+            
             //Getting info about user's authorization process from shared preferences.
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             var isLanguageChosen = _prefs.GetBoolean("isLanguageChosen", false);
@@ -82,13 +81,16 @@ namespace Bayards_Android
             {
                 case Resource.Id.menu_logout:
                     {
-                        //Logout process
-                        ISharedPreferencesEditor editor = _prefs.Edit();
-                        editor.PutBoolean("isLanguageChosen", false);
-                        editor.PutBoolean("isAuthorized", false);
-                        editor.PutBoolean("isAcceptedAgreement", false);
-                        editor.Apply();
-                        this.Recreate();
+                        //Затестить и v7 и alert
+                        var dialog = new Android.App.AlertDialog.Builder(this);
+                        dialog.SetMessage(GetString(Resource.String.logout_message));
+                        dialog.SetIcon(Resource.Drawable.en_logo);
+                        //dialog.SetTitle()
+                        dialog.SetPositiveButton("Yes", delegate {
+                            logOut();
+                        });
+                        dialog.SetNegativeButton("Cancel", delegate { });
+                        dialog.Show();
                         return true;
                     }
                 default:
@@ -96,6 +98,18 @@ namespace Bayards_Android
             }
         }
 
+
+        public void logOut()
+        {
+            //Logout process: set all steps of authorization as false
+            ISharedPreferencesEditor editor = _prefs.Edit();
+            editor.PutBoolean("isLanguageChosen", false);
+            editor.PutBoolean("isAuthorized", false);
+            editor.PutBoolean("isAcceptedAgreement", false);
+            editor.Apply();
+            //and reload this (main) activity
+            this.Recreate();
+        }
 
 
 

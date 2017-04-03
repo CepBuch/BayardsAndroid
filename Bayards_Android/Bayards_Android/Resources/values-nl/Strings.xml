@@ -12,5 +12,11 @@
   <string name="no">Нет</string>
   <string name ="wait">Пожалуйста, подождите пока мы проверяем данные</string>
   <string name="under_development">Скоро всё будет...</string>
+  <string name="logout_message">
+    Вы будете возвращены на страницу авторизации
+    \n\nВы действительно хотите выйти?
+  </string>
+  <string name="logout_pref">Выйти</string>
+  <string name="settings_pref">Настройки</string>
 
 </resources>

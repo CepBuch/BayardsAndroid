@@ -22,5 +22,12 @@
   <string name="no">No</string>
   <string name ="wait">Please, wait while we are checking data</string>
   <string name="under_development">Under development...</string>
+  <string name="logout_pref">LogOut</string>
+  <string name="settings_pref">Settings</string>
+  <string name="logout_message">
+    You will be returned to the Log In page
+    \n\nAre you sure you want to Log Out?
+  </string>
+  
 
 </resources>
