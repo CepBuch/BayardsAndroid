@@ -6,17 +6,12 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/toolbar_main"
         layout="@layout/toolbar_main" />
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop ="20dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/recycler_view"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_below="@+id/toolbar_main"
-        android:gravity="center">
-        <TextView
-            android:text="@string/under_development"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 </RelativeLayout>

@@ -13,13 +13,14 @@ using Android.Preferences;
 
 namespace Bayards_Android
 {
-    [Activity(Label = "PasswordActivity", Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
+    [Activity(Label = "PasswordActivity", 
+        Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
     public class PasswordActivity : Activity
     {
         EditText passwordBox;
         Button contButton;
         LinearLayout warningLayout, waitLayout;
-
+        
         CreditnailsProvider _provider;
         ISharedPreferences _prefs;
         ISharedPreferencesEditor _editor;
@@ -81,6 +82,12 @@ namespace Bayards_Android
                 this.Finish();
             }
             else warningLayout.Visibility = ViewStates.Visible;
+        }
+
+
+        public void ShowKeyboard(View view)
+        {
+
         }
     }
 }

@@ -6,28 +6,37 @@ using Android.Content;
 using Android.Preferences;
 using Android.Support.V7.App;
 using Android.Views;
+using Android.Support.V7.Widget;
 
 namespace Bayards_Android
 {
     [Activity(MainLauncher = true, Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class MainActivity : ActionBarActivity
     {
-        ISharedPreferences _prefs;
-
+        ISharedPreferences prefs;
+        RecyclerView recyclerView;
+        RecyclerView.LayoutManager layoutManager;
+        CategoriesList categoriesList;
+        CategoriesAdapter categoriesAdapter;
         protected override void OnCreate(Bundle bundle)
         {
+
             base.OnCreate(bundle);
-            
+            //-------------------------------
+            categoriesList = new CategoriesList();
+            //--------------------------------
+
+
             //Getting info about user's authorization process from shared preferences.
-            _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
-            var isLanguageChosen = _prefs.GetBoolean("isLanguageChosen", false);
-            var isAuthorized = _prefs.GetBoolean("isAuthorized", false);
-            var isAcceptedAgreement = _prefs.GetBoolean("isAcceptedAgreement", false);
+            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
+            var isAuthorized = prefs.GetBoolean("isAuthorized", false);
+            var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
 
             //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
             {
-                string language_code = _prefs.GetString("languageCode", "en");
+                string language_code = prefs.GetString("languageCode", "en");
                 applyAppLanguage(language_code);
             }
 
@@ -55,6 +64,20 @@ namespace Bayards_Android
             SetSupportActionBar(toolbar);
             //Disabling default title (as custom title with another style is shown (toolbar_main.xml)
             SupportActionBar.SetDisplayShowTitleEnabled(false);
+
+
+
+            //-------------------------
+            categoriesAdapter = new CategoriesAdapter(categoriesList);
+
+           
+
+            recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+            recyclerView.SetAdapter(categoriesAdapter);
+
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.SetLayoutManager(layoutManager);
+            //------------------------
 
 
 
@@ -102,7 +125,7 @@ namespace Bayards_Android
         public void logOut()
         {
             //Logout process: set all steps of authorization as false
-            ISharedPreferencesEditor editor = _prefs.Edit();
+            ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutBoolean("isLanguageChosen", false);
             editor.PutBoolean("isAuthorized", false);
             editor.PutBoolean("isAcceptedAgreement", false);
