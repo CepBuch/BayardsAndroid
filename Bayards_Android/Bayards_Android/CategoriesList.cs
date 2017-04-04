@@ -20,14 +20,16 @@ namespace Bayards_Android
         //Counter
         public int NumCategories
         {
-            get { return Categories.Count;  }
+            get { return Categories.Count + 1;  }
+            //+1 because of header
         }
 
 
         //Indexer
         public string this[int i]
         {
-            get { return Categories[i]; }
+            get { return Categories[i-1]; }
+            //-1 because of header
         }
         public CategoriesList()
         {
@@ -40,7 +42,7 @@ namespace Bayards_Android
         public List<string> GetCategories()
         {
             List<string> categoriesToFill = new List<string>();
-            for (int i = 1; i <= 3; i++)
+            for (int i = 1; i <= 30; i++)
             {
                 categoriesToFill.Add($"Category {i}");
             }

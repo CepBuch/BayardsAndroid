@@ -7,7 +7,6 @@
         android:id="@+id/toolbar_main"
         layout="@layout/toolbar_main" />
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop ="20dp"
         android:gravity="center_horizontal"
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"

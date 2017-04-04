@@ -7,6 +7,7 @@ using Android.Preferences;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Support.V7.Widget;
+using Bayards_Android.CategoryViewModel;
 
 namespace Bayards_Android
 {
@@ -37,7 +38,7 @@ namespace Bayards_Android
             if (isLanguageChosen)
             {
                 string language_code = prefs.GetString("languageCode", "en");
-                applyAppLanguage(language_code);
+                ApplyAppLanguage(language_code);
             }
 
             //Showing the corresponding authorizatin page.
@@ -69,7 +70,7 @@ namespace Bayards_Android
 
             //-------------------------
             categoriesAdapter = new CategoriesAdapter(categoriesList);
-
+            categoriesAdapter.ItemClick += OnItemClick;
            
 
             recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
@@ -83,7 +84,7 @@ namespace Bayards_Android
 
         }
 
-        protected void applyAppLanguage(string language_code)
+        protected void ApplyAppLanguage(string language_code)
         {
             var res = this.Resources;
             DisplayMetrics dm = res.DisplayMetrics;
@@ -110,7 +111,7 @@ namespace Bayards_Android
                         dialog.SetIcon(Resource.Drawable.en_logo);
                         //dialog.SetTitle()
                         dialog.SetPositiveButton("Yes", delegate {
-                            logOut();
+                            LogOut();
                         });
                         dialog.SetNegativeButton("Cancel", delegate { });
                         dialog.Show();
@@ -121,8 +122,14 @@ namespace Bayards_Android
             }
         }
 
+        void OnItemClick(object sender, int position)
+        {
+            var intent = new Intent(this, typeof(RisksActivity));
+            intent.PutExtra("category_id", position);
+            StartActivity(intent);
+        }
 
-        public void logOut()
+        public void LogOut()
         {
             //Logout process: set all steps of authorization as false
             ISharedPreferencesEditor editor = prefs.Edit();

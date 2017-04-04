@@ -11,16 +11,29 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 
-namespace Bayards_Android
+namespace Bayards_Android.CategoryViewModel
 {
     class CategoryViewHolder: RecyclerView.ViewHolder
     {
         public Button Button { get; private set; }
 
         //Defining view of each RecycleView item
-        public CategoryViewHolder(View itemView):base(itemView)
+        public CategoryViewHolder(View itemView, Action<int> listener)
+            :base(itemView)
         {
             Button = itemView.FindViewById<Button>(Resource.Id.categoryButton);
+            Button.Click += (sender, e) => listener(base.Position);
+
+        }
+    }
+
+    class HeaderViewHolder : RecyclerView.ViewHolder
+    {
+        public TextView TextView { get; private set; }
+
+        public HeaderViewHolder(View itemView):base(itemView)
+        {
+            TextView = itemView.FindViewById<TextView>(Resource.Id.headerTextView);
         }
     }
 }

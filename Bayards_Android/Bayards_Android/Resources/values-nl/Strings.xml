@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="welcome">Добро пожаловать в Bayards! </string>
-  <string name="cont">  Продолжить  </string>
-  <string name="password">Пароль: </string>
-  <string name="enter_password">Введите ваш пароль</string>
-  <string name="incorrect_password">Вы ввели неверный пароль</string>
-  <string name="incorrect_password_advice">Свяжитесь с Вашим инструкторм для получения правильного пароля</string>
-  <string name ="user_agreement">Пользовательское соглашение</string>
-  <string name="read_and_agree">Я прочитал и согласен с пользовательским соглашением</string>
-  <string name="yes">Да</string>
-  <string name="no">Нет</string>
-  <string name ="wait">Пожалуйста, подождите пока мы проверяем данные</string>
-  <string name="under_development">Скоро всё будет...</string>
+  <string name="cont">Verdergaan</string>
+  <string name="password">Wachtwoord:</string>
+  <string name="enter_password">Voer het wachtwoord in</string>
+  <string name="incorrect_password">Het wachtwoord is incorrect</string>
+  <string name="incorrect_password_advice">Vraag alsjeblieft je leidinggevende om het wachtwoord </string>
+  <string name ="user_agreement">Gebruikersovereenkomst</string>
+  <string name="read_and_agree">Ik heb de gebruikersovereenkomst gelezen en begrijp deze</string>
+  <string name ="wait">Momentje, we zijn de gegevens aan het verzamelen</string>
   <string name="logout_message">
     Вы будете возвращены на страницу авторизации
     \n\nВы действительно хотите выйти?
   </string>
   <string name="logout_pref">Выйти</string>
   <string name="settings_pref">Настройки</string>
+  <string name="select_category">Выберите категорию </string>
+
 
 </resources>
