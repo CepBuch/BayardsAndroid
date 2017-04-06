@@ -17,6 +17,7 @@ namespace Bayards_Android
         public List<string>  Categories { get; set; }
 
 
+
         //Counter
         public int NumCategories
         {

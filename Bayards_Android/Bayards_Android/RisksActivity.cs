@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
+using Android.Util;
 
 namespace Bayards_Android
 {
@@ -17,6 +18,8 @@ namespace Bayards_Android
     public class RisksActivity : ActionBarActivity
     {
         CategoriesList categories;
+
+        RadioGroup tabs;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -28,6 +31,10 @@ namespace Bayards_Android
             SetContentView(Resource.Layout.RisksLayout);
 
 
+            tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
+            AddRadioButton("Overall",true);
+            AddRadioButton("First");
+            AddRadioButton("Second");
 
             Android.Support.V7.Widget.Toolbar toolbar =
                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_risks);
@@ -37,7 +44,61 @@ namespace Bayards_Android
             SupportActionBar.SetDisplayShowTitleEnabled(false);
             toolbarTitle.Text = categories[category_id];
 
-            
+            //BackButton
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayShowHomeEnabled(true);
+
+
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    {
+                        Finish();
+                        return true;
+                    }
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+
+
+        public void AddRadioButton(string content,bool is_checked = false)
+        {
+
+            var width = DpToPx(120);
+            var height = DpToPx(40);
+
+            RadioGroup.LayoutParams params_rb
+                = new RadioGroup.LayoutParams(width, height);
+            params_rb.SetMargins(DpToPx(15), 0, 0, DpToPx(15));
+
+            RadioButton rb = new RadioButton(this)
+            {
+                Gravity = GravityFlags.Center,
+                Id = View.GenerateViewId()
+            };
+            rb.SetText(content, TextView.BufferType.Normal);
+            rb.SetTextSize(Android.Util.ComplexUnitType.Sp, 15);
+            rb.SetTextColor(GetColorStateList(Resource.Drawable.radiobutton_text));
+            rb.SetBackgroundResource(Resource.Drawable.radiobutton_shape);
+            rb.SetButtonDrawable(Android.Resource.Color.Transparent);
+
+            if (is_checked)
+                rb.Checked = true;
+            tabs.AddView(rb, params_rb);
+
+        }
+
+        private int DpToPx(int dp)
+        {
+            var scale = Resources.DisplayMetrics.Density;
+            return (int)((dp * scale) + 0.5);
+
+        }
+
     }
 }

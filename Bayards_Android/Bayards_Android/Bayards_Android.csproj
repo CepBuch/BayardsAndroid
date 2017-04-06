@@ -113,8 +113,6 @@
     <Compile Include="CategoriesList.cs" />
     <Compile Include="CategoryViewModel\CategoriesAdapter.cs" />
     <Compile Include="RisksActivity.cs" />
-    <Compile Include="SectionViewModel\SectionsAdapter.cs" />
-    <Compile Include="SectionViewModel\SectionViewHoldercs.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\PasswordLayout.axml">
@@ -213,6 +211,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\radiobutton_shape.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\radiobutton_text.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1698,11 +1698,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f020062
 			public const int notification_icon_background = 2130837602;
 			
-			// aapt resource value: 0x7f020067
-			public const int notification_template_icon_bg = 2130837607;
+			// aapt resource value: 0x7f020069
+			public const int notification_template_icon_bg = 2130837609;
 			
-			// aapt resource value: 0x7f020068
-			public const int notification_template_icon_low_bg = 2130837608;
+			// aapt resource value: 0x7f02006a
+			public const int notification_template_icon_low_bg = 2130837610;
 			
 			// aapt resource value: 0x7f020063
 			public const int notification_tile_bg = 2130837603;
@@ -1711,10 +1711,16 @@ namespace Bayards_Android
 			public const int notify_panel_notification_icon_bg = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int switch_thumb = 2130837605;
+			public const int radiobutton_shape = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int switch_track = 2130837606;
+			public const int radiobutton_text = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int switch_thumb = 2130837607;
+			
+			// aapt resource value: 0x7f020068
+			public const int switch_track = 2130837608;
 			
 			static Drawable()
 			{
@@ -1915,17 +1921,17 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f06002c
 			public const int list_item = 2131099692;
 			
-			// aapt resource value: 0x7f060080
-			public const int main_search = 2131099776;
+			// aapt resource value: 0x7f060081
+			public const int main_search = 2131099777;
 			
 			// aapt resource value: 0x7f060068
 			public const int media_actions = 2131099752;
 			
-			// aapt resource value: 0x7f060082
-			public const int menu_logout = 2131099778;
+			// aapt resource value: 0x7f060083
+			public const int menu_logout = 2131099779;
 			
-			// aapt resource value: 0x7f060081
-			public const int menu_settings = 2131099777;
+			// aapt resource value: 0x7f060082
+			public const int menu_settings = 2131099778;
 			
 			// aapt resource value: 0x7f06001d
 			public const int middle = 2131099677;
@@ -2059,6 +2065,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f06000c
 			public const int tabMode = 2131099660;
 			
+			// aapt resource value: 0x7f06007f
+			public const int tabsGroup = 2131099775;
+			
 			// aapt resource value: 0x7f060077
 			public const int text = 2131099767;
 			
@@ -2092,8 +2101,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f06007e
 			public const int toolbar_risks = 2131099774;
 			
-			// aapt resource value: 0x7f06007f
-			public const int toolbar_title = 2131099775;
+			// aapt resource value: 0x7f060080
+			public const int toolbar_title = 2131099776;
 			
 			// aapt resource value: 0x7f060024
 			public const int top = 2131099684;
@@ -3575,6 +3584,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f08015f
 			public const int custom_button = 2131231071;
+			
+			// aapt resource value: 0x7f080160
+			public const int custom_radiobutton = 2131231072;
 			
 			static Style()
 			{
