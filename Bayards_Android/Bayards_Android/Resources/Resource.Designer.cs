@@ -1921,17 +1921,17 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f06002c
 			public const int list_item = 2131099692;
 			
-			// aapt resource value: 0x7f060081
-			public const int main_search = 2131099777;
+			// aapt resource value: 0x7f060082
+			public const int main_search = 2131099778;
 			
 			// aapt resource value: 0x7f060068
 			public const int media_actions = 2131099752;
 			
-			// aapt resource value: 0x7f060083
-			public const int menu_logout = 2131099779;
+			// aapt resource value: 0x7f060084
+			public const int menu_logout = 2131099780;
 			
-			// aapt resource value: 0x7f060082
-			public const int menu_settings = 2131099778;
+			// aapt resource value: 0x7f060083
+			public const int menu_settings = 2131099779;
 			
 			// aapt resource value: 0x7f06001d
 			public const int middle = 2131099677;
@@ -2101,8 +2101,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f06007e
 			public const int toolbar_risks = 2131099774;
 			
-			// aapt resource value: 0x7f060080
-			public const int toolbar_title = 2131099776;
+			// aapt resource value: 0x7f060081
+			public const int toolbar_title = 2131099777;
 			
 			// aapt resource value: 0x7f060024
 			public const int top = 2131099684;
@@ -2118,6 +2118,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f060058
 			public const int useragreementText = 2131099736;
+			
+			// aapt resource value: 0x7f060080
+			public const int viewpager = 2131099776;
 			
 			// aapt resource value: 0x7f06007c
 			public const int waitLayout = 2131099772;
@@ -3584,9 +3587,6 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f08015f
 			public const int custom_button = 2131231071;
-			
-			// aapt resource value: 0x7f080160
-			public const int custom_radiobutton = 2131231072;
 			
 			static Style()
 			{

@@ -55,7 +55,7 @@ namespace Bayards_Android.CategoryViewModel
             if (holder is CategoryViewHolder)
             {
                 CategoryViewHolder ch = holder as CategoryViewHolder;
-                ch.Button.Text = _categoriesList[position];
+                ch.Button.Text = _categoriesList[position].Name;
             }
         }
 

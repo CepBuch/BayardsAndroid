@@ -19,29 +19,15 @@
             android:scrollbars="none"
             android:fillViewport="true">
             <RadioGroup
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal"
-                android:id="@+id/tabsGroup">
-                <!--<RadioButton
-                    android:id="@+id/radio_one"
-                    android:checked="true"
-                    android:text="Overall"
-                    style="@style/custom_radiobutton" />
-                <RadioButton
-                    android:id="@+id/radio_two"
-                    android:text="RadioTwo"
-                    style="@style/custom_radiobutton" />
-                <RadioButton
-                    android:id="@+id/radio_three"
-                    android:text="RadioThree"
-                    style="@style/custom_radiobutton" />
-                <RadioButton
-                    android:id="@+id/radio_four"
-                    android:text="RadioFour"
-                    style="@style/custom_radiobutton" />-->
-            </RadioGroup>
+                android:id="@+id/tabsGroup" />
         </HorizontalScrollView>
+        <!--<android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
     </LinearLayout>
 </RelativeLayout>

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
 using Android.Util;
+using Android.Support.V4.View;
 
 namespace Bayards_Android
 {
@@ -19,6 +20,7 @@ namespace Bayards_Android
     {
         CategoriesList categories;
 
+        ViewPager viewPager;
         RadioGroup tabs;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,8 +35,22 @@ namespace Bayards_Android
 
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
             AddRadioButton("Overall",true);
-            AddRadioButton("First");
-            AddRadioButton("Second");
+            AddRadioButton("SubCat1");
+            AddRadioButton("SubCat2");
+            AddRadioButton("SubCat3");
+            AddRadioButton("SubCat4");
+
+
+
+
+            //-----------------------------------------
+            //viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
+
+            //----------------------------------------
+
+
+
+
 
             Android.Support.V7.Widget.Toolbar toolbar =
                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_risks);
@@ -42,7 +58,7 @@ namespace Bayards_Android
             SetSupportActionBar(toolbar);
             //Disabling default title and showing title from resources
             SupportActionBar.SetDisplayShowTitleEnabled(false);
-            toolbarTitle.Text = categories[category_id];
+            toolbarTitle.Text = categories[category_id].Name;
 
             //BackButton
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -74,8 +90,7 @@ namespace Bayards_Android
 
             RadioGroup.LayoutParams params_rb
                 = new RadioGroup.LayoutParams(width, height);
-            params_rb.SetMargins(DpToPx(15), 0, 0, DpToPx(15));
-
+            params_rb.SetMargins(DpToPx(15), 0, DpToPx(15), 0);
             RadioButton rb = new RadioButton(this)
             {
                 Gravity = GravityFlags.Center,

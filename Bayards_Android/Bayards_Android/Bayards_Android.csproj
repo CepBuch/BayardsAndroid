@@ -103,14 +103,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgreementActivity.cs" />
+    <Compile Include="CategoriesList.cs" />
     <Compile Include="CategoryViewModel\CategoryViewHolder.cs" />
     <Compile Include="LanguageActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Risk.cs" />
+    <Compile Include="Model\Subcategory.cs" />
     <Compile Include="PasswordActivity.cs" />
     <Compile Include="CreditnailsProvider.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CategoriesList.cs" />
     <Compile Include="CategoryViewModel\CategoriesAdapter.cs" />
     <Compile Include="RisksActivity.cs" />
   </ItemGroup>
