@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Bayards_Android.Model
 {
-    class Risk
+    public class Risk
     {
         public string Name { get; set; }
     }

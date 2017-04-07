@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,30 +13,27 @@ using Bayards_Android.Model;
 
 namespace Bayards_Android
 {
-    class CategoriesList
+    public class RisksList
     {
+        public List<Risk> Risks { get; private set; }
 
-        public List<Category> Categories { get; set; }
-
-        public CategoriesList()
+        public RisksList()
         {
-            //Getting all available categories
             Repository repo = new Repository();
-            Categories = repo.GetCategories();
-
+            Risks = repo.GetRisks();
         }
 
-        //Counter
-        public int NumCategories
+        public int NumRisks
         {
-            get { return Categories.Count; }
+            get { return Risks.Count; }
             //+1 because of header
         }
         //Indexer
-        public Category this[int i]
+        public Risk this[int i]
         {
-            get { return Categories[i]; }
+            get { return Risks[i]; }
             //-1 because of header
         }
+
     }
 }

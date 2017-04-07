@@ -55,7 +55,7 @@ namespace Bayards_Android.CategoryViewModel
             if (holder is CategoryViewHolder)
             {
                 CategoryViewHolder ch = holder as CategoryViewHolder;
-                ch.Button.Text = _categoriesList[position].Name;
+                ch.Button.Text = _categoriesList[position-1].Name;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Bayards_Android.CategoryViewModel
 
         public override int ItemCount
         {
-            get { return _categoriesList.NumCategories; }
+            get { return _categoriesList.NumCategories + 1; }
         }
 
         void OnClick(int position)

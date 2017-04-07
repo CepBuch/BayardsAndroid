@@ -2,32 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        android:layout_centerHorizontal="true"
-        android:id="@+id/toolbar_risks"
-        layout="@layout/toolbar" />
-    <LinearLayout
-        android:layout_height="match_parent"
+  <include
+      android:layout_centerHorizontal="true"
+      android:id="@+id/toolbar_risks"
+      layout="@layout/toolbar" />
+  <LinearLayout
+      android:layout_height="match_parent"
+      android:layout_width="match_parent"
+      android:weightSum="100"
+      android:orientation="vertical"
+      android:layout_below="@+id/toolbar_risks">
+    <HorizontalScrollView
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:background="@color/gray_disabled"
         android:layout_width="match_parent"
-        android:weightSum="100"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar_risks">
-        <HorizontalScrollView
-            android:layout_height="0dp"
-            android:layout_weight="15"
-            android:layout_width="match_parent"
-            android:scrollbars="none"
-            android:fillViewport="true">
-            <RadioGroup
-                android:gravity="center"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal"
-                android:id="@+id/tabsGroup" />
-        </HorizontalScrollView>
-        <!--<android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
-    </LinearLayout>
+        android:scrollbars="none"
+        android:fillViewport="true">
+      <RadioGroup
+          android:gravity="center"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:orientation="horizontal"
+          android:id="@+id/tabsGroup" />
+    </HorizontalScrollView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80">
+      <android.support.design.widget.TabLayout
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:tabBackground="@drawable/tab_selector"
+      app:tabGravity="center"
+      app:tabIndicatorHeight="0dp"/>
+    </android.support.v4.view.ViewPager>
+
+  </LinearLayout>
 </RelativeLayout>

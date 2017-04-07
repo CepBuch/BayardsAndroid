@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Support.V7.App;
 using Android.Util;
 using Android.Support.V4.View;
+using Bayards_Android.RiskViewModel;
 
 namespace Bayards_Android
 {
@@ -19,7 +20,7 @@ namespace Bayards_Android
     public class RisksActivity : ActionBarActivity
     {
         CategoriesList categories;
-
+        RisksList risksList;
         ViewPager viewPager;
         RadioGroup tabs;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -31,7 +32,7 @@ namespace Bayards_Android
 
             var category_id = Intent.GetIntExtra("category_id", -1);
             SetContentView(Resource.Layout.RisksLayout);
-
+            
 
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
             AddRadioButton("Overall",true);
@@ -44,8 +45,9 @@ namespace Bayards_Android
 
 
             //-----------------------------------------
-            //viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
-
+            risksList = new RisksList();
+            viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
+            viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
             //----------------------------------------
 
 

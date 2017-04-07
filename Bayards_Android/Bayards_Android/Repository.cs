@@ -25,5 +25,15 @@ namespace Bayards_Android
             }
             return categories;
         }
+
+        public List<Risk> GetRisks()
+        {
+            List<Risk> risks = new List<Risk>();
+            for (int i = 0; i <= 4; i++)
+            {
+                risks.Add(new Risk { Name = $"Risk {i}" });
+            }
+            return risks;
+        }
     }
 }
