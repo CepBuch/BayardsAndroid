@@ -13,6 +13,8 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Support.V4.View;
 using Bayards_Android.RiskViewModel;
+using Android.Support.Design.Widget;
+using Bayards_Android.CategoryViewModel;
 
 namespace Bayards_Android
 {
@@ -27,7 +29,7 @@ namespace Bayards_Android
         {
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             categories = new CategoriesList();
-            //Предыдущее окно должно прислать название категории
+            //Предыдущее окно должно прислать название категории(?)
             base.OnCreate(savedInstanceState);
 
             var category_id = Intent.GetIntExtra("category_id", -1);
@@ -35,11 +37,9 @@ namespace Bayards_Android
             
 
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
-            AddRadioButton("Overall",true);
-            AddRadioButton("SubCat1");
-            AddRadioButton("SubCat2");
-            AddRadioButton("SubCat3");
-            AddRadioButton("SubCat4");
+            AddTab("Overall",true);
+            AddTab("SubCat1");
+            AddTab("SubCat2");
 
 
 
@@ -48,6 +48,9 @@ namespace Bayards_Android
             risksList = new RisksList();
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
+
+            TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabs_dots);
+            tabLayout.SetupWithViewPager(viewPager);
             //----------------------------------------
 
 
@@ -84,7 +87,7 @@ namespace Bayards_Android
         }
 
 
-        public void AddRadioButton(string content,bool is_checked = false)
+        public void AddTab(string content,bool is_checked = false)
         {
 
             var width = DpToPx(120);
@@ -92,7 +95,7 @@ namespace Bayards_Android
 
             RadioGroup.LayoutParams params_rb
                 = new RadioGroup.LayoutParams(width, height);
-            params_rb.SetMargins(DpToPx(15), 0, DpToPx(15), 0);
+            params_rb.SetMargins(DpToPx(7), 0, DpToPx(7), 0);
             RadioButton rb = new RadioButton(this)
             {
                 Gravity = GravityFlags.Center,

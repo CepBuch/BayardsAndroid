@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        android:layout_centerHorizontal="true"
-        android:id="@+id/toolbar_main"
-        layout="@layout/toolbar_main" />
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:layout_centerHorizontal="true"
+            android:id="@+id/toolbar_main"
+            layout="@layout/toolbar_main" />
+    </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:gravity="center_horizontal"
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
         android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar_main"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

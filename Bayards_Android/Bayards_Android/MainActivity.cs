@@ -23,75 +23,33 @@ namespace Bayards_Android
         {
 
             base.OnCreate(bundle);
-            //-------------------------------
-            categoriesList = new CategoriesList();
-            //--------------------------------
 
+            bool passedAllChecks = CheckStepsOfAuthorization();
 
-            //Getting info about user's authorization process from shared preferences.
-            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
-            var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
-            var isAuthorized = prefs.GetBoolean("isAuthorized", false);
-            var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
-
-            //If language was chosen, setting the appropriate one.
-            if (isLanguageChosen)
+            if (passedAllChecks)
             {
-                string language_code = prefs.GetString("languageCode", "en");
-                ApplyAppLanguage(language_code);
+                SetContentView(Resource.Layout.MainLayout);
+
+                //Accepting custom toolbar 
+                Android.Support.V7.Widget.Toolbar toolbar =
+                    FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
+                SetSupportActionBar(toolbar);
+                SupportActionBar.SetDisplayShowTitleEnabled(false);
+
+                //Showing categories
+                categoriesList = new CategoriesList();
+                categoriesAdapter = new CategoriesAdapter(categoriesList);
+                categoriesAdapter.ItemClick += OnItemClick;
+
+                recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+                recyclerView.SetAdapter(categoriesAdapter);
+
+                layoutManager = new LinearLayoutManager(this);
+                recyclerView.SetLayoutManager(layoutManager);
             }
-
-            //Showing the corresponding authorizatin page.
-            //If all checks have been completed, just continue. 
-            if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement)
-            {
-                Intent intent;
-                if (!isLanguageChosen)
-                    intent = new Intent(this, typeof(LanguageActivity));
-                else if (!isAuthorized)
-                    intent = new Intent(this, typeof(PasswordActivity));
-                else
-                    intent = new Intent(this, typeof(AgreementActivity));
-
-                StartActivity(intent);
-                this.Finish();
-            }
-
-            //Setting up the main page
-            SetContentView(Resource.Layout.MainLayout);
-            //Accepting custom toolbar 
-            Android.Support.V7.Widget.Toolbar toolbar =
-                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_main);
-            SetSupportActionBar(toolbar);
-            //Disabling default title (as custom title with another style is shown (toolbar_main.xml)
-            SupportActionBar.SetDisplayShowTitleEnabled(false);
-
-
-
-            //-------------------------
-            categoriesAdapter = new CategoriesAdapter(categoriesList);
-            categoriesAdapter.ItemClick += OnItemClick;
-           
-
-            recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-            recyclerView.SetAdapter(categoriesAdapter);
-
-            layoutManager = new LinearLayoutManager(this);
-            recyclerView.SetLayoutManager(layoutManager);
-            //------------------------
-
-
-
         }
 
-        protected void ApplyAppLanguage(string language_code)
-        {
-            var res = this.Resources;
-            DisplayMetrics dm = res.DisplayMetrics;
-            var conf = res.Configuration;
-            conf.SetLocale(new Java.Util.Locale(language_code));
-            res.UpdateConfiguration(conf, dm);
-        }
+
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -127,6 +85,50 @@ namespace Bayards_Android
             var intent = new Intent(this, typeof(RisksActivity));
             intent.PutExtra("category_id", position);
             StartActivity(intent);
+        }
+
+        public bool CheckStepsOfAuthorization()
+        {
+            //Getting info about user's authorization process from shared preferences.
+            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
+            var isAuthorized = prefs.GetBoolean("isAuthorized", false);
+            var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
+
+            //If language was chosen, setting the appropriate one.
+            if (isLanguageChosen)
+            {
+                string language_code = prefs.GetString("languageCode", "en");
+                ApplyAppLanguage(language_code);
+            }
+
+            //Showing the corresponding authorizatin page.
+            //If all checks have been completed, just continue. 
+            if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement)
+            {
+                Intent intent;
+                if (!isLanguageChosen)
+                    intent = new Intent(this, typeof(LanguageActivity));
+                else if (!isAuthorized)
+                    intent = new Intent(this, typeof(PasswordActivity));
+                else
+                    intent = new Intent(this, typeof(AgreementActivity));
+
+                StartActivity(intent);
+                this.Finish();
+                return false;
+            }
+
+            return true;
+        }
+
+        protected void ApplyAppLanguage(string language_code)
+        {
+            var res = this.Resources;
+            DisplayMetrics dm = res.DisplayMetrics;
+            var conf = res.Configuration;
+            conf.SetLocale(new Java.Util.Locale(language_code));
+            res.UpdateConfiguration(conf, dm);
         }
 
         public void LogOut()

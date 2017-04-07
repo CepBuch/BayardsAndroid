@@ -78,7 +78,7 @@ namespace Bayards_Android.CategoryViewModel
 
         void OnClick(int position)
         {
-            ItemClick?.Invoke(this, position);
+            ItemClick?.Invoke(this, position -1);
         }
 
 

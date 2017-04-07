@@ -15,5 +15,9 @@ namespace Bayards_Android.Model
     public class Risk
     {
         public string Name { get; set; }
+
+        public int Image_id { get; set; }
+
+        public int Content_id { get; set; }
     }
 }

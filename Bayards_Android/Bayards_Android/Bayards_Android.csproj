@@ -109,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgreementActivity.cs" />
-    <Compile Include="CategoriesList.cs" />
+    <Compile Include="CategoryViewModel\CategoriesList.cs" />
     <Compile Include="CategoryViewModel\CategoryViewHolder.cs" />
     <Compile Include="LanguageActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -122,9 +122,9 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CategoryViewModel\CategoriesAdapter.cs" />
-    <Compile Include="RiskInfoFragment.cs" />
+    <Compile Include="RiskViewModel\RiskInfoFragment.cs" />
     <Compile Include="RisksActivity.cs" />
-    <Compile Include="RisksList.cs" />
+    <Compile Include="RiskViewModel\RisksList.cs" />
     <Compile Include="RiskViewModel\RisksPagerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +165,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\HeaderView.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SectionView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RiskInfoLayout.axml">
@@ -236,6 +233,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\tab_selector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\custom_scrollbar.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\lorem1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\lorem2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\lorem3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
