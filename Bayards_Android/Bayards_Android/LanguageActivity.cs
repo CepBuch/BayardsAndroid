@@ -33,7 +33,7 @@ namespace Bayards_Android
             LinearLayout engLayout = FindViewById<LinearLayout>(Resource.Id.EngLayout);
             LinearLayout nlLayout = FindViewById<LinearLayout>(Resource.Id.NlLayout);
 
-            engLayout.Click += (sender, e) => chooseLanguage("en");
+            engLayout.Click += (sender, e) => chooseLanguage("eng");
             nlLayout.Click += (sender, e) => chooseLanguage("nl");
         }
 

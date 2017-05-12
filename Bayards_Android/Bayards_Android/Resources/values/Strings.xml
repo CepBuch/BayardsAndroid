@@ -21,8 +21,8 @@
   <string name="logout_pref">Logout</string>
   <string name="settings_pref">Settings</string>
   <string name="logout_message">
-    You will be returned to the Log In page
-    \n\nAre you sure you want to Log Out?
+You will be returned to the Log In page
+\n\nAre you sure you want to Log Out?
   </string>
   <string name="select_category">Select category: </string>
   

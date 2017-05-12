@@ -9,12 +9,12 @@
   <string name="read_and_agree">Ik heb de gebruikersovereenkomst gelezen en begrijp deze</string>
   <string name ="wait">Momentje, we zijn de gegevens aan het verzamelen</string>
   <string name="logout_message">
-    Вы будете возвращены на страницу авторизации
-    \n\nВы действительно хотите выйти?
+Je wordt teruggestuurd naar de inlogpagina. 
+\n\nWeet je zeker dat je uit wil loggen?
   </string>
-  <string name="logout_pref">Выйти</string>
-  <string name="settings_pref">Настройки</string>
-  <string name="select_category">Выберите категорию </string>
+  <string name="logout_pref">Uitloggen</string>
+  <string name="settings_pref">Instellingen</string>
+  <string name="select_category">Selecteer categorie</string>
 
 
 </resources>

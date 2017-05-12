@@ -15,14 +15,15 @@ namespace Bayards_Android.CategoryViewModel
 {
     class CategoryViewHolder: RecyclerView.ViewHolder
     {
-        public Button Button { get; private set; }
+        public Button ContentButton { get; private set; }
 
         //Defining view of each RecycleView item
         public CategoryViewHolder(View itemView, Action<int> listener)
             :base(itemView)
         {
-            Button = itemView.FindViewById<Button>(Resource.Id.categoryButton);
-            Button.Click += (sender, e) => listener(base.Position);
+            ContentButton = itemView.FindViewById<Button>(Resource.Id.categoryButton);
+            ContentButton.Selected = true;
+            ContentButton.Click += (sender, e) => listener(base.Position);
 
         }
     }

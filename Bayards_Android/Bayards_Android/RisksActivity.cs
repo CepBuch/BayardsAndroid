@@ -21,14 +21,14 @@ namespace Bayards_Android
     [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class RisksActivity : ActionBarActivity
     {
-        CategoriesList categories;
+        //CategoriesList categories;
         RisksList risksList;
         ViewPager viewPager;
         RadioGroup tabs;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            categories = new CategoriesList();
+            //categories = new CategoriesList();
             //ѕредыдущее окно должно прислать название категории(?)
             base.OnCreate(savedInstanceState);
 
@@ -63,7 +63,8 @@ namespace Bayards_Android
             SetSupportActionBar(toolbar);
             //Disabling default title and showing title from resources
             SupportActionBar.SetDisplayShowTitleEnabled(false);
-            toolbarTitle.Text = categories[category_id].Name;
+            //”брал так как в конструкторе ктаегории в общем надо все переделывать
+            //toolbarTitle.Text = categories[category_id].Name;
 
             //BackButton
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);

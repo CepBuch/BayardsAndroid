@@ -9,25 +9,20 @@ namespace Bayards_Android.CategoryViewModel
 
         public List<Category> Categories { get; set; }
 
-        public CategoriesList()
+        public CategoriesList(List<Category> categories)
         {
-            //Getting all available categories
-            Repository repo = new Repository();
-            Categories = repo.GetCategories();
-
+            Categories = categories;
         }
 
         //Counter
         public int NumCategories
         {
             get { return Categories.Count; }
-            //+1 because of header
         }
         //Indexer
         public Category this[int i]
         {
             get { return Categories[i]; }
-            //-1 because of header
         }
     }
 }

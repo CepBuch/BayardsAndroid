@@ -8,6 +8,8 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Support.V7.Widget;
 using Bayards_Android.CategoryViewModel;
+using Android.Net;
+using System.Threading.Tasks;
 
 namespace Bayards_Android
 {
@@ -19,11 +21,13 @@ namespace Bayards_Android
         RecyclerView.LayoutManager layoutManager;
         CategoriesList categoriesList;
         CategoriesAdapter categoriesAdapter;
+        Repository _repository;
         protected override void OnCreate(Bundle bundle)
-        {
+        { 
 
             base.OnCreate(bundle);
 
+            _repository = new Repository();
             bool passedAllChecks = CheckStepsOfAuthorization();
 
             if (passedAllChecks)
@@ -37,7 +41,17 @@ namespace Bayards_Android
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
 
                 //Showing categories
-                categoriesList = new CategoriesList();
+               ShowAllCategories();
+            }
+        }
+
+
+        private async void ShowAllCategories()
+        {
+            if (DetectNetwork())
+            {
+                string language = prefs.GetString("languageCode", "eng"); 
+                categoriesList = new CategoriesList(await _repository.GetCategories(language));
                 categoriesAdapter = new CategoriesAdapter(categoriesList);
                 categoriesAdapter.ItemClick += OnItemClick;
 
@@ -48,7 +62,6 @@ namespace Bayards_Android
                 recyclerView.SetLayoutManager(layoutManager);
             }
         }
-
 
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -68,11 +81,17 @@ namespace Bayards_Android
                         dialog.SetMessage(GetString(Resource.String.logout_message));
                         dialog.SetIcon(Resource.Drawable.en_logo);
                         //dialog.SetTitle()
-                        dialog.SetPositiveButton("Yes", delegate {
+                        dialog.SetPositiveButton("Yes", delegate
+                        {
                             LogOut();
                         });
                         dialog.SetNegativeButton("Cancel", delegate { });
                         dialog.Show();
+                        return true;
+                    }
+                case Resource.Id.menu_settings:
+                    {
+                        DetectNetwork();
                         return true;
                     }
                 default:
@@ -98,7 +117,7 @@ namespace Bayards_Android
             //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
             {
-                string language_code = prefs.GetString("languageCode", "en");
+                string language_code = prefs.GetString("languageCode", "eng");
                 ApplyAppLanguage(language_code);
             }
 
@@ -141,6 +160,39 @@ namespace Bayards_Android
             editor.Apply();
             //and reload this (main) activity
             this.Recreate();
+        }
+
+        private bool DetectNetwork()
+        {
+            ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            NetworkInfo info = connectivityManager.ActiveNetworkInfo;
+            string connectionType = string.Empty;
+
+            if (info != null && info.IsConnected)
+            {
+                connectionType = $"Connected: {info.TypeName}";
+
+
+                // Check for connection type
+                switch (info.Type)
+                {
+                    case ConnectivityType.Wifi:
+                        //ACTION IF WIFI
+                        break;
+                    case ConnectivityType.Mobile:
+                        //ACTION IF MOBILE
+                        break;
+                }
+                Toast.MakeText(this, connectionType, ToastLength.Long).Show();
+                return true;
+            }
+            else
+            {
+                //ACTION IF NOT CONNECTED TO ANY NETWORK
+                connectionType = "Disconnected";
+                Toast.MakeText(this, connectionType, ToastLength.Long).Show();
+                return false;
+            }
         }
 
 
