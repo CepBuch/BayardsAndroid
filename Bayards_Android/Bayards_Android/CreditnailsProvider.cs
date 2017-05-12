@@ -12,7 +12,7 @@ namespace Bayards_Android
         public async Task<bool> sendPassword(string password)
         {
             await Task.Delay(5000);
-            return password == "hsepassword";
+            return password == "qwe";
         }
 
 

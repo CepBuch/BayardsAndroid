@@ -18,13 +18,37 @@
   <string name ="user_agreement">User agreement</string>
   <string name="read_and_agree">I have read and agree to the user agreement</string>
   <string name ="wait">Please, wait while we are checking information</string>
+
+  <!--DATA LOAD LAYOUT-->
+  <string name="data_label">Data loading: </string>
+  <string name="data_info"> To load information check your internet connection and press \"Load\" </string>
+  <string name ="data_no_connection_waring">Подлючение к интернету не было обнаржуено.</string>
+  <string name ="data_wifi_warning">
+    Приложению необходимо скачать около ##mb.
+    Продолжить?</string>
+  <string name ="data_mobile_warning">
+    Приложению необходимо скачать около ##mb.
+    Было обнаружено соединение к мобильной сети.
+    Ваш мобильный оператор может взимать плату за загрузку данных.
+    Вы действительно хотите загрузить данные?
+    В противном случае вы можете найти соединение к Wi-Fi и попробовать снова.
+  </string>
+  <string name ="data_wait">Please, wait while we are loading data</string>
+  <string name ="data_warning">Проблема с загрузкой данных</string>
+  <string name ="data_warning_advice">Убедитесь, что подключение к интернету работает или обратитесь к your supervisor</string>
+  <string name ="data_button_content">Load</string>
+
+
+
+
+
   <string name="logout_pref">Logout</string>
   <string name="settings_pref">Settings</string>
   <string name="logout_message">
-You will be returned to the Log In page
-\n\nAre you sure you want to Log Out?
+    You will be returned to the Log In page
+    \n\nAre you sure you want to Log Out?
   </string>
   <string name="select_category">Select category: </string>
-  
+
 
 </resources>

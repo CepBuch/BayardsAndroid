@@ -8,8 +8,9 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Support.V7.Widget;
 using Bayards_Android.CategoryViewModel;
-using Android.Net;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bayards_Android
 {
@@ -23,9 +24,11 @@ namespace Bayards_Android
         CategoriesAdapter categoriesAdapter;
         Repository _repository;
         protected override void OnCreate(Bundle bundle)
-        { 
+        {
 
             base.OnCreate(bundle);
+
+
 
             _repository = new Repository();
             bool passedAllChecks = CheckStepsOfAuthorization();
@@ -40,27 +43,27 @@ namespace Bayards_Android
                 SetSupportActionBar(toolbar);
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
 
-                //Showing categories
-               ShowAllCategories();
+
+                var categories = Intent.GetStringArrayListExtra("categories");
+                if(categories!=null)
+                    ShowAllCategories(categories.ToList());
             }
         }
 
 
-        private async void ShowAllCategories()
+        private void ShowAllCategories(List<string> categories)
         {
-            if (DetectNetwork())
-            {
-                string language = prefs.GetString("languageCode", "eng"); 
-                categoriesList = new CategoriesList(await _repository.GetCategories(language));
-                categoriesAdapter = new CategoriesAdapter(categoriesList);
-                categoriesAdapter.ItemClick += OnItemClick;
 
-                recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-                recyclerView.SetAdapter(categoriesAdapter);
 
-                layoutManager = new LinearLayoutManager(this);
-                recyclerView.SetLayoutManager(layoutManager);
-            }
+            categoriesList = new CategoriesList(categories.Select(c => new Model.Category { Name = c }).ToList());
+            categoriesAdapter = new CategoriesAdapter(categoriesList);
+            categoriesAdapter.ItemClick += OnItemClick;
+
+            recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+            recyclerView.SetAdapter(categoriesAdapter);
+
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.SetLayoutManager(layoutManager);
         }
 
 
@@ -80,7 +83,6 @@ namespace Bayards_Android
                         var dialog = new Android.App.AlertDialog.Builder(this);
                         dialog.SetMessage(GetString(Resource.String.logout_message));
                         dialog.SetIcon(Resource.Drawable.en_logo);
-                        //dialog.SetTitle()
                         dialog.SetPositiveButton("Yes", delegate
                         {
                             LogOut();
@@ -91,7 +93,6 @@ namespace Bayards_Android
                     }
                 case Resource.Id.menu_settings:
                     {
-                        DetectNetwork();
                         return true;
                     }
                 default:
@@ -113,6 +114,7 @@ namespace Bayards_Android
             var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
             var isAuthorized = prefs.GetBoolean("isAuthorized", false);
             var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
+            var isDataLoaded = prefs.GetBoolean("isDataLoaded", false);
 
             //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
@@ -130,8 +132,10 @@ namespace Bayards_Android
                     intent = new Intent(this, typeof(LanguageActivity));
                 else if (!isAuthorized)
                     intent = new Intent(this, typeof(PasswordActivity));
-                else
+                else if (!isAcceptedAgreement)
                     intent = new Intent(this, typeof(AgreementActivity));
+                else
+                    intent = new Intent(this, typeof(DataLoadActivity));
 
                 StartActivity(intent);
                 this.Finish();
@@ -157,43 +161,13 @@ namespace Bayards_Android
             editor.PutBoolean("isLanguageChosen", false);
             editor.PutBoolean("isAuthorized", false);
             editor.PutBoolean("isAcceptedAgreement", false);
+            editor.PutBoolean("isDataLoaded", false);
             editor.Apply();
             //and reload this (main) activity
             this.Recreate();
         }
 
-        private bool DetectNetwork()
-        {
-            ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
-            NetworkInfo info = connectivityManager.ActiveNetworkInfo;
-            string connectionType = string.Empty;
 
-            if (info != null && info.IsConnected)
-            {
-                connectionType = $"Connected: {info.TypeName}";
-
-
-                // Check for connection type
-                switch (info.Type)
-                {
-                    case ConnectivityType.Wifi:
-                        //ACTION IF WIFI
-                        break;
-                    case ConnectivityType.Mobile:
-                        //ACTION IF MOBILE
-                        break;
-                }
-                Toast.MakeText(this, connectionType, ToastLength.Long).Show();
-                return true;
-            }
-            else
-            {
-                //ACTION IF NOT CONNECTED TO ANY NETWORK
-                connectionType = "Disconnected";
-                Toast.MakeText(this, connectionType, ToastLength.Long).Show();
-                return false;
-            }
-        }
 
 
 

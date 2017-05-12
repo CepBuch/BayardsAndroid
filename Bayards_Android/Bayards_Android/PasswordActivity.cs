@@ -83,11 +83,5 @@ namespace Bayards_Android
             }
             else warningLayout.Visibility = ViewStates.Visible;
         }
-
-
-        public void ShowKeyboard(View view)
-        {
-
-        }
     }
 }

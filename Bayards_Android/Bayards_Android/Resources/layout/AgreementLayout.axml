@@ -71,7 +71,7 @@
             android:orientation="horizontal">
             <Button
                 android:text="@string/cont"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:id="@+id/continueUserButton"

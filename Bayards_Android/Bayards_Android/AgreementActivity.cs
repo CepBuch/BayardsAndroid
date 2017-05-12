@@ -55,7 +55,7 @@ namespace Bayards_Android
 
         private void ContButton_Click(object sender, EventArgs e)
         {
-            var intent = new Intent(this,typeof(MainActivity));
+            var intent = new Intent(this,typeof(DataLoadActivity));
             StartActivity(intent);
 
             //Remember that agreement is accepted.
