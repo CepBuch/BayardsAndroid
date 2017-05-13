@@ -10,7 +10,7 @@ namespace Bayards_Android.RiskViewModel
 
         public RisksList()
         {
-            Repository repo = new Repository();
+            ApiProvider repo = new ApiProvider();
             Risks = repo.GetRisks();
         }
 

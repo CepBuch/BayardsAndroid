@@ -23,23 +23,23 @@
   <string name="data_label">Data loading: </string>
   <string name="data_info"> To load information check your internet connection and press \"Load\" </string>
   <string name ="data_no_connection_waring">Подлючение к интернету не было обнаржуено.</string>
+
   <string name ="data_wifi_warning">
-    Приложению необходимо скачать около ##mb.
-    Продолжить?</string>
+    Приложению необходимо скачать около ##mb данных.
+    Продолжить?
+  </string>
+
   <string name ="data_mobile_warning">
-    Приложению необходимо скачать около ##mb.
-    Было обнаружено соединение к мобильной сети.
-    Ваш мобильный оператор может взимать плату за загрузку данных.
-    Вы действительно хотите загрузить данные?
+    Приложению необходимо скачать около ##mb данных, однако вы подключены к мобильной сети
+    Ваш мобильный оператор может взимать плату за их загрузку. Продолжить?
     В противном случае вы можете найти соединение к Wi-Fi и попробовать снова.
   </string>
+
   <string name ="data_wait">Please, wait while we are loading data</string>
   <string name ="data_warning">Проблема с загрузкой данных</string>
   <string name ="data_warning_advice">Убедитесь, что подключение к интернету работает или обратитесь к your supervisor</string>
   <string name ="data_button_content">Load</string>
-
-
-
+  <string name ="data_reading_error">Произошла ошибка с чтением данных. Попробуйте загрузить их заново</string>
 
 
   <string name="logout_pref">Logout</string>

@@ -18,7 +18,7 @@ using System.Net;
 
 namespace Bayards_Android
 {
-    class Repository
+    class ApiProvider
     {
         const string hosting = "http://vhost29450.cpsite.ru";
         const string UriSectionsListTemplate = "{0}/api/allSections?lang={1}";

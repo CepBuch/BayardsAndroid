@@ -11,6 +11,8 @@ using Bayards_Android.CategoryViewModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using Bayards_Android.Model;
+using System;
 
 namespace Bayards_Android
 {
@@ -18,19 +20,20 @@ namespace Bayards_Android
     public class MainActivity : ActionBarActivity
     {
         ISharedPreferences prefs;
+        ISharedPreferencesEditor editor;
         RecyclerView recyclerView;
         RecyclerView.LayoutManager layoutManager;
         CategoriesList categoriesList;
         CategoriesAdapter categoriesAdapter;
-        Repository _repository;
         protected override void OnCreate(Bundle bundle)
         {
 
             base.OnCreate(bundle);
 
+            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            editor = prefs.Edit();
 
-
-            _repository = new Repository();
+            //Chec user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
 
             if (passedAllChecks)
@@ -43,28 +46,44 @@ namespace Bayards_Android
                 SetSupportActionBar(toolbar);
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
 
-
-                var categories = Intent.GetStringArrayListExtra("categories");
-                if(categories!=null)
-                    ShowAllCategories(categories.ToList());
+                ShowAllCategories();
             }
         }
 
 
-        private void ShowAllCategories(List<string> categories)
+        private void ShowAllCategories()
         {
 
+            var categories = Database.Manager.Categories;
 
-            categoriesList = new CategoriesList(categories.Select(c => new Model.Category { Name = c }).ToList());
-            categoriesAdapter = new CategoriesAdapter(categoriesList);
-            categoriesAdapter.ItemClick += OnItemClick;
+            if (categories != null && categories.ToList().Count > 0)
+            {
+                categoriesList = new CategoriesList(categories.ToList());
+                categoriesAdapter = new CategoriesAdapter(categoriesList);
+                categoriesAdapter.ItemClick += OnItemClick;
 
-            recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-            recyclerView.SetAdapter(categoriesAdapter);
+                recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+                recyclerView.SetAdapter(categoriesAdapter);
 
-            layoutManager = new LinearLayoutManager(this);
-            recyclerView.SetLayoutManager(layoutManager);
+                layoutManager = new LinearLayoutManager(this);
+                recyclerView.SetLayoutManager(layoutManager);
+            }
+            else
+            {
+                var dialog = new Android.App.AlertDialog.Builder(this);
+                string message = GetString(Resource.String.data_reading_error);
+                dialog.SetMessage(message);
+                dialog.SetPositiveButton("Ok", delegate
+                {
+                    editor.PutBoolean("isDataLoaded", false);
+                    editor.Apply();
+                    CheckStepsOfAuthorization();
+                });
+                dialog.Show();
+            }
         }
+
+        
 
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -79,14 +98,10 @@ namespace Bayards_Android
             {
                 case Resource.Id.menu_logout:
                     {
-                        //Затестить и v7 и alert
                         var dialog = new Android.App.AlertDialog.Builder(this);
                         dialog.SetMessage(GetString(Resource.String.logout_message));
-                        dialog.SetIcon(Resource.Drawable.en_logo);
-                        dialog.SetPositiveButton("Yes", delegate
-                        {
-                            LogOut();
-                        });
+
+                        dialog.SetPositiveButton("Yes", (s, e) => LogOut());
                         dialog.SetNegativeButton("Cancel", delegate { });
                         dialog.Show();
                         return true;
@@ -102,6 +117,7 @@ namespace Bayards_Android
 
         void OnItemClick(object sender, int position)
         {
+            //Category click event, open this category page
             var intent = new Intent(this, typeof(RisksActivity));
             intent.PutExtra("category_id", position);
             StartActivity(intent);
@@ -110,7 +126,6 @@ namespace Bayards_Android
         public bool CheckStepsOfAuthorization()
         {
             //Getting info about user's authorization process from shared preferences.
-            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
             var isAuthorized = prefs.GetBoolean("isAuthorized", false);
             var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
@@ -125,7 +140,7 @@ namespace Bayards_Android
 
             //Showing the corresponding authorizatin page.
             //If all checks have been completed, just continue. 
-            if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement)
+            if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement || !isDataLoaded)
             {
                 Intent intent;
                 if (!isLanguageChosen)
@@ -157,7 +172,6 @@ namespace Bayards_Android
         public void LogOut()
         {
             //Logout process: set all steps of authorization as false
-            ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutBoolean("isLanguageChosen", false);
             editor.PutBoolean("isAuthorized", false);
             editor.PutBoolean("isAcceptedAgreement", false);

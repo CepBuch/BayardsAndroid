@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Bayards_Android.Model
 {
-    class Subcategory
+    public class Subcategory
     {
         public string Name { get; set; }
 
