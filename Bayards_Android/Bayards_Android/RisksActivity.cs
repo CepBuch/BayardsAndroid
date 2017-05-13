@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -15,6 +14,7 @@ using Android.Support.V4.View;
 using Bayards_Android.RiskViewModel;
 using Android.Support.Design.Widget;
 using Bayards_Android.CategoryViewModel;
+using Bayards_Android.Model;
 
 namespace Bayards_Android
 {
@@ -27,44 +27,40 @@ namespace Bayards_Android
         RadioGroup tabs;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //categories = new CategoriesList();
-            //ѕредыдущее окно должно прислать название категории(?)
+
             base.OnCreate(savedInstanceState);
 
-            var category_id = Intent.GetIntExtra("category_id", -1);
+            var category_id = Intent.GetStringExtra("category_id");
+
+            Category cat = new Category();
+
+            if (category_id != null)
+                cat = Database.Manager.GetCategory(category_id);
+
             SetContentView(Resource.Layout.RisksLayout);
-            
+
 
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
-            AddTab("Overall",true);
+            AddTab("Overall", true);
             AddTab("SubCat1");
             AddTab("SubCat2");
 
-
-
-
-            //-----------------------------------------
-            risksList = new RisksList();
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
-            viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
-
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabs_dots);
             tabLayout.SetupWithViewPager(viewPager);
-            //----------------------------------------
 
-
-
+            ShowRisks(true);
 
 
             Android.Support.V7.Widget.Toolbar toolbar =
                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_risks);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
             SetSupportActionBar(toolbar);
-            //Disabling default title and showing title from resources
+            //Disabling default title and showing title 
             SupportActionBar.SetDisplayShowTitleEnabled(false);
-            //”брал так как в конструкторе ктаегории в общем надо все переделывать
-            //toolbarTitle.Text = categories[category_id].Name;
+
+            if (cat != null)
+                toolbarTitle.Text = cat.Name;
 
             //BackButton
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -72,6 +68,16 @@ namespace Bayards_Android
 
 
         }
+
+        private void ShowRisks(bool a)
+        {
+            ApiProvider api = new ApiProvider();
+            risksList = new RisksList(api.GetRisks(a));
+            viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
+        }
+
+
+
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -88,7 +94,7 @@ namespace Bayards_Android
         }
 
 
-        public void AddTab(string content,bool is_checked = false)
+        public void AddTab(string content, bool is_checked = false)
         {
 
             var width = DpToPx(120);
@@ -108,8 +114,17 @@ namespace Bayards_Android
             rb.SetBackgroundResource(Resource.Drawable.radiobutton_shape);
             rb.SetButtonDrawable(Android.Resource.Color.Transparent);
 
+
             if (is_checked)
                 rb.Checked = true;
+
+            rb.Click += (e, s) =>
+            {
+                Toast.MakeText(this, content + " clicked", ToastLength.Long).Show();
+                ShowRisks(content == "Overall");
+            };
+
+
             tabs.AddView(rb, params_rb);
 
         }

@@ -13,7 +13,7 @@ using Android.Support.V4.App;
 
 namespace Bayards_Android.RiskViewModel
 {
-    class RisksPagerAdapter: FragmentPagerAdapter
+    class RisksPagerAdapter: FragmentStatePagerAdapter
     {
         public RisksList risks;
         public RisksPagerAdapter(Android.Support.V4.App.FragmentManager fm, RisksList risks)

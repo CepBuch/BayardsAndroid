@@ -44,7 +44,7 @@ namespace Bayards_Android
 
             get
             {
-                if(_connection == null && DbPath != null)
+                if (_connection == null && DbPath != null)
                 {
                     _connection = new SqliteConnection("Data Source=" + DbPath);
                 }
@@ -56,7 +56,7 @@ namespace Bayards_Android
         public bool CreateDatabase()
         {
             var commands = new[] {
-                    "CREATE TABLE [Category] ([_id] int, [Name] ntext);"
+                    "CREATE TABLE [Category] ([_id] int,  [ServerId] ntext, [Name] ntext);"
                 };
 
             if (Connection != null)
@@ -77,7 +77,7 @@ namespace Bayards_Android
                     }
                     return true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     return false;
                 }
@@ -98,7 +98,7 @@ namespace Bayards_Android
                 {
 
                     int i = 1;
-                    var commands = categories.Select(c => $"INSERT INTO [Category] ([_id], [Name]) VALUES ('{i++}', '{c.Name}')");
+                    var commands = categories.Select(c => $"INSERT INTO [Category] ([_id],  [ServerId], [Name]) VALUES ('{i++}', '{c.ServerId}', '{c.Name}')");
 
                     Connection.Open();
                     foreach (var command in commands)
@@ -121,9 +121,8 @@ namespace Bayards_Android
                 }
             }
             return false;
-
-
         }
+
 
         public IEnumerable<Category> Categories
         {
@@ -138,16 +137,18 @@ namespace Bayards_Android
                         Connection.Open();
                         using (var contents = Connection.CreateCommand())
                         {
-                            contents.CommandText = "SELECT [Name] from [Category];";
+                            contents.CommandText = "SELECT [Name], [ServerId] from [Category];";
                             var r = contents.ExecuteReader();
                             while (r.Read())
                             {
                                 categories.Add(new Model.Category
                                 {
-                                    Name = r["Name"].ToString()
+                                    Name = r["Name"].ToString(),
+                                    ServerId = r["ServerId"].ToString()
                                 });
                             }
                         }
+                        return categories.Where(c => !string.IsNullOrWhiteSpace(c.ServerId) && !string.IsNullOrWhiteSpace(c.Name));
                     }
                     catch
                     {
@@ -157,12 +158,50 @@ namespace Bayards_Android
                     {
                         Connection.Close();
                     }
-
-                    return categories;
                 }
                 else return null;
-
             }
+        }
+
+        public Category GetCategory(string category_id)
+        {
+            if (string.IsNullOrWhiteSpace(category_id))
+                throw new NullReferenceException("category_id cannot be null or whitespace");
+
+            if (Connection != null)
+            {
+                List<Category> categories = new List<Category>();
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandText = "SELECT [Name], [ServerId] from [Category]" +
+                            $"WHERE [ServerId] = '{category_id}'";
+
+                        var r = contents.ExecuteReader();
+                        while (r.Read())
+                        {
+                            categories.Add(new Model.Category
+                            {
+                                Name = r["Name"].ToString(),
+                                ServerId = r["ServerId"].ToString()
+                            });
+                            
+                        }
+                    }
+                    return categories.Count > 0 ? categories[0] : null;
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
         }
     }
 }

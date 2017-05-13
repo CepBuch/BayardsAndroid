@@ -30,6 +30,9 @@ namespace Bayards_Android.RiskViewModel
             fragment.Arguments = args;
             return fragment;
         }
+
+
+
         public override View OnCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -48,5 +51,7 @@ namespace Bayards_Android.RiskViewModel
 
             return view;
         }
+
+
     }
 }

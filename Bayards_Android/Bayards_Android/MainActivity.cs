@@ -27,7 +27,6 @@ namespace Bayards_Android
         CategoriesAdapter categoriesAdapter;
         protected override void OnCreate(Bundle bundle)
         {
-
             base.OnCreate(bundle);
 
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
@@ -83,9 +82,6 @@ namespace Bayards_Android
             }
         }
 
-        
-
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
@@ -115,11 +111,11 @@ namespace Bayards_Android
             }
         }
 
-        void OnItemClick(object sender, int position)
+        void OnItemClick(object sender, Category clicked_category)
         {
             //Category click event, open this category page
             var intent = new Intent(this, typeof(RisksActivity));
-            intent.PutExtra("category_id", position);
+            intent.PutExtra("category_id", clicked_category.ServerId);
             StartActivity(intent);
         }
 

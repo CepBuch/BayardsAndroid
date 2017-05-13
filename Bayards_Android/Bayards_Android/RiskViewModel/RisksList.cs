@@ -8,10 +8,9 @@ namespace Bayards_Android.RiskViewModel
     {
         public List<Risk> Risks { get; private set; }
 
-        public RisksList()
+        public RisksList(List<Risk> risks)
         {
-            ApiProvider repo = new ApiProvider();
-            Risks = repo.GetRisks();
+            Risks = risks;
         }
 
         public int NumRisks

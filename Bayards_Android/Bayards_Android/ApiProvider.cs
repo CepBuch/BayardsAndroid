@@ -1,14 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Bayards_Android.Model;
 using System.Net.Http;
 using Bayards_Android.DTO;
@@ -34,7 +26,6 @@ namespace Bayards_Android
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(requestUri);
-                //response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -49,7 +40,7 @@ namespace Bayards_Android
                             return categories
                                  .Where(c => c.Id != null && c.Name != null)
                                  .OrderBy(c => c.Name)
-                                 .Select(c => new Model.Category { Name = c.Name })
+                                 .Select(c => new Model.Category { Name = c.Name, ServerId = c.Id })
                                  .ToList();
                         }
                         else
@@ -62,23 +53,25 @@ namespace Bayards_Android
                     throw new WebException($"Сервер вернул ошибку: {response.StatusCode}");
 
             }
-
-
-
-
         }
 
-        public List<Risk> GetRisks()
+
+        public List<Model.Risk> GetRisks(bool withImages)
         {
-            List<Risk> risks = new List<Risk>();
+            var risks = new List<Model.Risk>();
             for (int i = 1; i <= 3; i++)
             {
-                risks.Add(new Risk()
+                Model.Risk riskToAdd = new Model.Risk()
                 {
                     Name = $"Risk {i}",
-                    Content_id = Resource.String.lorem,
-                    Image_id = i == 1 ? Resource.Drawable.lorem1 : i == 2 ? Resource.Drawable.lorem2 : Resource.Drawable.lorem3
-                });
+                    Content_id = Resource.String.lorem
+                };
+                if (withImages)
+                {
+                    riskToAdd.Image_id = i == 1 ? Resource.Drawable.lorem1 : i == 2 ? Resource.Drawable.lorem2 : Resource.Drawable.lorem3;
+                }
+
+                risks.Add(riskToAdd);
             }
             return risks;
         }

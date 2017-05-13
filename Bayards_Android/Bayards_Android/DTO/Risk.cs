@@ -13,24 +13,14 @@ using Newtonsoft.Json;
 
 namespace Bayards_Android.DTO
 {
-    class Category
+    class Risk
     {
-        [JsonProperty("id_s")]
+        [JsonProperty("id_r")]
         public string Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("content")]
-        public string Content { get; set; }
-
-        [JsonProperty("risks")]
-        public List<Risk> Risks { get; set; }
-        
-        [JsonProperty("subsections")]
-        public List<Subcategory> Subcategories { get; set; }
-
-
-
+        public List<string> Images { get; set; }
     }
 }

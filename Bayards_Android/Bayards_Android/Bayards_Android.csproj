@@ -123,8 +123,11 @@
     <Compile Include="CategoryViewModel\CategoryViewHolder.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DataLoadActivity.cs" />
+    <Compile Include="DTO\CatResponse..cs" />
     <Compile Include="DTO\Response.cs" />
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Risk.cs" />
+    <Compile Include="DTO\Subcategory..cs" />
     <Compile Include="LanguageActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Category.cs" />

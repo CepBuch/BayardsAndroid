@@ -10,13 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Bayards_Android.Model;
 
 namespace Bayards_Android.CategoryViewModel
 {
     class CategoriesAdapter : RecyclerView.Adapter
     {
 
-        public event EventHandler<int> ItemClick;
+        public event EventHandler<Category> ItemClick;
 
         public CategoriesList _categoriesList;
 
@@ -78,7 +79,7 @@ namespace Bayards_Android.CategoryViewModel
 
         void OnClick(int position)
         {
-            ItemClick?.Invoke(this, position -1);
+            ItemClick?.Invoke(this, _categoriesList[position -1]);
         }
 
 
