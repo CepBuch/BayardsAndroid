@@ -96,7 +96,7 @@ namespace Bayards_Android
             //Trying to download data and add it to local database
             try
             {
-                var data = await provider.GetCategories(language);
+                var data = await provider.GetData(new string [] {"eng", "nl"});
 
                 bool createStatus = Database.Manager.CreateDatabase();
 
@@ -111,6 +111,7 @@ namespace Bayards_Android
 
                         var intent = new Intent(this, typeof(MainActivity));
                         StartActivity(intent);
+                        this.Finish();
                     }
                     else throw new SqliteException("Problems with saving data to Database");
                 }

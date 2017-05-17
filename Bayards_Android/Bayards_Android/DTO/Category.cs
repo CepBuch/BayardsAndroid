@@ -20,17 +20,11 @@ namespace Bayards_Android.DTO
 
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("content")]
-        public string Content { get; set; }
-
+        
         [JsonProperty("risks")]
-        public List<Risk> Risks { get; set; }
+        public Risk [] Risks { get; set; }
         
         [JsonProperty("subsections")]
-        public List<Subcategory> Subcategories { get; set; }
-
-
-
+        public Subcategory [] Subcategories { get; set; }
     }
 }

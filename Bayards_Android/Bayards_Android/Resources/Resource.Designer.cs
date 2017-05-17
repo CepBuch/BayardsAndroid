@@ -105,6 +105,25 @@ namespace Bayards_Android
 			}
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f0d0000
+			public const int pref_lang_entries = 2131558400;
+			
+			// aapt resource value: 0x7f0d0001
+			public const int pref_lang_values = 2131558401;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -2492,20 +2511,20 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f070048
 			public const int list_item = 2131165256;
 			
-			// aapt resource value: 0x7f0700b6
-			public const int main_search = 2131165366;
-			
 			// aapt resource value: 0x7f0700b5
-			public const int masked = 2131165365;
+			public const int main_search = 2131165365;
+			
+			// aapt resource value: 0x7f0700b4
+			public const int masked = 2131165364;
 			
 			// aapt resource value: 0x7f070096
 			public const int media_actions = 2131165334;
 			
-			// aapt resource value: 0x7f0700b8
-			public const int menu_logout = 2131165368;
-			
 			// aapt resource value: 0x7f0700b7
-			public const int menu_settings = 2131165367;
+			public const int menu_logout = 2131165367;
+			
+			// aapt resource value: 0x7f0700b6
+			public const int menu_settings = 2131165366;
 			
 			// aapt resource value: 0x7f070022
 			public const int middle = 2131165218;
@@ -2570,14 +2589,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07009a
 			public const int right_side = 2131165338;
 			
-			// aapt resource value: 0x7f0700ae
-			public const int risk_content = 2131165358;
+			// aapt resource value: 0x7f0700ad
+			public const int risk_content = 2131165357;
 			
 			// aapt resource value: 0x7f0700ac
 			public const int risk_name = 2131165356;
-			
-			// aapt resource value: 0x7f0700ad
-			public const int risk_picture = 2131165357;
 			
 			// aapt resource value: 0x7f07001b
 			public const int screen = 2131165211;
@@ -2684,11 +2700,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f070011
 			public const int tabMode = 2131165201;
 			
-			// aapt resource value: 0x7f0700b0
-			public const int tabsGroup = 2131165360;
+			// aapt resource value: 0x7f0700af
+			public const int tabsGroup = 2131165359;
 			
-			// aapt resource value: 0x7f0700b1
-			public const int tabs_dots = 2131165361;
+			// aapt resource value: 0x7f0700b0
+			public const int tabs_dots = 2131165360;
 			
 			// aapt resource value: 0x7f0700a5
 			public const int text = 2131165349;
@@ -2732,11 +2748,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07008e
 			public const int toolbar_main = 2131165326;
 			
-			// aapt resource value: 0x7f0700af
-			public const int toolbar_risks = 2131165359;
+			// aapt resource value: 0x7f0700ae
+			public const int toolbar_risks = 2131165358;
 			
-			// aapt resource value: 0x7f0700b3
-			public const int toolbar_title = 2131165363;
+			// aapt resource value: 0x7f0700b2
+			public const int toolbar_title = 2131165362;
 			
 			// aapt resource value: 0x7f070029
 			public const int top = 2131165225;
@@ -2765,11 +2781,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700b2
-			public const int viewpager = 2131165362;
+			// aapt resource value: 0x7f0700b1
+			public const int viewpager = 2131165361;
 			
-			// aapt resource value: 0x7f0700b4
-			public const int visible = 2131165364;
+			// aapt resource value: 0x7f0700b3
+			public const int visible = 2131165363;
 			
 			// aapt resource value: 0x7f0700aa
 			public const int waitLayout = 2131165354;
@@ -3062,8 +3078,8 @@ namespace Bayards_Android
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f0d0000
-			public const int menu_main = 2131558400;
+			// aapt resource value: 0x7f0e0000
+			public const int menu_main = 2131623936;
 			
 			static Menu()
 			{
@@ -3260,6 +3276,12 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f080028
 			public const int path_password_strike_through = 2131230760;
+			
+			// aapt resource value: 0x7f080044
+			public const int pref_lang = 2131230788;
+			
+			// aapt resource value: 0x7f080045
+			public const int pref_lang_summ = 2131230789;
 			
 			// aapt resource value: 0x7f080034
 			public const int read_and_agree = 2131230772;

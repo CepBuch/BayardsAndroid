@@ -15,13 +15,14 @@ using Bayards_Android.RiskViewModel;
 using Android.Support.Design.Widget;
 using Bayards_Android.CategoryViewModel;
 using Bayards_Android.Model;
+using Android.Preferences;
 
 namespace Bayards_Android
 {
     [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class RisksActivity : ActionBarActivity
     {
-        //CategoriesList categories;
+        ISharedPreferences prefs;
         RisksList risksList;
         ViewPager viewPager;
         RadioGroup tabs;
@@ -29,50 +30,77 @@ namespace Bayards_Android
         {
 
             base.OnCreate(savedInstanceState);
-
-            var category_id = Intent.GetStringExtra("category_id");
-
-            Category cat = new Category();
-
-            if (category_id != null)
-                cat = Database.Manager.GetCategory(category_id);
-
             SetContentView(Resource.Layout.RisksLayout);
 
 
+            prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+
+            //Getting Category id from previous activity.
+            var parent_category_id = Intent.GetStringExtra("category_id");
+
+            //Getting current lunguage from application properties. 
+            var language = prefs.GetString("languageCode", "eng");
+    
+            //Getting all subcategories and risks of parent category
+            var subcategories = Database.Manager.GetSubcategories(parent_category_id, language);
+
+            var risks = Database.Manager.GetRisks(parent_category_id, language);
+
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
-            AddTab("Overall", true);
-            AddTab("SubCat1");
-            AddTab("SubCat2");
+
+            //Adding tabs of each subcategory and risks
+            ShowCategoryContent(risks, subcategories);
 
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabs_dots);
             tabLayout.SetupWithViewPager(viewPager);
 
-            ShowRisks(true);
+            
 
 
             Android.Support.V7.Widget.Toolbar toolbar =
                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_risks);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
             SetSupportActionBar(toolbar);
-            //Disabling default title and showing title 
+
+
+            //Disabling default title and showing  custom (from .xml) title 
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
-            if (cat != null)
-                toolbarTitle.Text = cat.Name;
+            //Showing name of parent_category as toolbar title
+            var parent_category_name = Intent.GetStringExtra("category_name");
+            if (!string.IsNullOrWhiteSpace(parent_category_name))
+                toolbarTitle.Text = parent_category_name;
 
-            //BackButton
+            //Enabling BackButton
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
 
         }
 
-        private void ShowRisks(bool a)
+
+        private void ShowCategoryContent(IEnumerable<Risk> risks, IEnumerable<Category> subCategories)
+        {
+            //First adding tab and showing risks of parent category
+            AddTab("Risks", risks);
+
+
+            ShowRisks(risks);
+
+
+            //Then adding tabs of all subcategories
+            foreach (var subCat in subCategories)
+            {
+                AddTab(subCat.Name, subCat.Risks);
+            }
+            
+            
+        }
+        private void ShowRisks(IEnumerable<Risk> risks)
         {
             ApiProvider api = new ApiProvider();
-            risksList = new RisksList(api.GetRisks(a));
+            risksList = new RisksList(/*api.GetRisks(a)*/ null);
             viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
         }
 
@@ -94,7 +122,7 @@ namespace Bayards_Android
         }
 
 
-        public void AddTab(string content, bool is_checked = false)
+        public void AddTab(string content, IEnumerable<Risk> risks, bool isChecked  = false)
         {
 
             var width = DpToPx(120);
@@ -115,25 +143,19 @@ namespace Bayards_Android
             rb.SetButtonDrawable(Android.Resource.Color.Transparent);
 
 
-            if (is_checked)
+            if (isChecked)
                 rb.Checked = true;
 
-            rb.Click += (e, s) =>
-            {
-                Toast.MakeText(this, content + " clicked", ToastLength.Long).Show();
-                ShowRisks(content == "Overall");
-            };
+            rb.Click += (e, s) => ShowRisks(risks);
 
 
             tabs.AddView(rb, params_rb);
-
         }
 
         private int DpToPx(int dp)
         {
             var scale = Resources.DisplayMetrics.Density;
             return (int)((dp * scale) + 0.5);
-
         }
 
     }

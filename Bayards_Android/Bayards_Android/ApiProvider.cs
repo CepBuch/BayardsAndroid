@@ -1,79 +1,139 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bayards_Android.Model;
 using System.Net.Http;
-using Bayards_Android.DTO;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Net;
+using Bayards_Android.Enums;
 
 namespace Bayards_Android
 {
     class ApiProvider
     {
         const string hosting = "http://vhost29450.cpsite.ru";
-        const string UriSectionsListTemplate = "{0}/api/allSections?lang={1}";
-        const string UriSectionContent = "{0}/api/section?sectionid={1}&&lang={2}";
-        const string UriRiskContent = "{0}/api/risk?riskid={1}&lang={2}";
+        const string uriGetDataTemplate = "{0}/api/getAll?lang={1}";
 
-        //Returns categories from server (now they are just generated)
-        public async Task<List<Model.Category>> GetCategories(string language)
+        //Returns categories from server for each language
+        public async Task<Model.Category[]> GetData(string[] languages)
         {
-            string requestUri = string.Format(UriSectionsListTemplate, hosting, language);
+            if (languages == null || languages.Length == 0)
+                throw new NullReferenceException("Languages array is empty");
 
+            var result = new List<Model.Category>();
 
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(requestUri);
-
-                if (response.IsSuccessStatusCode)
+                foreach (var language in languages)
                 {
-                    var resultStr = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<Response>(resultStr);
+                    string requestUri = string.Format(uriGetDataTemplate, hosting, language);
+                    HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                    if (result != null)
+                    if (response.IsSuccessStatusCode)
                     {
-                        var categories = result.Categories;
-                        if (categories != null && categories.Count > 0)
+                        var resultForLanguageStr = await response.Content.ReadAsStringAsync();
+                        var resultForLanguage = JsonConvert.DeserializeObject<DTO.Response>(resultForLanguageStr);
+
+                        if (resultForLanguage != null)
                         {
-                            return categories
-                                 .Where(c => c.Id != null && c.Name != null)
-                                 .OrderBy(c => c.Name)
-                                 .Select(c => new Model.Category { Name = c.Name, ServerId = c.Id })
-                                 .ToList();
+                            var DTOCategories = resultForLanguage.Categories;
+
+                            if (DTOCategories != null && DTOCategories.Length > 0)
+                            {
+                                result.AddRange(ConvertCatogories(DTOCategories, language));
+                            }
+                            else
+                                throw new NullReferenceException("The answer is empty");
                         }
                         else
-                            throw new NullReferenceException("Все плохо с категориями");
+                            throw new NullReferenceException("There is no response from the server");
                     }
                     else
-                        throw new NullReferenceException("Сервер не вернул ответа");
+                        throw new WebException($"The server returned an error: {response.StatusCode}");
                 }
-                else
-                    throw new WebException($"Сервер вернул ошибку: {response.StatusCode}");
-
             }
+            return result.ToArray();
         }
 
 
-        public List<Model.Risk> GetRisks(bool withImages)
+        private Model.Category[] ConvertCatogories(DTO.Category[] catogoriesToConvert, string language)
         {
-            var risks = new List<Model.Risk>();
-            for (int i = 1; i <= 3; i++)
+            return catogoriesToConvert
+                .Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name))
+                .Select(c => new Model.Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Risks = ConvertRisks(c.Risks, language),
+                    Subcategories = ConvertSubcategories(c.Subcategories, language),
+                    Language = language
+                }).ToArray();
+        }
+
+
+
+        private Model.Category[] ConvertSubcategories(DTO.Subcategory[] subcategoriesToConvert, string language)
+        {
+            return subcategoriesToConvert
+                .Where(sc => sc != null && !string.IsNullOrWhiteSpace(sc.Id) && !string.IsNullOrWhiteSpace(sc.Name))
+                .Select(sc => new Model.Category
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    Risks = ConvertRisks(sc.Risks, language),
+                    Subcategories = null,
+                    Language = language
+                }).ToArray();
+        }
+
+
+        private Model.Risk[] ConvertRisks(DTO.Risk[] risksToConvert, string language)
+        {
+            return risksToConvert
+                .Where(r => r != null && !string.IsNullOrWhiteSpace(r.Id) && !string.IsNullOrWhiteSpace(r.Name))
+                .Select(r => new Model.Risk
+                {
+
+                    Id = r.Id,
+                    Name = r.Name,
+                    Content = r.Content,
+                    Language = language,
+                    MediaObjects = ConvertMedia(r.MediaObjects, language)
+
+                }).ToArray();
+        }
+
+        private Model.MediaObject[] ConvertMedia(DTO.MediaObject[] objectsToConvert, string language)
+        {
+            var resultObjects = new List<Model.MediaObject>();
+
+            foreach (var DTOmediaObj in
+                objectsToConvert.
+                Where(o => o != null && !string.IsNullOrWhiteSpace(o.Link) && !string.IsNullOrWhiteSpace(o.TypeMedia)))
             {
-                Model.Risk riskToAdd = new Model.Risk()
+                TypeMedia mediaType = TypeMedia.Undefined;
+
+                switch (DTOmediaObj.TypeMedia)
                 {
-                    Name = $"Risk {i}",
-                    Content_id = Resource.String.lorem
-                };
-                if (withImages)
-                {
-                    riskToAdd.Image_id = i == 1 ? Resource.Drawable.lorem1 : i == 2 ? Resource.Drawable.lorem2 : Resource.Drawable.lorem3;
+                    case "image":
+                        mediaType = TypeMedia.Image;
+                        break;
+                    case "video":
+                        mediaType = TypeMedia.Video;
+                        break;
+                    default:
+                        mediaType = TypeMedia.Undefined;
+                        break;
                 }
 
-                risks.Add(riskToAdd);
+                resultObjects.Add(new Model.MediaObject
+                {
+                    Link = DTOmediaObj.Link,
+                    TypeMedia = mediaType
+                });
             }
-            return risks;
+            return resultObjects
+                .Where(o => o.TypeMedia != TypeMedia.Undefined).ToArray();
         }
     }
 }

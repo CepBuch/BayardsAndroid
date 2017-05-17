@@ -28,11 +28,10 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
 
-            //Chec user's authorization stage
+            //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
 
             if (passedAllChecks)
@@ -46,14 +45,17 @@ namespace Bayards_Android
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
 
                 ShowAllCategories();
+
             }
         }
 
 
         private void ShowAllCategories()
         {
+            //Getting current lunguage from application properties. 
+            string language= prefs.GetString("languageCode", "eng");
 
-            var categories = Database.Manager.Categories;
+            var categories = Database.Manager.GetCategories(language);
 
             if (categories != null && categories.ToList().Count > 0)
             {
@@ -115,7 +117,8 @@ namespace Bayards_Android
         {
             //Category click event, open this category page
             var intent = new Intent(this, typeof(RisksActivity));
-            intent.PutExtra("category_id", clicked_category.ServerId);
+            intent.PutExtra("category_id", clicked_category.Id);
+            intent.PutExtra("category_name", clicked_category.Name);
             StartActivity(intent);
         }
 
@@ -173,17 +176,10 @@ namespace Bayards_Android
             editor.PutBoolean("isAcceptedAgreement", false);
             editor.PutBoolean("isDataLoaded", false);
             editor.Apply();
+
             //and reload this (main) activity
             this.Recreate();
         }
-
-
-
-
-
-
-
-
     }
 }
 

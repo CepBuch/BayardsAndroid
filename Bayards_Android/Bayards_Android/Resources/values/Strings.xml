@@ -22,24 +22,22 @@
   <!--DATA LOAD LAYOUT-->
   <string name="data_label">Data loading: </string>
   <string name="data_info"> To load information check your internet connection and press \"Load\" </string>
-  <string name ="data_no_connection_waring">Подлючение к интернету не было обнаржуено.</string>
+  <string name ="data_no_connection_waring">No internet connection was found.</string>
 
   <string name ="data_wifi_warning">
-    Приложению необходимо скачать около ##mb данных.
-    Продолжить?
+    The application needs to download about ## mb of data. Continue?
   </string>
 
   <string name ="data_mobile_warning">
-    Приложению необходимо скачать около ##mb данных, однако вы подключены к мобильной сети
-    Ваш мобильный оператор может взимать плату за их загрузку. Продолжить?
-    В противном случае вы можете найти соединение к Wi-Fi и попробовать снова.
+    The application needs to download about ## mb of data. However, since you are connected to a mobile network, your mobile operator may charge you for downloading them. Continue?\n\n
+    Otherwise, you can connect to any Wi-Fi network and try again.
   </string>
 
   <string name ="data_wait">Please, wait while we are loading data</string>
-  <string name ="data_warning">Проблема с загрузкой данных</string>
-  <string name ="data_warning_advice">Убедитесь, что подключение к интернету работает или обратитесь к your supervisor</string>
+  <string name ="data_warning">Failed to load data.</string>
+  <string name ="data_warning_advice">Make sure, your internet connection is working or ask your supervisor for help.</string>
   <string name ="data_button_content">Load</string>
-  <string name ="data_reading_error">Произошла ошибка с чтением данных. Попробуйте загрузить их заново</string>
+  <string name ="data_reading_error">An error occurred while reading the data. Try to download it again. </string>
 
 
   <string name="logout_pref">Logout</string>
@@ -49,6 +47,18 @@
     \n\nAre you sure you want to Log Out?
   </string>
   <string name="select_category">Select category: </string>
+
+
+  <string name="pref_lang">Language</string>
+  <string name="pref_lang_summ">Select language of application and data</string>
+  <string-array name="pref_lang_entries">
+    <item>English</item>
+    <item>Dutch</item>
+  </string-array>
+  <string-array name="pref_lang_values">
+    <item>eng</item>
+    <item>nl</item>
+  </string-array>
 
 
 </resources>

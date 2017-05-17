@@ -9,13 +9,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Newtonsoft.Json;
 
-namespace Bayards_Android.DTO
+namespace Bayards_Android.Enums
 {
-    class Response
+    public enum TypeMedia
     {
-        [JsonProperty("sections")]
-        public Category [] Categories { get; set; }
+        Image, 
+        Video,
+        Undefined
     }
 }

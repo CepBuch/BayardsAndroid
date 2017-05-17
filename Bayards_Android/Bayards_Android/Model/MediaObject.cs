@@ -9,13 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Bayards_Android.Enums;
 
 namespace Bayards_Android.Model
 {
-    public class Subcategory
+    public class MediaObject
     {
-        public string Name { get; set; }
+        public string Link { get; set; }
 
-        public List<Risk> Risks { get; set; }
+        public  TypeMedia  TypeMedia { get; set; }
     }
 }

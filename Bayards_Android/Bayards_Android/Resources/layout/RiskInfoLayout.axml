@@ -20,16 +20,6 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textSize="30sp"
             android:text="Name goes here" />
-        <ImageView
-            android:id="@+id/risk_picture"
-            android:src="@drawable/lorem1"
-            android:adjustViewBounds="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:scaleType="centerInside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/risk_content"
             android:text="@string/lorem"

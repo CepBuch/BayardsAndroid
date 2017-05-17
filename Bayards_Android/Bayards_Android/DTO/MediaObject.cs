@@ -13,15 +13,13 @@ using Newtonsoft.Json;
 
 namespace Bayards_Android.DTO
 {
-    class Subcategory
+    class MediaObject
     {
-        [JsonProperty("id_s")]
-        public string Id { get; set; }
+        [JsonProperty("link_m")]
+        public string Link { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("type_media")]
+        public string TypeMedia { get; set; }
 
-        [JsonProperty("risks")]
-        public Risk [] Risks { get; set; }
     }
 }

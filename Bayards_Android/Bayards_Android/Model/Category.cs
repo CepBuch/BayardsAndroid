@@ -14,12 +14,15 @@ namespace Bayards_Android.Model
 {
     public class Category
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
-        public string ServerId { get; set; }
+        public string Language { get; set; }
 
-        public List<Subcategory> Subcategories { get; set; }
+        public Risk [] Risks { get; set; }   
+         
+        public Category [] Subcategories { get; set; }
 
-        public List<Risk> Risks { get; set; }
     }
 }

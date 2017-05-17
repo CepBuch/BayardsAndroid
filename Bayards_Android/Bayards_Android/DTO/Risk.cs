@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -20,7 +19,11 @@ namespace Bayards_Android.DTO
 
         [JsonProperty("name")]
         public string Name { get; set; }
+        
+        [JsonProperty("content")]
+        public string Content { get; set; }
 
-        public List<string> Images { get; set; }
+        [JsonProperty("media")]
+        public  MediaObject [] MediaObjects { get; set; }  
     }
 }
