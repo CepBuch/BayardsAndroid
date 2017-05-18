@@ -11,8 +11,17 @@ namespace Bayards_Android
 {
     class ApiProvider
     {
-        const string hosting = "http://vhost29450.cpsite.ru";
+        private string _host = "http://vhost29450.cpsite.ru";
         const string uriGetDataTemplate = "{0}/api/getAll?lang={1}";
+
+
+
+        //Constructor gets server address
+        public ApiProvider(string host)
+        {
+            _host = host;
+        }
+
 
         //Returns categories from server for each language
         public async Task<Model.Category[]> GetData(string[] languages)
@@ -26,7 +35,7 @@ namespace Bayards_Android
             {
                 foreach (var language in languages)
                 {
-                    string requestUri = string.Format(uriGetDataTemplate, hosting, language);
+                    string requestUri = string.Format(uriGetDataTemplate, _host, language);
                     HttpResponseMessage response = await client.GetAsync(requestUri);
 
                     if (response.IsSuccessStatusCode)

@@ -90,7 +90,7 @@ namespace Bayards_Android
             loadButton.Enabled = false;
 
 
-            ApiProvider provider = new ApiProvider();
+            ApiProvider provider = new ApiProvider("http://vhost29450.cpsite.ru");
             string language = _prefs.GetString("languageCode", "eng");
 
             //Trying to download data and add it to local database

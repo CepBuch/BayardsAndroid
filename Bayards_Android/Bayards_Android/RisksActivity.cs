@@ -26,6 +26,7 @@ namespace Bayards_Android
         RisksList risksList;
         ViewPager viewPager;
         RadioGroup tabs;
+        string language;
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
@@ -39,23 +40,25 @@ namespace Bayards_Android
             var parent_category_id = Intent.GetStringExtra("category_id");
 
             //Getting current lunguage from application properties. 
-            var language = prefs.GetString("languageCode", "eng");
-    
+            language = prefs.GetString("languageCode", "eng");
+
             //Getting all subcategories and risks of parent category
             var subcategories = Database.Manager.GetSubcategories(parent_category_id, language);
-
             var risks = Database.Manager.GetRisks(parent_category_id, language);
 
             tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
 
-            //Adding tabs of each subcategory and risks
-            ShowCategoryContent(risks, subcategories);
 
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabs_dots);
             tabLayout.SetupWithViewPager(viewPager);
 
+            //Adding tabs of each subcategory and risks
+            ShowCategoryContent(risks, subcategories);
+
             
+
+
 
 
             Android.Support.V7.Widget.Toolbar toolbar =
@@ -80,27 +83,32 @@ namespace Bayards_Android
         }
 
 
-        private void ShowCategoryContent(IEnumerable<Risk> risks, IEnumerable<Category> subCategories)
+        private void ShowCategoryContent(List<Risk> risks, List<Category> subCategories)
         {
-            //First adding tab and showing risks of parent category
-            AddTab("Risks", risks);
-
-
-            ShowRisks(risks);
-
-
-            //Then adding tabs of all subcategories
-            foreach (var subCat in subCategories)
+            //First adding tab and showing risks of parent category if it has risks
+            if (risks != null && risks.Count > 0)
             {
-                AddTab(subCat.Name, subCat.Risks);
+                AddTab("Risks", risks);
+                ShowRisks(risks);
             }
-            
-            
+
+
+            if (subCategories != null && subCategories.Count > 0)
+            {
+                //Then adding tabs of all subcategories
+                foreach (var subCat in subCategories)
+                {
+                    var risksOfSubcat = Database.Manager.GetRisks(subCat.Id, language);
+                    if (risksOfSubcat != null && risksOfSubcat.Count > 0)
+                        AddTab(subCat.Name, risksOfSubcat);
+                }
+            }
+
+
         }
-        private void ShowRisks(IEnumerable<Risk> risks)
+        private void ShowRisks(List<Risk> risks)
         {
-            ApiProvider api = new ApiProvider();
-            risksList = new RisksList(/*api.GetRisks(a)*/ null);
+            risksList = new RisksList(risks);
             viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
         }
 
@@ -122,7 +130,7 @@ namespace Bayards_Android
         }
 
 
-        public void AddTab(string content, IEnumerable<Risk> risks, bool isChecked  = false)
+        public void AddTab(string content, List<Risk> risks, bool isChecked = false)
         {
 
             var width = DpToPx(120);
@@ -151,6 +159,7 @@ namespace Bayards_Android
 
             tabs.AddView(rb, params_rb);
         }
+
 
         private int DpToPx(int dp)
         {

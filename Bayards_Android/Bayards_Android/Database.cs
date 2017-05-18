@@ -60,7 +60,7 @@ namespace Bayards_Android
 [Id] INTEGER PRIMARY KEY AUTOINCREMENT,
 [Category_Id] ntext,
 [Category_Name] ntext,
-[Language] nvarchar(5),
+[Category_Language] nvarchar(5),
 [Parent_Id] ntext,
 FOREIGN KEY ([Parent_Id]) REFERENCES [Category]([Category_Id])
 );",
@@ -70,7 +70,7 @@ FOREIGN KEY ([Parent_Id]) REFERENCES [Category]([Category_Id])
 [Risk_Id] ntext,
 [Risk_Name] ntext,
 [Risk_Content] ntext,
-[Language] nvarchar(5),
+[Risk_Language] nvarchar(5),
 [Category_Id] ntext,
 FOREIGN KEY ([Category_Id]) REFERENCES [Category]([Category_Id])
 );",
@@ -78,7 +78,7 @@ FOREIGN KEY ([Category_Id]) REFERENCES [Category]([Category_Id])
 [Id] INTEGER PRIMARY KEY AUTOINCREMENT,
 [Media_Path] ntext,
 [Media_Type] ntext,
-[Language] ntext,
+[Media_Language] nvarchar(5),
 [Risk_Id] ntext,
 FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 );" };
@@ -128,7 +128,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         var commands = new List<string>
                         {
                             //Inserting category
-                            $"INSERT INTO [Category] ([Category_Id], [Category_Name], [Language], [Parent_Id] )" +
+                            $"INSERT INTO [Category] ([Category_Id], [Category_Name], [Category_Language], [Parent_Id] )" +
                                 $"VALUES ('{cat.Id}', '{cat.Name}', '{cat.Language}', NULL);"
                         };
 
@@ -136,13 +136,13 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         foreach (var risk in cat.Risks)
                         {
                             commands.Add(
-                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_content], [Language], [Category_Id] )" +
+                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_content], [Risk_Language], [Category_Id] )" +
                                     $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{cat.Id}');");
 
                             foreach (var mediaObj in risk.MediaObjects)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Language], [Risk_Id])" +
+                                    $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Media_Language], [Risk_Id])" +
                                     $"VALUES ('{mediaObj.Link}', '{mediaObj.TypeMedia}', '{risk.Language}', '{risk.Id}');");
                             }
                         }
@@ -151,20 +151,20 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         foreach (var subcat in cat.Subcategories)
                         {
                             commands.Add(
-                                $"INSERT INTO [Category] ([Category_Id],  [Category_Name], [Language], [Parent_Id] )" +
+                                $"INSERT INTO [Category] ([Category_Id],  [Category_Name], [Category_Language], [Parent_Id] )" +
                                 $"VALUES ('{subcat.Id}', '{subcat.Name}', '{subcat.Language}', '{cat.Id}');");
 
                             //Inserting all risks for each subcategory
                             foreach (var risk in subcat.Risks)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_Content], [Language], [Category_Id] )" +
+                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_Content], [Risk_Language], [Category_Id] )" +
                                     $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{subcat.Id}');");
                                 foreach (var mediaObj in risk.MediaObjects)
                                 {
                                     commands.Add(
-                                       $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Language], [Risk_Id])" +
-                                       $"VALUES ('{mediaObj.Link}', '{mediaObj.TypeMedia}', '{risk.Language}', '{risk.Id}');");
+                                       $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Media_Language], [Risk_Id])" +
+                                       $"VALUES ('{mediaObj.Link}', '{mediaObj.TypeMedia}',  '{risk.Language}', '{risk.Id}');");
                                 }
                             }
                         }
@@ -195,7 +195,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
         }
 
 
-        public IEnumerable<Category> GetCategories(string language)
+        public List<Category> GetCategories(string language)
         {
             List<Category> categories = new List<Category>();
 
@@ -208,8 +208,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     using (var contents = Connection.CreateCommand())
                     {
                         //Parent_id = NULL is condition to get Categories (not subcategories)
-                        contents.CommandText = $"SELECT [Category_Id], [Category_Name], [Language], [Parent_Id] FROM [Category]" +
-                            $"WHERE [Language] = '{language}' AND [Parent_id] IS NULL";
+                        contents.CommandText = $"SELECT [Category_Id], [Category_Name], [Category_Language] FROM [Category]" +
+                            $"WHERE [Category_Language] = '{language}' AND [Parent_id] IS NULL";
                         contents.CommandType = System.Data.CommandType.Text;
                         var r = contents.ExecuteReader();
 
@@ -219,11 +219,11 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             {
                                 Id = r["Category_Id"].ToString(),
                                 Name = r["Category_Name"].ToString(),
-                                Language = r["Language"].ToString()
+                                Language = r["Category_Language"].ToString()
                             });
                         }
                     }
-                    return categories.Where(c => c!=null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name));
+                    return categories.Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList() ;
                 }
                 catch 
                 {
@@ -239,7 +239,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
 
 
-        public IEnumerable<Category> GetSubcategories(string parent_category_id, string language)
+        public List<Category> GetSubcategories(string parent_category_id, string language)
         {
             if (string.IsNullOrWhiteSpace(parent_category_id))
                 throw new NullReferenceException("category_id cannot be null or whitespace");
@@ -256,8 +256,9 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     Connection.Open();
                     using (var contents = Connection.CreateCommand())
                     {
-                        contents.CommandText = "SELECT  [Category_Id], [Category_Name], [Language] from [Category]" +
-                            $"WHERE [Category_Id] = '{parent_category_id}' AND [Language] =  '{language}';";
+                        contents.CommandText = 
+                            "SELECT  [Category_Id], [Category_Name], [Category_Language] from [Category]" +
+                            $"WHERE [Parent_Id] = '{parent_category_id}' AND [Category_Language] =  '{language}';";
 
                         var r = contents.ExecuteReader();
                         while (r.Read())
@@ -266,11 +267,11 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             {
                                 Id = r["Category_Id"].ToString(),
                                 Name = r["Category_Name"].ToString(),
-                                Language = r["Language"].ToString()
+                                Language = r["Category_Language"].ToString()
                             });
                         }
                     }
-                    return foundSubcategories.Where(c => c!= null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name));
+                    return foundSubcategories.Where(c => c!= null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList();
                 }
                 catch
                 {
@@ -285,7 +286,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
         }
 
 
-        public IEnumerable<Risk> GetRisks(string parent_category_id, string language)
+        public List<Risk> GetRisks(string parent_category_id, string language)
         {
             if (string.IsNullOrWhiteSpace(parent_category_id))
                 throw new NullReferenceException("category_id cannot be null or whitespace");
@@ -302,26 +303,78 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     Connection.Open();
                     using (var contents = Connection.CreateCommand())
                     {
-                        contents.CommandText = "SELECT [Risk_Name], [Risk_Content], [Language], [Category_Id]," +
-                            "[Media_path], [Media_type], [Media_description] from [Risk]" +
-                            "INNER JOIN [Media] on [Risk].[Risk_Id] = [Media].[Risk_Id]" +
-                            $"WHERE [Category_Id] = '{parent_category_id}' AND [Language] = '{language}';";
+                        contents.CommandType = System.Data.CommandType.Text;
+
+                        contents.CommandText = 
+                            "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
+                            $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}';";
+
+                        var r = contents.ExecuteReader();
+
+                        while (r.Read())
+                        {
+
+                            foundRisks.Add(new Model.Risk
+                            {
+                                Id = r["Risk_Id"].ToString(),
+                                Name = r["Risk_Name"].ToString(),
+                                Content = r["Risk_Content"].ToString(),
+                                Language = r["Risk_Language"].ToString(),
+                            });
+                        }
+                    }
+                    return foundRisks.Where(risk => risk != null && !string.IsNullOrWhiteSpace(risk.Id) && !string.IsNullOrWhiteSpace(risk.Name)).ToList();
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
+        }
+
+
+        public List<Risk> GetMedia(string parent_risk_id, string language)
+        {
+            if (string.IsNullOrWhiteSpace(parent_risk_id))
+                throw new NullReferenceException("risk_id cannot be null or whitespace");
+
+            if (string.IsNullOrWhiteSpace(language))
+                throw new NullReferenceException("language cannot be null or whitespace");
+
+
+            if (Connection != null)
+            {
+                List<Risk> foundRisks = new List<Risk>();
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandType = System.Data.CommandType.Text;
+
+                        contents.CommandText =
+                            "SELECT [Media_Path], [Risk_Content], [Risk_Language]" +
+                            $"WHERE [Category_Id] = '{parent_risk_id}' AND [Risk_Language] = '{language}';";
 
                         var r = contents.ExecuteReader();
                         while (r.Read())
                         {
                             foundRisks.Add(new Model.Risk
                             {
-                                Id = r["Risk_Id"].ToString(),
                                 Name = r["Risk_Name"].ToString(),
                                 Content = r["Risk_Content"].ToString(),
-                                Language = r["Language"].ToString()
+                                Language = r["Risk_Language"].ToString(),
                             });
                         }
                     }
-                    return foundRisks.Where(r => r!=null && !string.IsNullOrWhiteSpace(r.Id) && !string.IsNullOrWhiteSpace(r.Name));
+                    return foundRisks.Where(risk => risk != null && !string.IsNullOrWhiteSpace(risk.Id) && !string.IsNullOrWhiteSpace(risk.Name)).ToList();
                 }
-                catch
+                catch (Exception ex)
                 {
                     return null;
                 }
