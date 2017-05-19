@@ -6,6 +6,7 @@
   <string name="cont">Continue</string>
   <string name="password">Password</string>
   <string name="enter_password">Enter your password</string>
+  <string  name="password_was_changed">The password was changed, you will be redirected to the password entry page.</string>
   <string name="incorrect_password">The password is incorrect</string>
   <string name="incorrect_password_advice"> Please, ask your supervisor for the correct password </string>
   <string name="bayards">Bayards Nieuw - Lekkerland</string>
@@ -21,7 +22,6 @@
 
   <!--DATA LOAD LAYOUT-->
   <string name="data_label">Data loading: </string>
-  <string name="data_info"> To load information check your internet connection and press \"Load\" </string>
   <string name ="data_no_connection_waring">No internet connection was found.</string>
 
   <string name ="data_wifi_warning">
@@ -36,7 +36,7 @@
   <string name ="data_wait">Please, wait while we are loading data</string>
   <string name ="data_warning">Failed to load data.</string>
   <string name ="data_warning_advice">Make sure, your internet connection is working or ask your supervisor for help.</string>
-  <string name ="data_button_content">Load</string>
+  <string name ="data_button_content">Try again</string>
   <string name ="data_reading_error">An error occurred while reading the data. Try to download it again. </string>
 
 

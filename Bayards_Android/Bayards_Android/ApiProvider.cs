@@ -11,8 +11,10 @@ namespace Bayards_Android
 {
     class ApiProvider
     {
-        private string _host = "http://vhost29450.cpsite.ru";
+        private string _host;
         const string uriGetDataTemplate = "{0}/api/getAll?lang={1}";
+        const string uriImageUpload = "{0}/ui/images/{1}";
+        const string uriCheckPassword = "{0}/api/checkPassword";
 
 
 
@@ -49,7 +51,7 @@ namespace Bayards_Android
 
                             if (DTOCategories != null && DTOCategories.Length > 0)
                             {
-                                result.AddRange(ConvertCatogories(DTOCategories, language));
+                                result.AddRange(await ConvertCatogories(DTOCategories, language));
                             }
                             else
                                 throw new NullReferenceException("The answer is empty");
@@ -65,60 +67,63 @@ namespace Bayards_Android
         }
 
 
-        private Model.Category[] ConvertCatogories(DTO.Category[] catogoriesToConvert, string language)
+        private async Task<Model.Category[]> ConvertCatogories(DTO.Category[] catogoriesToConvert, string language)
         {
-            return catogoriesToConvert
+            var tasks = catogoriesToConvert
                 .Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name))
-                .Select(c => new Model.Category
+                .Select(async c => new Model.Category
                 {
                     Id = c.Id,
                     Name = c.Name,
-                    Risks = ConvertRisks(c.Risks, language),
-                    Subcategories = ConvertSubcategories(c.Subcategories, language),
+                    Risks = await ConvertRisks(c.Risks, language),
+                    Subcategories = await ConvertSubcategories(c.Subcategories, language),
                     Language = language
                 }).ToArray();
+            return await Task.WhenAll(tasks);
         }
 
 
 
-        private Model.Category[] ConvertSubcategories(DTO.Subcategory[] subcategoriesToConvert, string language)
+        private async Task<Model.Category[]> ConvertSubcategories(DTO.Subcategory[] subcategoriesToConvert, string language)
         {
-            return subcategoriesToConvert
+            var tasks = subcategoriesToConvert
                 .Where(sc => sc != null && !string.IsNullOrWhiteSpace(sc.Id) && !string.IsNullOrWhiteSpace(sc.Name))
-                .Select(sc => new Model.Category
+                .Select(async sc => new Model.Category
                 {
                     Id = sc.Id,
                     Name = sc.Name,
-                    Risks = ConvertRisks(sc.Risks, language),
+                    Risks = await ConvertRisks(sc.Risks, language),
                     Subcategories = null,
                     Language = language
                 }).ToArray();
+            return await Task.WhenAll(tasks);
         }
 
 
-        private Model.Risk[] ConvertRisks(DTO.Risk[] risksToConvert, string language)
+        private async Task<Model.Risk[]> ConvertRisks(DTO.Risk[] risksToConvert, string language)
         {
-            return risksToConvert
+            var tasks = risksToConvert
                 .Where(r => r != null && !string.IsNullOrWhiteSpace(r.Id) && !string.IsNullOrWhiteSpace(r.Name))
-                .Select(r => new Model.Risk
+                .Select(async r => new Model.Risk
                 {
-
                     Id = r.Id,
                     Name = r.Name,
                     Content = r.Content,
                     Language = language,
-                    MediaObjects = ConvertMedia(r.MediaObjects, language)
+                    MediaObjects = await ConvertMedia(r.MediaObjects, language)
+                }).ToList();
 
-                }).ToArray();
+            return await Task.WhenAll(tasks);
+
         }
 
-        private Model.MediaObject[] ConvertMedia(DTO.MediaObject[] objectsToConvert, string language)
+        private async Task<Model.MediaObject[]> ConvertMedia(DTO.MediaObject[] objectsToConvert, string language)
         {
             var resultObjects = new List<Model.MediaObject>();
 
             foreach (var DTOmediaObj in
                 objectsToConvert.
-                Where(o => o != null && !string.IsNullOrWhiteSpace(o.Link) && !string.IsNullOrWhiteSpace(o.TypeMedia)))
+                Where(o => o != null && !string.IsNullOrWhiteSpace(o.Uri) && !string.IsNullOrWhiteSpace(o.TypeMedia)))
             {
                 TypeMedia mediaType = TypeMedia.Undefined;
 
@@ -137,12 +142,62 @@ namespace Bayards_Android
 
                 resultObjects.Add(new Model.MediaObject
                 {
-                    Link = DTOmediaObj.Link,
-                    TypeMedia = mediaType
+                    Name = DTOmediaObj.Uri,
+                    TypeMedia = mediaType,
+                    Bytes = mediaType == TypeMedia.Image ? await DownloadImage(DTOmediaObj.Uri) : null
                 });
             }
             return resultObjects
                 .Where(o => o.TypeMedia != TypeMedia.Undefined).ToArray();
         }
+
+        private async Task<byte[]> DownloadImage(string image_name)
+        {
+            string requestUri = string.Format(uriImageUpload, _host, image_name);
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return await response.Content.ReadAsByteArrayAsync();
+                    }
+                    else
+                        throw new WebException($"The server returned an error: {response.StatusCode}");
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        public async Task<bool> CheckPassword(string password)
+        {
+            try
+            {
+                int flag = 0;
+                using (HttpClient hc = new HttpClient())
+                {
+                    var values = new Dictionary<string, string> { { "password", password } };
+
+                    var content = new FormUrlEncodedContent(values);
+                    var response = hc.PostAsync(string.Format(uriCheckPassword, _host), content).Result;
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeAnonymousType(responseString, new { check = 0 });
+                    flag = res.check;
+                }
+                return flag == 1;
+            }
+            catch (Exception ex) { return false; };
+
+        }
+
+
+
     }
 }

@@ -15,8 +15,11 @@ namespace Bayards_Android.Model
 {
     public class MediaObject
     {
-        public string Link { get; set; }
+        public string Name { get; set; }
+
 
         public  TypeMedia  TypeMedia { get; set; }
+
+        public byte [] Bytes { get; set; }
     }
 }

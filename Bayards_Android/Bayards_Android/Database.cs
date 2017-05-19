@@ -4,6 +4,7 @@ using Mono.Data.Sqlite;
 using System.IO;
 using Bayards_Android.Model;
 using System.Linq;
+using Bayards_Android.Enums;
 
 namespace Bayards_Android
 {
@@ -30,7 +31,7 @@ namespace Bayards_Android
             {
                 if (_dbPath == null)
                 {
-                    var docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+                    var docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                     _dbPath = System.IO.Path.Combine(docsFolder, "Bayards_Db.db3");
                 }
                 return _dbPath;
@@ -76,7 +77,7 @@ FOREIGN KEY ([Category_Id]) REFERENCES [Category]([Category_Id])
 );",
                 @"CREATE TABLE [Media] (
 [Id] INTEGER PRIMARY KEY AUTOINCREMENT,
-[Media_Path] ntext,
+[Media_Name] ntext,
 [Media_Type] ntext,
 [Media_Language] nvarchar(5),
 [Risk_Id] ntext,
@@ -142,8 +143,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             foreach (var mediaObj in risk.MediaObjects)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Media_Language], [Risk_Id])" +
-                                    $"VALUES ('{mediaObj.Link}', '{mediaObj.TypeMedia}', '{risk.Language}', '{risk.Id}');");
+                                    $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
+                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia}', '{risk.Language}', '{risk.Id}');");
                             }
                         }
 
@@ -163,8 +164,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                                 foreach (var mediaObj in risk.MediaObjects)
                                 {
                                     commands.Add(
-                                       $"INSERT INTO [Media] ([Media_Path], [Media_Type], [Media_Language], [Risk_Id])" +
-                                       $"VALUES ('{mediaObj.Link}', '{mediaObj.TypeMedia}',  '{risk.Language}', '{risk.Id}');");
+                                       $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
+                                       $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia}',  '{risk.Language}', '{risk.Id}');");
                                 }
                             }
                         }
@@ -223,9 +224,9 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             });
                         }
                     }
-                    return categories.Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList() ;
+                    return categories.Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList();
                 }
-                catch 
+                catch
                 {
                     return null;
                 }
@@ -256,7 +257,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     Connection.Open();
                     using (var contents = Connection.CreateCommand())
                     {
-                        contents.CommandText = 
+                        contents.CommandText =
                             "SELECT  [Category_Id], [Category_Name], [Category_Language] from [Category]" +
                             $"WHERE [Parent_Id] = '{parent_category_id}' AND [Category_Language] =  '{language}';";
 
@@ -271,7 +272,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             });
                         }
                     }
-                    return foundSubcategories.Where(c => c!= null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList();
+                    return foundSubcategories.Where(c => c != null && !string.IsNullOrWhiteSpace(c.Id) && !string.IsNullOrWhiteSpace(c.Name)).ToList();
                 }
                 catch
                 {
@@ -305,7 +306,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     {
                         contents.CommandType = System.Data.CommandType.Text;
 
-                        contents.CommandText = 
+                        contents.CommandText =
                             "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
                             $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}';";
 
@@ -338,7 +339,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
         }
 
 
-        public List<Risk> GetMedia(string parent_risk_id, string language)
+        public List<MediaObject> GetMedia(string parent_risk_id, string language)
         {
             if (string.IsNullOrWhiteSpace(parent_risk_id))
                 throw new NullReferenceException("risk_id cannot be null or whitespace");
@@ -349,7 +350,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
             if (Connection != null)
             {
-                List<Risk> foundRisks = new List<Risk>();
+                List<MediaObject> foundMedia = new List<MediaObject>();
                 try
                 {
                     Connection.Open();
@@ -358,21 +359,20 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         contents.CommandType = System.Data.CommandType.Text;
 
                         contents.CommandText =
-                            "SELECT [Media_Path], [Risk_Content], [Risk_Language]" +
-                            $"WHERE [Category_Id] = '{parent_risk_id}' AND [Risk_Language] = '{language}';";
+                            "SELECT [Media_Path], [Media_Type] FROM [Media]" +
+                            $"WHERE [Risk_Id] = '{parent_risk_id}' AND [Media_Language] = '{language}';";
 
                         var r = contents.ExecuteReader();
                         while (r.Read())
                         {
-                            foundRisks.Add(new Model.Risk
+                            foundMedia.Add(new MediaObject
                             {
-                                Name = r["Risk_Name"].ToString(),
-                                Content = r["Risk_Content"].ToString(),
-                                Language = r["Risk_Language"].ToString(),
+                                Name = r["Media_Path"].ToString(),
+                                TypeMedia = ToTypeMedia(r["Media_Type"].ToString())
                             });
                         }
                     }
-                    return foundRisks.Where(risk => risk != null && !string.IsNullOrWhiteSpace(risk.Id) && !string.IsNullOrWhiteSpace(risk.Name)).ToList();
+                    return foundMedia.Where(m => m != null && !string.IsNullOrWhiteSpace(m.Name) && m.TypeMedia != TypeMedia.Undefined).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -385,6 +385,20 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
             }
             else return null;
         }
+
+        private TypeMedia ToTypeMedia(string str)
+        {
+            switch (str)
+            {
+                case "image":
+                    return TypeMedia.Image;
+                case "video":
+                    return TypeMedia.Video;
+                default:
+                    return TypeMedia.Undefined;
+            }
+        }
+
 
 
 

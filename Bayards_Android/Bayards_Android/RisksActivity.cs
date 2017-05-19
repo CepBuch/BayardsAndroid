@@ -16,6 +16,7 @@ using Android.Support.Design.Widget;
 using Bayards_Android.CategoryViewModel;
 using Bayards_Android.Model;
 using Android.Preferences;
+using static Android.Text.TextUtils;
 
 namespace Bayards_Android
 {
@@ -25,7 +26,8 @@ namespace Bayards_Android
         ISharedPreferences prefs;
         RisksList risksList;
         ViewPager viewPager;
-        RadioGroup tabs;
+        RadioGroup subcategoriesTabs;
+        TabLayout risksDottedTab;
         string language;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,17 +48,17 @@ namespace Bayards_Android
             var subcategories = Database.Manager.GetSubcategories(parent_category_id, language);
             var risks = Database.Manager.GetRisks(parent_category_id, language);
 
-            tabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
+            subcategoriesTabs = FindViewById<RadioGroup>(Resource.Id.tabsGroup);
 
 
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
-            TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabs_dots);
-            tabLayout.SetupWithViewPager(viewPager);
+            risksDottedTab = FindViewById<TabLayout>(Resource.Id.tabs_dots);
+            risksDottedTab.SetupWithViewPager(viewPager);
 
             //Adding tabs of each subcategory and risks
             ShowCategoryContent(risks, subcategories);
 
-            
+
 
 
 
@@ -64,6 +66,7 @@ namespace Bayards_Android
             Android.Support.V7.Widget.Toolbar toolbar =
                FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_risks);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
+            toolbarTitle.Selected = true;
             SetSupportActionBar(toolbar);
 
 
@@ -86,28 +89,45 @@ namespace Bayards_Android
         private void ShowCategoryContent(List<Risk> risks, List<Category> subCategories)
         {
             //First adding tab and showing risks of parent category if it has risks
-            if (risks != null && risks.Count > 0)
+            bool hasRisks = risks != null && risks.Count > 0;
+
+            if (hasRisks)
             {
-                AddTab("Risks", risks);
+                AddTab("Risks", risks, hasRisks);
                 ShowRisks(risks);
             }
 
 
+
             if (subCategories != null && subCategories.Count > 0)
             {
+                subcategoriesTabs.Visibility = ViewStates.Visible;
+                bool firstSubcategory = true;
                 //Then adding tabs of all subcategories
                 foreach (var subCat in subCategories)
                 {
+                    
                     var risksOfSubcat = Database.Manager.GetRisks(subCat.Id, language);
-                    if (risksOfSubcat != null && risksOfSubcat.Count > 0)
-                        AddTab(subCat.Name, risksOfSubcat);
+                    if (risksOfSubcat != null)
+                        AddTab(subCat.Name, risksOfSubcat, !hasRisks && firstSubcategory);
+                    firstSubcategory = false;
                 }
             }
+            else subcategoriesTabs.Visibility = ViewStates.Gone;
 
 
         }
         private void ShowRisks(List<Risk> risks)
         {
+            if (risks == null || risks.Count == 0)
+            {
+                risks = new List<Risk>
+                {
+                    new Risk {Name = "" , Content = "There is no risks in this category"}
+                };
+            }
+            risksDottedTab.Visibility = risks == null || risks.Count == 0 ||
+                (risks != null && risks.Count > 1) ? ViewStates.Visible : ViewStates.Gone;
             risksList = new RisksList(risks);
             viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
         }
@@ -133,7 +153,7 @@ namespace Bayards_Android
         public void AddTab(string content, List<Risk> risks, bool isChecked = false)
         {
 
-            var width = DpToPx(120);
+            var width = DpToPx(170);
             var height = DpToPx(40);
 
             RadioGroup.LayoutParams params_rb
@@ -149,15 +169,19 @@ namespace Bayards_Android
             rb.SetTextColor(GetColorStateList(Resource.Drawable.radiobutton_text));
             rb.SetBackgroundResource(Resource.Drawable.radiobutton_shape);
             rb.SetButtonDrawable(Android.Resource.Color.Transparent);
+            rb.Ellipsize = TruncateAt.Marquee;
+            rb.SetMarqueeRepeatLimit(-1);
+            rb.Selected = true;
+            rb.SetSingleLine(true);
 
+            rb.Click += (e, s) => ShowRisks(risks);
 
             if (isChecked)
                 rb.Checked = true;
 
-            rb.Click += (e, s) => ShowRisks(risks);
 
 
-            tabs.AddView(rb, params_rb);
+            subcategoriesTabs.AddView(rb, params_rb);
         }
 
 

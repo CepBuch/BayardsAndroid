@@ -16,7 +16,7 @@ namespace Bayards_Android.DTO
     class MediaObject
     {
         [JsonProperty("link_m")]
-        public string Link { get; set; }
+        public string Uri { get; set; }
 
         [JsonProperty("type_media")]
         public string TypeMedia { get; set; }

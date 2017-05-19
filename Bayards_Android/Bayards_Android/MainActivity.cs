@@ -31,6 +31,12 @@ namespace Bayards_Android
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
 
+            //-----------------------PUTTING THE SERVER ADDRESS-------------------------------
+            editor.PutString("hosting_address", "http://vhost29450.cpsite.ru");
+            editor.Apply();
+
+
+
             //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
 
@@ -53,13 +59,13 @@ namespace Bayards_Android
         private void ShowAllCategories()
         {
             //Getting current lunguage from application properties. 
-            string language= prefs.GetString("languageCode", "eng");
+            string language = prefs.GetString("languageCode", "eng");
 
             var categories = Database.Manager.GetCategories(language);
 
-            if (categories != null && categories.ToList().Count > 0)
+            if (categories != null && categories.Count > 0)
             {
-                categoriesList = new CategoriesList(categories.ToList());
+                categoriesList = new CategoriesList(categories);
                 categoriesAdapter = new CategoriesAdapter(categoriesList);
                 categoriesAdapter.ItemClick += OnItemClick;
 

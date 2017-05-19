@@ -258,15 +258,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\custom_scrollbar.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\lorem1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\lorem2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\lorem3.jpg" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
