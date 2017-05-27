@@ -14,6 +14,7 @@ using System.Data;
 using Mono.Data.Sqlite;
 using Android.Net;
 using System.Threading.Tasks;
+using Bayards_Android.Model;
 
 namespace Bayards_Android
 {
@@ -38,7 +39,7 @@ namespace Bayards_Android
             _editor = _prefs.Edit();
 
             tryAgainButton = FindViewById<Button>(Resource.Id.data_load_button);
-            tryAgainButton.Click += LoadButton_Click;
+            tryAgainButton.Click += delegate { DownloadData(); };
 
             warningLayout = FindViewById<LinearLayout>(Resource.Id.data_warningLayout);
             waitLayout = FindViewById<LinearLayout>(Resource.Id.data_waitLayout);
@@ -46,11 +47,6 @@ namespace Bayards_Android
             AskUserPermissionToDownload();
 
         }
-
-
-
-        private void LoadButton_Click(object sender, EventArgs e)
-            => DownloadData();
 
 
         //Checking internet connection, and, if it connected, asking user's permission to download data.
@@ -109,10 +105,7 @@ namespace Bayards_Android
                     var data = await provider.GetData(new string[] { "eng", "nl" });
 
                     //Saving all the images onto device
-                    data.ToList()
-                        .ForEach(c => c.Risks.ToList()
-                        .ForEach(r => r.MediaObjects.Where(m => m != null && m.TypeMedia == Enums.TypeMedia.Image).ToList()
-                        .ForEach(m => SaveImage(m))));
+                    SaveAllImages(data);
 
 
                     bool createStatus = Database.Manager.CreateDatabase();
@@ -153,9 +146,6 @@ namespace Bayards_Android
                 waitLayout.Visibility = ViewStates.Gone;
                 warningLayout.Visibility = ViewStates.Visible;
                 tryAgainButton.Visibility = ViewStates.Visible;
-            }
-            finally
-            {
                 tryAgainButton.Enabled = true;
             }
         }
@@ -167,18 +157,47 @@ namespace Bayards_Android
             this.Finish();
         }
 
-        private async void SaveImage(Model.MediaObject mObj)
+        private async void SaveAllImages(Category[] categories)
         {
-            if (mObj != null && mObj.Bytes != null && mObj.Bytes.Length > 0)
+            try
             {
-                var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                var localFilename = mObj.Name;
-                var localPath = System.IO.Path.Combine(documentsPath, localFilename);
-                using (FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate))
+                List<MediaObject> mediaWithImagesPaths = new List<MediaObject>();
+
+                if (categories != null)
                 {
-                    await fs.WriteAsync(mObj.Bytes, 0, mObj.Bytes.Length);
+                    //Selecting all mediaobject that have images
+                    foreach (var category in categories.Where(c => c != null))
+                    {
+                        if (category.Risks != null)
+                            foreach (var risk in category.Risks.Where(r => r != null))
+                                if (risk.MediaObjects != null)
+                                    foreach (var media in risk.MediaObjects.Where(o => !string.IsNullOrWhiteSpace(o.Name) && o.Bytes != null && o.TypeMedia == Enums.TypeMedia.Image))
+                                        mediaWithImagesPaths.Add(media);
+
+                        if (category.Subcategories != null)
+                            foreach (var subcat in category.Subcategories.Where(sc => sc != null))
+                                if (subcat.Risks != null)
+                                    foreach (var risk in subcat.Risks.Where(r => r != null))
+                                        if (risk.MediaObjects != null)
+                                            foreach (var media in risk.MediaObjects.Where(o => !string.IsNullOrWhiteSpace(o.Name) && o.Bytes != null && o.TypeMedia == Enums.TypeMedia.Image))
+                                                mediaWithImagesPaths.Add(media);
+                    }
+
+                    foreach (var image in mediaWithImagesPaths.GroupBy(m => m.Name).Select(grp => grp.First()))
+                    {
+                        var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                        var localFilename = image.Name;
+                        var localPath = System.IO.Path.Combine(documentsPath, localFilename);
+                        using (FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate))
+                        {
+                            await fs.WriteAsync(image.Bytes, 0, image.Bytes.Length);
+                        }
+                    }
+
                 }
             }
+            catch { }
+
         }
     }
 

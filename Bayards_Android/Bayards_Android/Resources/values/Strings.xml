@@ -60,5 +60,8 @@
     <item>nl</item>
   </string-array>
 
+  <string name="openDrawer">Drawer Open</string>
+  <string name="closeDrawer">Drawer Closed</string>
+
 
 </resources>

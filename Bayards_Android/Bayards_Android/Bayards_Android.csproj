@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionBarDrawerToggle.cs" />
     <Compile Include="AgreementActivity.cs" />
     <Compile Include="CategoryViewModel\CategoriesList.cs" />
     <Compile Include="CategoryViewModel\CategoryViewHolder.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="DTO\Risk.cs" />
     <Compile Include="DTO\Subcategory..cs" />
     <Compile Include="Enums\TypeMedia.cs" />
+    <Compile Include="ExpandableListViewAdapter.cs" />
     <Compile Include="LanguageActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Category.cs" />
@@ -191,6 +193,12 @@
     <AndroidResource Include="Resources\layout\DataLoadLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Media_group_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Media_item_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\nl_logo.png" />
@@ -226,16 +234,12 @@
     <AndroidResource Include="Resources\drawable\switch_track.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\toolbar_main.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\menu\menu_main.xml" />
+    <AndroidResource Include="Resources\menu\menu_main.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\lup_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bayards.png" />

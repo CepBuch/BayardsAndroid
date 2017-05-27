@@ -114,7 +114,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
             return false;
         }
 
-
+        string query;
         public bool SaveData(Category[] categories)
         {
             if (Connection != null)
@@ -122,6 +122,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                 try
                 {
                     Connection.Open();
+
+                    ReplaceQuotes(categories);
 
                     foreach (var cat in categories)
                     {
@@ -144,7 +146,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             {
                                 commands.Add(
                                     $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
-                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia}', '{risk.Language}', '{risk.Id}');");
+                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}', '{risk.Language}', '{risk.Id}');");
                             }
                         }
 
@@ -165,7 +167,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                                 {
                                     commands.Add(
                                        $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
-                                       $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia}',  '{risk.Language}', '{risk.Id}');");
+                                       $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}',  '{risk.Language}', '{risk.Id}');");
                                 }
                             }
                         }
@@ -176,6 +178,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             using (var c = Connection.CreateCommand())
                             {
                                 c.CommandText = command;
+                                query = command;
                                 var rowcount = c.ExecuteNonQuery();
                             }
                         }
@@ -359,17 +362,16 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         contents.CommandType = System.Data.CommandType.Text;
 
                         contents.CommandText =
-                            "SELECT [Media_Path], [Media_Type] FROM [Media]" +
+                            "SELECT [Media_Name], [Media_Type] FROM [Media]" +
                             $"WHERE [Risk_Id] = '{parent_risk_id}' AND [Media_Language] = '{language}';";
 
                         var r = contents.ExecuteReader();
                         while (r.Read())
                         {
-                            foundMedia.Add(new MediaObject
-                            {
-                                Name = r["Media_Path"].ToString(),
-                                TypeMedia = ToTypeMedia(r["Media_Type"].ToString())
-                            });
+                            var mo = new MediaObject();
+                            mo.Name = r["Media_Name"].ToString();
+                            mo.TypeMedia = ToTypeMedia(r["Media_Type"].ToString());
+                            foundMedia.Add(mo);
                         }
                     }
                     return foundMedia.Where(m => m != null && !string.IsNullOrWhiteSpace(m.Name) && m.TypeMedia != TypeMedia.Undefined).ToList();
@@ -388,7 +390,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
         private TypeMedia ToTypeMedia(string str)
         {
-            switch (str)
+            switch (str.ToLower())
             {
                 case "image":
                     return TypeMedia.Image;
@@ -399,6 +401,42 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
             }
         }
 
+
+        private void ReplaceQuotes(Category[] categories)
+        {
+            foreach (var category in categories.Where(c => c != null))
+            {
+                category.Name = category.Name != null ? category.Name.Replace("'", "''").Replace("\"","\\\""): category.Name;
+
+                if (category.Risks != null)
+                {
+                    foreach (var risk in category.Risks.Where(r => r != null))
+                    {
+                        risk.Name = risk.Name != null ? risk.Name.Replace("'", "''").Replace("\"", "\\\"") : risk.Name;
+                        risk.Content = risk.Content != null ? risk.Content.Replace("'", "''").Replace("\"", "\\\"") : risk.Content;
+                    }
+                }
+
+                if (category.Subcategories != null)
+                {
+                    foreach (var subcat in category.Subcategories.Where(sc => sc != null))
+                    {
+                        subcat.Name = subcat.Name != null ? subcat.Name.Replace("'", "''").Replace("\"", "\\\"") : subcat.Name;
+
+                        if (subcat.Risks != null)
+                        {
+                            foreach (var risk in category.Risks.Where(r => r != null))
+                            {
+                                risk.Name = risk.Name != null ? risk.Name.Replace("'", "''").Replace("\"", "\\\"") : risk.Name;
+                                risk.Content = risk.Content != null ? risk.Content.Replace("'", "''").Replace("\"", "\\\"") : risk.Content;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
 
 
 

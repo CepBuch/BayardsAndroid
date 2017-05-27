@@ -3,17 +3,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
       android:id="@+id/main_search"
-      android:icon="@drawable/lup_icon"
+      android:icon="@android:drawable/ic_menu_search"
       app:showAsAction="always|collapseActionView"
       app:actionViewClass="android.support.v7.widget.SearchView"
       android:title="Search"/>  
-  <item android:id="@+id/menu_settings"
-      android:title="@string/settings_pref"
-      app:showAsAction="never"/>
-  <item android:id="@+id/menu_logout"
-      android:title="@string/logout_pref"
-      app:showAsAction="never"/>
 </menu>
 
-
-<!--android:icon="@android:drawable/ic_menu_search"-->

@@ -29,8 +29,7 @@ namespace Bayards_Android.RiskViewModel
 
         public override Android.Support.V4.App.Fragment GetItem(int position)
         {
-            return (Android.Support.V4.App.Fragment)RiskContentFragment.newInstance(
-                risks[position].Name, risks[position].Content);
+            return (Android.Support.V4.App.Fragment)RiskContentFragment.newInstance(risks[position]);
         }
 
     }
