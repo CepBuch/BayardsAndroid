@@ -12,7 +12,7 @@
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/dark_blue</item>
     <item name="colorPrimaryDark">@color/dark_blue</item>
-    <item name="colorAccent">@color/dark_blue</item>
+    <item name="colorAccent">#17B0B3</item>
     <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
   </style>
   

@@ -16,11 +16,12 @@ using Bayards_Android.Model;
 
 using System;
 using Android.Support.V4.Widget;
+using Bayards_Android.Fragments;
 
 namespace Bayards_Android
 {
     [Activity(MainLauncher = true, Theme = "@style/AppTheme")]
-    public class MainActivity : ActionBarActivity
+    public class MainActivity : AppCompatActivity
     {
         ISharedPreferences prefs;
         ISharedPreferencesEditor editor;
@@ -37,7 +38,7 @@ namespace Bayards_Android
             base.OnCreate(bundle);
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
-
+            
             //-----------------------PUTTING THE SERVER ADDRESS-------------------------------
             editor.PutString("hosting_address", "http://vhost29450.cpsite.ru");
             editor.Apply();
@@ -47,7 +48,7 @@ namespace Bayards_Android
 
             if (passedAllChecks)
             {
-                SetContentView(Resource.Layout.MainLayout);
+                SetContentView(Resource.Layout.MainActivity);
 
                 //Accepting toolbar and drawerlayout
                 toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_main);
@@ -66,8 +67,11 @@ namespace Bayards_Android
                 drawerToggle.SyncState();
 
 
-                ShowAllCategories();
-
+                //ShowAllCategories();
+                var trans = SupportFragmentManager.BeginTransaction();
+                trans.Add(Resource.Id.mainFragmentContainer,
+                    CategoriesContainerFragment.newInstance(string.Empty), "CategoriesContainerFragment");
+                trans.Commit();
             }
         }
 
@@ -85,11 +89,11 @@ namespace Bayards_Android
                 categoriesAdapter = new CategoriesAdapter(categoriesList);
                 categoriesAdapter.ItemClick += OnItemClick;
 
-                recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-                recyclerView.SetAdapter(categoriesAdapter);
+                //recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+                ////recyclerView.SetAdapter(categoriesAdapter);
 
-                layoutManager = new LinearLayoutManager(this);
-                recyclerView.SetLayoutManager(layoutManager);
+                //layoutManager = new LinearLayoutManager(this);
+                //recyclerView.SetLayoutManager(layoutManager);
             }
             else
             {

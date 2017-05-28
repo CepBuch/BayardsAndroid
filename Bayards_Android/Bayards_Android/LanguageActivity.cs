@@ -23,7 +23,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.LanguageSelectionLayout);
+            SetContentView(Resource.Layout.LanguageActivity);
 
 
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);

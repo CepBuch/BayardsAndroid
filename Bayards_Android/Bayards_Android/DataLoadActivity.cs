@@ -18,7 +18,7 @@ using Bayards_Android.Model;
 
 namespace Bayards_Android
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
+    [Activity(Theme = "@style/AppTheme")]
 
     public class DataLoadActivity : Activity
     {
@@ -32,7 +32,7 @@ namespace Bayards_Android
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.DataLoadLayout);
+            SetContentView(Resource.Layout.DataLoadActivity);
 
 
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);

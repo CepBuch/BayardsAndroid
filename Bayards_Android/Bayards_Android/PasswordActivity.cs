@@ -28,7 +28,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.PasswordLayout);
+            SetContentView(Resource.Layout.PasswordActivity);
 
 
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
@@ -65,7 +65,7 @@ namespace Bayards_Android
 
             //get response from a server
             bool correctPassword = false;
-            string encrypted_password = CreditnailsProvider.ConvertToMD5(passwordBox.Text);
+            string encrypted_password = CreditnailsConverter.ConvertToMD5(passwordBox.Text);
             try
             {
                 ApiProvider provider = new ApiProvider(_prefs.GetString("hosting_address", ""));

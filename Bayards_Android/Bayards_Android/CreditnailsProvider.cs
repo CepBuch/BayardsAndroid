@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Bayards_Android
 {
-    static class CreditnailsProvider
+    static class CreditnailsConverter
     {
-
         public static string ConvertToMD5(string password)
         {
 
@@ -33,9 +32,5 @@ namespace Bayards_Android
             }
             return hexString.ToString();
         }
-
-
-
-
     }
 }

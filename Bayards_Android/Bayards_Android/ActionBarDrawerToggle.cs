@@ -8,10 +8,10 @@ namespace Bayards_Android
 {
     class ActionBarDrawerToggle : SupportActionBarDrawerToggle
     {
-        private ActionBarActivity HostActivity;
+        private AppCompatActivity HostActivity;
         private int OpenedResource;
         private int ClosedResource; 
-        public ActionBarDrawerToggle(ActionBarActivity host, DrawerLayout drawerLayout,
+        public ActionBarDrawerToggle(AppCompatActivity host, DrawerLayout drawerLayout,
             int openedResource, int closedResource) : base(host, drawerLayout, openedResource, closedResource)
         {
             HostActivity = host;

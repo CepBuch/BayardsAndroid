@@ -14,7 +14,7 @@ using Android.Preferences;
 
 namespace Bayards_Android
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
+    [Activity(Theme = "@style/AppTheme")]
     public class AgreementActivity : ActionBarActivity
     {
         TextView userText;
@@ -27,7 +27,7 @@ namespace Bayards_Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.AgreementLayout);
+            SetContentView(Resource.Layout.AgreementActivity);
 
 
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
