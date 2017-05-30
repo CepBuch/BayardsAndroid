@@ -25,28 +25,27 @@ namespace Bayards_Android
     {
         ISharedPreferences prefs;
         ISharedPreferencesEditor editor;
-        RecyclerView recyclerView;
-        RecyclerView.LayoutManager layoutManager;
-        CategoriesList categoriesList;
-        CategoriesAdapter categoriesAdapter;
         private SupportToolbar toolbar;
         private ActionBarDrawerToggle drawerToggle;
         private DrawerLayout drawerLayout;
         private ListView listDrawer;
+        string language;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
-            
+
             //-----------------------PUTTING THE SERVER ADDRESS-------------------------------
             editor.PutString("hosting_address", "http://vhost29450.cpsite.ru");
             editor.Apply();
 
             //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
+            bool hasRecords = CountCategories();
 
-            if (passedAllChecks)
+
+            if (passedAllChecks && hasRecords)
             {
                 SetContentView(Resource.Layout.MainActivity);
 
@@ -67,7 +66,6 @@ namespace Bayards_Android
                 drawerToggle.SyncState();
 
 
-                //ShowAllCategories();
                 var trans = SupportFragmentManager.BeginTransaction();
                 trans.Add(Resource.Id.mainFragmentContainer,
                     CategoriesContainerFragment.newInstance(string.Empty), "CategoriesContainerFragment");
@@ -76,24 +74,12 @@ namespace Bayards_Android
         }
 
 
-        private void ShowAllCategories()
+        private bool CountCategories()
         {
-            //Getting current lunguage from application properties. 
-            string language = prefs.GetString("languageCode", "eng");
-
-            var categories = Database.Manager.GetCategories(language);
-
-            if (categories != null && categories.Count > 0)
+            var numCategories = Database.Manager.CountCategories(language);
+            if (numCategories.HasValue && numCategories > 0)
             {
-                categoriesList = new CategoriesList(categories);
-                categoriesAdapter = new CategoriesAdapter(categoriesList);
-                categoriesAdapter.ItemClick += OnItemClick;
-
-                //recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-                ////recyclerView.SetAdapter(categoriesAdapter);
-
-                //layoutManager = new LinearLayoutManager(this);
-                //recyclerView.SetLayoutManager(layoutManager);
+                return true;
             }
             else
             {
@@ -107,6 +93,7 @@ namespace Bayards_Android
                     CheckStepsOfAuthorization();
                 });
                 dialog.Show();
+                return false;
             }
         }
 
@@ -138,76 +125,66 @@ namespace Bayards_Android
             //    //    }
             //    default:
             return base.OnOptionsItemSelected(item);
-        //}
-    }
-
-    void OnItemClick(object sender, Category clicked_category)
-    {
-        //Category click event, open this category page
-        var intent = new Intent(this, typeof(RisksActivity));
-        intent.PutExtra("category_id", clicked_category.Id);
-        intent.PutExtra("category_name", clicked_category.Name);
-        StartActivity(intent);
-    }
-
-    public bool CheckStepsOfAuthorization()
-    {
-        //Getting info about user's authorization process from shared preferences.
-        var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
-        var isAuthorized = prefs.GetBoolean("isAuthorized", false);
-        var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
-        var isDataLoaded = prefs.GetBoolean("isDataLoaded", false);
-
-        //If language was chosen, setting the appropriate one.
-        if (isLanguageChosen)
+            //}
+        }
+        public bool CheckStepsOfAuthorization()
         {
-            string language_code = prefs.GetString("languageCode", "eng");
-            ApplyAppLanguage(language_code);
+            //Getting info about user's authorization process from shared preferences.
+            var isLanguageChosen = prefs.GetBoolean("isLanguageChosen", false);
+            var isAuthorized = prefs.GetBoolean("isAuthorized", false);
+            var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
+            var isDataLoaded = prefs.GetBoolean("isDataLoaded", false);
+
+            //If language was chosen, setting the appropriate one.
+            if (isLanguageChosen)
+            {
+                language = prefs.GetString("languageCode", "eng");
+                ApplyAppLanguage(language);
+            }
+
+            //Showing the corresponding authorizatin page.
+            //If all checks have been completed, just continue. 
+            if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement || !isDataLoaded)
+            {
+                Intent intent;
+                if (!isLanguageChosen)
+                    intent = new Intent(this, typeof(LanguageActivity));
+                else if (!isAuthorized)
+                    intent = new Intent(this, typeof(PasswordActivity));
+                else if (!isAcceptedAgreement)
+                    intent = new Intent(this, typeof(AgreementActivity));
+                else
+                    intent = new Intent(this, typeof(DataLoadActivity));
+
+                StartActivity(intent);
+                this.Finish();
+                return false;
+            }
+
+            return true;
         }
 
-        //Showing the corresponding authorizatin page.
-        //If all checks have been completed, just continue. 
-        if (!isLanguageChosen || !isAuthorized || !isAcceptedAgreement || !isDataLoaded)
+        protected void ApplyAppLanguage(string language_code)
         {
-            Intent intent;
-            if (!isLanguageChosen)
-                intent = new Intent(this, typeof(LanguageActivity));
-            else if (!isAuthorized)
-                intent = new Intent(this, typeof(PasswordActivity));
-            else if (!isAcceptedAgreement)
-                intent = new Intent(this, typeof(AgreementActivity));
-            else
-                intent = new Intent(this, typeof(DataLoadActivity));
-
-            StartActivity(intent);
-            this.Finish();
-            return false;
+            var res = this.Resources;
+            DisplayMetrics dm = res.DisplayMetrics;
+            var conf = res.Configuration;
+            conf.SetLocale(new Java.Util.Locale(language_code));
+            res.UpdateConfiguration(conf, dm);
         }
 
-        return true;
-    }
+        public void LogOut()
+        {
+            //Logout process: set all steps of authorization as false
+            editor.PutBoolean("isLanguageChosen", false);
+            editor.PutBoolean("isAuthorized", false);
+            editor.PutBoolean("isAcceptedAgreement", false);
+            editor.PutBoolean("isDataLoaded", false);
+            editor.Apply();
 
-    protected void ApplyAppLanguage(string language_code)
-    {
-        var res = this.Resources;
-        DisplayMetrics dm = res.DisplayMetrics;
-        var conf = res.Configuration;
-        conf.SetLocale(new Java.Util.Locale(language_code));
-        res.UpdateConfiguration(conf, dm);
+            //and reload this (main) activity
+            this.Recreate();
+        }
     }
-
-    public void LogOut()
-    {
-        //Logout process: set all steps of authorization as false
-        editor.PutBoolean("isLanguageChosen", false);
-        editor.PutBoolean("isAuthorized", false);
-        editor.PutBoolean("isAcceptedAgreement", false);
-        editor.PutBoolean("isDataLoaded", false);
-        editor.Apply();
-
-        //and reload this (main) activity
-        this.Recreate();
-    }
-}
 }
 

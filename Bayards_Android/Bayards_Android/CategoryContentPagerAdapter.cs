@@ -15,50 +15,61 @@ using Java.Lang;
 
 namespace Bayards_Android
 {
-    class CategoryContentPagerAdapter: FragmentPagerAdapter
+    class CategoryContentPagerAdapter : FragmentStatePagerAdapter
     {
         string category_id;
+        List<Android.Support.V4.App.Fragment> fragments;
+        List<string> titles;
 
         public CategoryContentPagerAdapter(Android.Support.V4.App.FragmentManager fm, string category_id)
             : base(fm)
         {
             this.category_id = category_id;
+
+            fragments = new List<Android.Support.V4.App.Fragment>
+            {
+                RisksContainerFragment.newInstance(category_id) ,
+                CategoriesContainerFragment.newInstance(category_id)
+            };
+            titles = new List<string>
+            {
+                "Risks",
+                "Tasks"
+            };
         }
+
 
         public override Android.Support.V4.App.Fragment GetItem(int position)
         {
-            switch (position)
-            {
-                case 0:
-                    return (Android.Support.V4.App.Fragment)RisksContainerFragment.newInstance(category_id);
-                case 1:
-                    return (Android.Support.V4.App.Fragment)CategoriesContainerFragment.newInstance(category_id);
-                default:
-                    return (Android.Support.V4.App.Fragment)RisksContainerFragment.newInstance(category_id);
-            }
-            
+            return fragments[position];
         }
 
         public override ICharSequence GetPageTitleFormatted(int position)
         {
-            switch (position)
-            {
-                case 0:
-                    return new Java.Lang.String("Risks");
-                case 1:
-                    return new Java.Lang.String("Tasks");
-                default:
-                    return new Java.Lang.String("Risks");
-            }
+            return new Java.Lang.String(titles[position]);
         }
+
+
 
         public override int Count
         {
             get
             {
-                return 2;
+                return fragments.Count;
             }
         }
+
+        public void RemovePage(string tabName)
+        {
+            var index = titles.FindIndex(t => t.ToLower() == tabName.ToLower());
+            if (index != -1)
+            {
+                fragments.RemoveAt(index);
+                titles.RemoveAt(index);
+                NotifyDataSetChanged();
+            }
+        }
+
 
     }
 }

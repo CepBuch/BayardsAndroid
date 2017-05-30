@@ -193,7 +193,7 @@ namespace Bayards_Android
                 }
                 return flag == 1;
             }
-            catch (Exception ex) { return false; };
+            catch  { return false; };
 
         }
 

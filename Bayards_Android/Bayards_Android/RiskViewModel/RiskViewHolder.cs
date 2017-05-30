@@ -15,11 +15,15 @@ namespace Bayards_Android.RiskViewModel
 {
     class RiskViewHolder : RecyclerView.ViewHolder
     {
+        public TextView NameTextView { get; set; }
+
+        public TextView ContentTextView { get; set; }
         //Defining view of each RecycleView item
         public RiskViewHolder(View itemView)
             :base(itemView)
         {
-
+            NameTextView = itemView.FindViewById<TextView>(Resource.Id.risk_name);
+            ContentTextView = itemView.FindViewById<TextView>(Resource.Id.risk_content);
 
         }
     }

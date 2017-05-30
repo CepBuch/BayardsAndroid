@@ -21,44 +21,40 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 namespace Bayards_Android
 {
     [Activity(Theme = "@style/AppTheme")]
-    public class RisksActivity : ActionBarActivity
+    public class CategoryContentActivity : AppCompatActivity
     {
-        ISharedPreferences prefs;
-        RisksList risksList;
         SupportToolbar toolbar;
         ViewPager viewPager;
+        ISharedPreferences prefs;
         string language;
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.RisksLayout);
-
-
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
+            language = prefs.GetString("languageCode", "eng");
 
-            
+            SetContentView(Resource.Layout.CategoryContentActivity);
 
             //Getting Category id from previous activity.
             var parent_category_id = Intent.GetStringExtra("category_id");
 
-            //Getting current lunguage from application properties. 
-            language = prefs.GetString("languageCode", "eng");
 
+
+            //Showing content pages
             viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
             viewPager.Adapter = new CategoryContentPagerAdapter(SupportFragmentManager, parent_category_id);
 
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
-            tabLayout.SetupWithViewPager(viewPager);
+            tabLayout.SetupWithViewPager(viewPager);      
 
-            
 
+            //Enabling custom toolbar
             toolbar =FindViewById<SupportToolbar>(Resource.Id.toolbar_risks);
             TextView toolbarTitle = FindViewById<TextView>(Resource.Id.toolbar_title);
             SetSupportActionBar(toolbar);
 
-
-            //Disabling default title and showing  custom (from .xml) title 
+            //Disabling default title;
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             //Showing name of parent_category as toolbar title
@@ -71,57 +67,48 @@ namespace Bayards_Android
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
 
+            RemoveEmptyTabs(parent_category_id);
+
         }
 
+        public void RemoveEmptyTabs(string parent_category_id)
+        {
+            //Getting number of subcategories and risks for this category
+            var numSubcategories = Database.Manager.CountSubcategories(parent_category_id, language);
+            var numRisks = Database.Manager.CountRisks(parent_category_id, language);
 
-        //private void ShowCategoryContent(List<Risk> risks, List<Category> subCategories)
-        //{
-        //    //First adding tab and showing risks of parent category if it has risks
-        //    bool hasRisks = risks != null && risks.Count > 0;
+            bool removedCategoryTab = false;
+            bool removedRiskTab = false;
 
-        //    if (hasRisks)
-        //    {
-        //        AddTab("Risks", risks, hasRisks);
-        //        ShowRisks(risks);
-        //    }
+            //Remove empty tabs (if this category doesn't have risks or subcategories
+            if (!numSubcategories.HasValue || numSubcategories.Value < 1)
+            {
+                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Tasks");
+                
+            }
 
-
-
-        //    if (subCategories != null && subCategories.Count > 0)
-        //    {
-        //        subcategoriesTabs.Visibility = ViewStates.Visible;
-        //        bool firstSubcategory = true;
-        //        //Then adding tabs of all subcategories
-        //        foreach (var subCat in subCategories)
-        //        {
-
-        //            var risksOfSubcat = Database.Manager.GetRisks(subCat.Id, language);
-        //            if (risksOfSubcat != null)
-        //                AddTab(subCat.Name, risksOfSubcat, !hasRisks && firstSubcategory);
-        //            firstSubcategory = false;
-        //        }
-        //    }
-        //    else subcategoriesTabs.Visibility = ViewStates.Gone;
+            if (!numRisks.HasValue || numRisks.Value < 1)
+            {
+                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Risks");
+            }
 
 
-        //}
-        //private void ShowRisks(List<Risk> risks)
-        //{
-        //    if (risks == null || risks.Count == 0)
-        //    {
-        //        risks = new List<Risk>
-        //        {
-        //            new Risk {Name = "" , Content = "There is no risks in this category"}
-        //        };
-        //    }
-        //    risksDottedTab.Visibility = risks == null || risks.Count == 0 ||
-        //        (risks != null && risks.Count > 1) ? ViewStates.Visible : ViewStates.Gone;
-        //    risksList = new RisksList(risks);
-        //    viewPager.Adapter = new RisksPagerAdapter(SupportFragmentManager, risksList);
-        //}
+            //Show message if both subcategories and risks tabs were removed
+            //Then finish activity
+            if(removedCategoryTab && removedRiskTab)
+            {
+                var dialog = new Android.App.AlertDialog.Builder(this);
+                string message = GetString(Resource.String.content_not_found);
+                dialog.SetMessage(message);
+                dialog.SetPositiveButton("Ok", delegate
+                {
+                    this.Finish();
+                });
+                dialog.Show();
+            }
+        }
 
-
-
+ 
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -136,11 +123,5 @@ namespace Bayards_Android
                     return base.OnOptionsItemSelected(item);
             }
         }
-
-
-        //rb.Click += (e, s) => ShowRisks(risks);
-
-
-
     }
 }

@@ -102,7 +102,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return true;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return false;
                 }
@@ -186,7 +186,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     //Success
                     return true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     return false;
                 }
@@ -196,6 +196,95 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                 }
             }
             return false;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="language">Application current language</param>
+        /// <returns></returns>
+        public int? CountCategories(string language)
+        {
+            if (Connection != null)
+            {
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandText = $"SELECT COUNT(*) FROM [Category]" +
+                            $"WHERE [Category_Language] = '{language}' AND [Parent_id] IS NULL";
+                        var r = contents.ExecuteScalar();
+                        return int.Parse(r.ToString());
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
+        }
+
+        public int? CountSubcategories(string parent_category_id, string language)
+        {
+            if (Connection != null)
+            {
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandText = "SELECT  COUNT(*) FROM [Category]" +
+                            $"WHERE [Parent_Id] = '{parent_category_id}' AND [Category_Language] =  '{language}';";
+                        var r = contents.ExecuteScalar();
+                        return int.Parse(r.ToString());
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
+        }
+
+
+        public int? CountRisks(string parent_category_id, string language)
+        {
+            if (Connection != null)
+            {
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandText ="SELECT COUNT(*) FROM [Risk]" +
+                            $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}';";
+                        var r = contents.ExecuteScalar();
+                        return int.Parse(r.ToString());
+                    }
+                }
+                catch (Exception ex)
+                { 
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
         }
 
 
@@ -329,7 +418,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return foundRisks.Where(risk => risk != null && !string.IsNullOrWhiteSpace(risk.Id) && !string.IsNullOrWhiteSpace(risk.Name)).ToList();
                 }
-                catch (Exception ex)
+                catch
                 {
                     return null;
                 }
@@ -376,7 +465,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return foundMedia.Where(m => m != null && !string.IsNullOrWhiteSpace(m.Name) && m.TypeMedia != TypeMedia.Undefined).ToList();
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return null;
                 }
@@ -406,7 +495,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
         {
             foreach (var category in categories.Where(c => c != null))
             {
-                category.Name = category.Name != null ? category.Name.Replace("'", "''").Replace("\"","\\\""): category.Name;
+                category.Name = category.Name != null ? category.Name.Replace("'", "''").Replace("\"", "\\\"") : category.Name;
 
                 if (category.Risks != null)
                 {

@@ -42,7 +42,8 @@ namespace Bayards_Android.RiskViewModel
             if (holder is RiskViewHolder)
             {
                 RiskViewHolder rh = holder as RiskViewHolder;
-                //ch.ContentButton.Text = _categoriesList[position - 1].Name;
+                rh.NameTextView.Text = _risksList[position].Name;
+                rh.ContentTextView.Text = _risksList[position].Content;
             }
         }
     }

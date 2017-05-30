@@ -23,7 +23,7 @@ namespace Bayards_Android.CategoryViewModel
         {
             ContentButton = itemView.FindViewById<Button>(Resource.Id.categoryButton);
             ContentButton.Selected = true;
-            ContentButton.Click += (sender, e) => listener(base.Position);
+            ContentButton.Click += (sender, e) => listener(base.AdapterPosition);
 
         }
     }

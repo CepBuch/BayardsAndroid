@@ -64,7 +64,7 @@ namespace Bayards_Android.Fragments
         void OnItemClick(object sender, Category clicked_category)
         {
             //Category click event, open this category page
-            var intent = new Intent(Activity, typeof(RisksActivity));
+            var intent = new Intent(Activity, typeof(CategoryContentActivity));
             intent.PutExtra("category_id", clicked_category.Id);
             intent.PutExtra("category_name", clicked_category.Name);
             StartActivity(intent);

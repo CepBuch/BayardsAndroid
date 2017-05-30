@@ -15,7 +15,7 @@ using Android.Preferences;
 namespace Bayards_Android
 {
     [Activity(Theme = "@style/AppTheme")]
-    public class AgreementActivity : ActionBarActivity
+    public class AgreementActivity : AppCompatActivity
     {
         TextView userText;
         Switch agreeSwitch;
