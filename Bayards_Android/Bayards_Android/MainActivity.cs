@@ -17,6 +17,7 @@ using Bayards_Android.Model;
 using System;
 using Android.Support.V4.Widget;
 using Bayards_Android.Fragments;
+using Android.Support.Design.Widget;
 
 namespace Bayards_Android
 {
@@ -28,7 +29,7 @@ namespace Bayards_Android
         private SupportToolbar toolbar;
         private ActionBarDrawerToggle drawerToggle;
         private DrawerLayout drawerLayout;
-        private ListView listDrawer;
+        private NavigationView navigationView;
         string language;
         protected override void OnCreate(Bundle bundle)
         {
@@ -44,7 +45,6 @@ namespace Bayards_Android
             bool passedAllChecks = CheckStepsOfAuthorization();
             bool hasRecords = CountCategories();
 
-
             if (passedAllChecks && hasRecords)
             {
                 SetContentView(Resource.Layout.MainActivity);
@@ -52,9 +52,7 @@ namespace Bayards_Android
                 //Accepting toolbar and drawerlayout
                 toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_main);
                 drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-                listDrawer = FindViewById<ListView>(Resource.Id.drawer_list);
                 SetSupportActionBar(toolbar);
-
 
                 drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                     Resource.String.openDrawer, Resource.String.closeDrawer);
@@ -64,6 +62,9 @@ namespace Bayards_Android
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
                 drawerToggle.SyncState();
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                
+                SetupDrawerContent(navigationView); //Calling Function  
 
 
                 var trans = SupportFragmentManager.BeginTransaction();
@@ -71,6 +72,15 @@ namespace Bayards_Android
                     CategoriesContainerFragment.newInstance(string.Empty), "CategoriesContainerFragment");
                 trans.Commit();
             }
+        }
+
+        void SetupDrawerContent(NavigationView navigationView)
+        {
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                e.MenuItem.SetChecked(true);
+                drawerLayout.CloseDrawers();
+            };
         }
 
 
@@ -99,6 +109,7 @@ namespace Bayards_Android
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
+            navigationView.InflateMenu(Resource.Menu.nav_menu); //Navigation Drawer Layout Menu Creation  
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return base.OnPrepareOptionsMenu(menu);
         }
