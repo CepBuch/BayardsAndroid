@@ -17,7 +17,7 @@ namespace Bayards_Android
     [Activity(Theme = "@style/AppTheme")]
     public class AgreementActivity : AppCompatActivity
     {
-        TextView userText;
+        TextView userAgreementText;
         Switch agreeSwitch;
         Button contButton;
 
@@ -44,26 +44,13 @@ namespace Bayards_Android
             toolbarTitle.Text = Resources.GetString(Resource.String.bayards);
 
 
-            userText = FindViewById<TextView>(Resource.Id.useragreementText);
+            userAgreementText = FindViewById<TextView>(Resource.Id.useragreementText);
             agreeSwitch = FindViewById<Switch>(Resource.Id.agreement_switch);
             contButton = FindViewById<Button>(Resource.Id.continueUserButton);
-            userText.Text = getLorem(3);
 
+            userAgreementText.Text = _prefs.GetString("userAgreement", "Problems with loading user agreement");
             agreeSwitch.CheckedChange += AgreeSwitch_CheckedChange;
             contButton.Click += ContButton_Click;
-        }
-
-        private void ContButton_Click(object sender, EventArgs e)
-        {
-            var intent = new Intent(this,typeof(DataLoadActivity));
-            StartActivity(intent);
-
-            //Remember that agreement is accepted.
-            _editor.PutBoolean("isAcceptedAgreement", true);
-            _editor.Apply();
-
-
-            this.Finish();
         }
 
         private void AgreeSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -71,16 +58,17 @@ namespace Bayards_Android
             contButton.Enabled = agreeSwitch.Checked;
         }
 
-        //Temporary method
-        public string getLorem(int times)
+        private void ContButton_Click(object sender, EventArgs e)
         {
-            string result = string.Empty;
-            for (int i = 0; i <= times; i++)
-            {
-                result += Resources.GetString(Resource.String.lorem);
-            }
-            return result;
+            //Remember that agreement is accepted.
+            _editor.PutBoolean("isAcceptedAgreement", true);
+            _editor.Apply();
+
+            var intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+            this.Finish();
         }
+
 
     }
 }

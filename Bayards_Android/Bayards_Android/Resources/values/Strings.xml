@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="ApplicationName">Bayards_Android</string>
+  <string name="ApplicationName">BayardsSB</string>
+  <string name="bayards">Bayards Nieuw - Lekkerland</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+  <string name="continue_btn">Continue</string>
+  
+  
+  <!--Strings for choose language activity-->
+  <string name="lan_title">Choose language</string>
   <string name="lan_english">English</string>
-  <string name="lan_holland">Dutch</string>
-  <string name="cont">Continue</string>
+  <string name="lan_holland">Nederlandse</string>
+
+  <!--Strings for password activity-->
   <string name="password">Password</string>
   <string name="enter_password">Enter your password</string>
-  <string  name="password_was_changed">The password was changed, you will be redirected to the password entry page.</string>
   <string name="incorrect_password">The password is incorrect</string>
   <string name="incorrect_password_advice"> Please, ask your supervisor for the correct password </string>
-  <string name="bayards">Bayards Nieuw - Lekkerland</string>
-  <string name="lorem">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  <string name="password_was_changed">
+    Your password is out of date. You need to enter a new password to have updated information. Continue?
   </string>
+  <string name ="wait">Please, wait while we are checking information</string>
+  <string name="password_connection">
+    The app needs internet connection to check the password
+  </string>
+  <string name="connection_problems">
+    There are problems with connecting to the server.
+    \nMake sure, your internet connection is working or ask your supervisor for help.
+  </string>
+  
+  <!--Strings for user-agreement activity-->
   <string name ="user_agreement">User agreement</string>
   <string name="read_and_agree">I have read and agree to the user agreement</string>
-  <string name ="wait">Please, wait while we are checking information</string>
+
 
   <!--DATA LOAD LAYOUT-->
   <string name="data_label">Data loading: </string>
@@ -38,25 +52,33 @@
   <string name ="data_warning_advice">Make sure, your internet connection is working or ask your supervisor for help.</string>
   <string name ="data_button_content">Try again</string>
   <string name ="data_reading_error">An error occurred while reading the data. Try to download it again. </string>
+  
 
-
-  <string name="logout_pref">Logout</string>
-  <string name="settings_pref">Settings</string>
+  <!--Navigation menu (nav_menu.axml) -->
+  <string name="nav_home">Home</string>
+  <string name="nav_map">Map</string>
+  <string name="nav_settings">Settings</string>
+  <string name="nav_exit">Logout</string>
   <string name="logout_message">
-    You will be returned to the Log In page
-    \n\nAre you sure you want to Log Out?
+You will be returned to the Log In page.
+\n\nAre you sure you want to Log Out?
+  </string>
+
+  
+  
+<!--Other strings -->
+  <string name="content_not_found">
+    There is no content in this section.
   </string>
   <string name="select_category">Sections: </string>
-
-
-  <string name="content_not_found">
-      There is no content in this section.
-  </string>
 
 
 
   <string name="openDrawer">Drawer Open</string>
   <string name="closeDrawer">Drawer Closed</string>
+
+
+
 
 
 </resources>

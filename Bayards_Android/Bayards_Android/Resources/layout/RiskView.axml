@@ -29,7 +29,6 @@
                 android:text="Name goes here" />
             <TextView
                 android:id="@+id/risk_content"
-                android:text="@string/lorem"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"

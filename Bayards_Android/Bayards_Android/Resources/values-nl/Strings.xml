@@ -1,19 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="cont">Verdergaan</string>
+  <string name="yes">Ja</string>
+  <string name="no">Nee</string>
+  <string name="continue_btn">Verdergaan</string>
+  
+  
+  <!--Strings for choose language activity-->
+  <string name="lan_title">Selecteer taal</string>
+  
+
+  
+  
+  <!--Strings for password activity-->
   <string name="password">Wachtwoord:</string>
   <string name="enter_password">Voer het wachtwoord in</string>
   <string name="incorrect_password">Het wachtwoord is incorrect</string>
   <string name="incorrect_password_advice">Vraag alsjeblieft je leidinggevende om het wachtwoord </string>
+  <string name="password_was_changed">
+    Het password is te oud. U heeft een nieuw password nodig om de informatie te updaten. Doorgaan?
+  </string>
+  <string name ="wait">Momentje, we zijn de gegevens aan het verzamelen</string>
+  <string name="password_connection">
+    De applicatie heeft internet nodig om het wachtwoord te checken.
+  </string>
+  <string name="connection_problems">
+    Server reageert niet.
+    \nControleer of uw internetverbinding werkt, of vraag uw supervisor om help.
+  </string>
+  
+  <!--Strings for user-agreement activity-->
   <string name ="user_agreement">Gebruikersovereenkomst</string>
   <string name="read_and_agree">Ik heb de gebruikersovereenkomst gelezen en begrijp deze</string>
-  <string name ="wait">Momentje, we zijn de gegevens aan het verzamelen</string>
+
+  <!--Navigation menu (nav_menu.axml)-->
+  <string name="nav_home">Thuis</string>
+  <string name="nav_map">Kaart</string>
+  <string name="nav_settings">Instellingen</string>
+  <string name="nav_exit">Uitloggen</string>
   <string name="logout_message">
-Je wordt teruggestuurd naar de inlogpagina. 
+Je wordt teruggestuurd naar de inlogpagina.
 \n\nWeet je zeker dat je uit wil loggen?
   </string>
-  <string name="logout_pref">Uitloggen</string>
-  <string name="settings_pref">Instellingen</string>
+
+
+  <!--Other strings -->
+  <string name="content_not_found">
+    Er is geen inhoud in deze sectie.
+  </string>
+
   <string name="select_category">Selecteer categorie</string>
 
 

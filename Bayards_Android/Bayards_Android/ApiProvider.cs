@@ -12,16 +12,59 @@ namespace Bayards_Android
     class ApiProvider
     {
         private string _host;
+        private string _token;
         const string uriGetDataTemplate = "{0}/api/getAll?lang={1}";
         const string uriImageUpload = "{0}/ui/images/{1}";
         const string uriCheckPassword = "{0}/api/checkPassword";
+        const string uriGetUserAgreement = "{0}/api/getUserAgreement?apiKey={1}&lang={2}";
 
 
 
         //Constructor gets server address
-        public ApiProvider(string host)
+        public ApiProvider(string host, string token)
         {
             _host = host;
+            _token = token;
+        }
+        public async Task<bool> CheckPassword(string password)
+        {
+            int? flag = 0;
+            using (HttpClient hc = new HttpClient())
+            {
+                var values = new Dictionary<string, string> { { "password", password } };
+
+                var content = new FormUrlEncodedContent(values);
+                var response = await hc.PostAsync(string.Format(uriCheckPassword, _host), content);
+                var responseString = await response.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeAnonymousType(responseString, new { check = new int?() });
+                flag = res.check;
+            }
+            return flag == 1;
+        }
+
+        public async Task<string> GetUserAgreement(string language)
+        {
+            using (var client = new HttpClient())
+            {
+                string requestUri = string.Format(uriGetUserAgreement, _host, _token, language);
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var result= JsonConvert.DeserializeAnonymousType(responseString, new { content = string.Empty });
+                    var agreement = result.content;
+                    
+                    if (agreement != null && !agreement.StartsWith("Error"))
+                    {
+                        return agreement;
+                    }
+                    else
+                        throw new UnauthorizedAccessException();
+                }
+                else
+                    throw new WebException($"The server returned an error: {response.StatusCode}");
+            }
         }
 
 
@@ -176,26 +219,7 @@ namespace Bayards_Android
         }
 
 
-        public async Task<bool> CheckPassword(string password)
-        {
-            try
-            {
-                int flag = 0;
-                using (HttpClient hc = new HttpClient())
-                {
-                    var values = new Dictionary<string, string> { { "password", password } };
 
-                    var content = new FormUrlEncodedContent(values);
-                    var response = hc.PostAsync(string.Format(uriCheckPassword, _host), content).Result;
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var res = JsonConvert.DeserializeAnonymousType(responseString, new { check = 0 });
-                    flag = res.check;
-                }
-                return flag == 1;
-            }
-            catch  { return false; };
-
-        }
 
 
 

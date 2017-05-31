@@ -42,6 +42,7 @@
          android:layout_width="300dp"    
          android:layout_gravity="start"   
          android:fitsSystemWindows="true"    
+         app:itemIconTint="@color/dark_blue"
          app:headerLayout="@layout/nav_header" />  
 </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

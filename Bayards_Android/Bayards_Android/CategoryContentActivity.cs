@@ -77,25 +77,28 @@ namespace Bayards_Android
             var numSubcategories = Database.Manager.CountSubcategories(parent_category_id, language);
             var numRisks = Database.Manager.CountRisks(parent_category_id, language);
 
-            bool removedCategoryTab = false;
-            bool removedRiskTab = false;
+            bool removedTasksTab = false;
+            bool removedRisksTab = false;
 
             //Remove empty tabs (if this category doesn't have risks or subcategories
             if (!numSubcategories.HasValue || numSubcategories.Value < 1)
             {
                 (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Tasks");
+                removedTasksTab = true;
                 
             }
 
             if (!numRisks.HasValue || numRisks.Value < 1)
             {
                 (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Risks");
+                removedRisksTab = true;
+
             }
 
 
             //Show message if both subcategories and risks tabs were removed
             //Then finish activity
-            if(removedCategoryTab && removedRiskTab)
+            if (removedTasksTab && removedRisksTab)
             {
                 var dialog = new Android.App.AlertDialog.Builder(this);
                 string message = GetString(Resource.String.content_not_found);

@@ -89,7 +89,7 @@ namespace Bayards_Android
             waitLayout.Visibility = ViewStates.Visible;
 
 
-            ApiProvider provider = new ApiProvider(_prefs.GetString("hosting_address", ""));
+            ApiProvider provider = new ApiProvider(_prefs.GetString("token", ""), _prefs.GetString("hosting_address", ""));
 
             string language = _prefs.GetString("languageCode", "eng");
 

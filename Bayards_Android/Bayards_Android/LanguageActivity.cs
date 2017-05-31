@@ -37,6 +37,20 @@ namespace Bayards_Android
             nlLayout.Click += (sender, e) => chooseLanguage("nl");
         }
 
+        protected void chooseLanguage(string language_code)
+        {
+            applyAppLanguage(language_code);
+            Intent intent = new Intent(this, typeof(MainActivity));             
+
+            StartActivity(intent);
+
+            //Remember that language is chosen.
+            _editor.PutBoolean("isLanguageChosen", true);
+            _editor.PutString("languageCode", language_code);
+            _editor.Apply();
+            this.Finish();
+        }
+
         protected void applyAppLanguage(string language_code)
         {
             var res = this.Resources;
@@ -44,25 +58,6 @@ namespace Bayards_Android
             var conf = res.Configuration;
             conf.SetLocale(new Java.Util.Locale(language_code));
             res.UpdateConfiguration(conf, dm);
-        }
-
-        protected void chooseLanguage(string language_code)
-        {
-            applyAppLanguage(language_code);
-            var isAuthorized = _prefs.GetBoolean("isAuthorized", false);
-            Intent intent;
-            if (!isAuthorized)
-                intent = new Intent(this, typeof(PasswordActivity));
-            else
-                intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
-
-            //Remember that language is chosen.
-            _editor.PutBoolean("isLanguageChosen", true);
-            _editor.PutString("languageCode", language_code);
-            _editor.Apply();
-
-            this.Finish();
         }
 
 

@@ -37,9 +37,13 @@ namespace Bayards_Android
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
 
+
+
             //-----------------------PUTTING THE SERVER ADDRESS-------------------------------
             editor.PutString("hosting_address", "http://vhost29450.cpsite.ru");
             editor.Apply();
+
+
 
             //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
@@ -63,14 +67,10 @@ namespace Bayards_Android
                 SupportActionBar.SetDisplayShowTitleEnabled(false);
                 drawerToggle.SyncState();
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-                
-                SetupDrawerContent(navigationView); //Calling Function  
 
+                SetupDrawerContent(navigationView);
 
-                var trans = SupportFragmentManager.BeginTransaction();
-                trans.Add(Resource.Id.mainFragmentContainer,
-                    CategoriesContainerFragment.newInstance(string.Empty), "CategoriesContainerFragment");
-                trans.Commit();
+                ShowMainContent();
             }
         }
 
@@ -78,9 +78,46 @@ namespace Bayards_Android
         {
             navigationView.NavigationItemSelected += (sender, e) =>
             {
+                switch (e.MenuItem.ItemId)
+                {
+                    case Resource.Id.nav_exit:
+                        {
+                            var dialog = new Android.App.AlertDialog.Builder(this);
+                            dialog.SetMessage(GetString(Resource.String.logout_message));
+
+                            dialog.SetPositiveButton("Yes", delegate { LogOut(); });
+                            dialog.SetNegativeButton("Cancel", delegate { });
+                            dialog.Show();
+                            break;
+                        }
+                    case Resource.Id.nav_locations:
+                        {
+                            Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
+                            break;
+                        }
+                    case Resource.Id.nav_home:
+                        {
+                            ShowMainContent();
+                            break;
+                        }
+                    case Resource.Id.nav_settings:
+                        {
+                            Toast.MakeText(this, "Settings clicked", ToastLength.Long).Show();
+                            break;
+                        }
+                }
                 e.MenuItem.SetChecked(true);
                 drawerLayout.CloseDrawers();
             };
+        }
+
+
+        private void ShowMainContent()
+        {
+            var trans = SupportFragmentManager.BeginTransaction();
+            var categoriesContainerFragment = CategoriesContainerFragment.newInstance(string.Empty);
+            trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+            trans.Commit();
         }
 
 
@@ -117,27 +154,40 @@ namespace Bayards_Android
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             drawerToggle.OnOptionsItemSelected(item);
+            switch (item.ItemId)
+            {
+                case Resource.Id.nav_exit:
+                    {
+                        var dialog = new Android.App.AlertDialog.Builder(this);
+                        dialog.SetMessage(GetString(Resource.String.logout_message));
 
-            //switch (item.ItemId)
-            //{
-            //    //case Resource.Id.menu_logout:
-            //    //    {
-            //    //        var dialog = new Android.App.AlertDialog.Builder(this);
-            //    //        dialog.SetMessage(GetString(Resource.String.logout_message));
+                        dialog.SetPositiveButton("Yes", (s, e) => LogOut());
+                        dialog.SetNegativeButton("Cancel", delegate { });
+                        dialog.Show();
+                        return true;
+                    }
+                case Resource.Id.nav_locations:
+                    {
+                        Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
+                        return true;
+                    }
+                case Resource.Id.nav_home:
+                    {
+                        Toast.MakeText(this, "Home clicked", ToastLength.Long).Show();
 
-            //    //        dialog.SetPositiveButton("Yes", (s, e) => LogOut());
-            //    //        dialog.SetNegativeButton("Cancel", delegate { });
-            //    //        dialog.Show();
-            //    //        return true;
-            //    //    }
-            //    //case Resource.Id.menu_settings:
-            //    //    {
-            //    //        return true;
-            //    //    }
-            //    default:
-            return base.OnOptionsItemSelected(item);
-            //}
+                        return true;
+                    }
+                case Resource.Id.nav_settings:
+                    {
+                        Toast.MakeText(this, "Settings clicked", ToastLength.Long).Show();
+                        return true;
+                    }
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
         }
+
+
         public bool CheckStepsOfAuthorization()
         {
             //Getting info about user's authorization process from shared preferences.
@@ -145,7 +195,7 @@ namespace Bayards_Android
             var isAuthorized = prefs.GetBoolean("isAuthorized", false);
             var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
             var isDataLoaded = prefs.GetBoolean("isDataLoaded", false);
-
+            isDataLoaded = true;
             //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
             {

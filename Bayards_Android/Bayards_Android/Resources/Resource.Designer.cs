@@ -3255,8 +3255,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0021
 			public const int appbar_scrolling_view_behavior = 2131361825;
 			
-			// aapt resource value: 0x7f0a0032
-			public const int bayards = 2131361842;
+			// aapt resource value: 0x7f0a002a
+			public const int bayards = 2131361834;
 			
 			// aapt resource value: 0x7f0a0022
 			public const int bottom_sheet_behavior = 2131361826;
@@ -3264,77 +3264,95 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0023
 			public const int character_counter_pattern = 2131361827;
 			
-			// aapt resource value: 0x7f0a0046
-			public const int closeDrawer = 2131361862;
-			
-			// aapt resource value: 0x7f0a002c
-			public const int cont = 2131361836;
-			
-			// aapt resource value: 0x7f0a0044
-			public const int content_not_found = 2131361860;
-			
-			// aapt resource value: 0x7f0a003e
-			public const int data_button_content = 2131361854;
-			
-			// aapt resource value: 0x7f0a0037
-			public const int data_label = 2131361847;
-			
-			// aapt resource value: 0x7f0a003a
-			public const int data_mobile_warning = 2131361850;
+			// aapt resource value: 0x7f0a004c
+			public const int closeDrawer = 2131361868;
 			
 			// aapt resource value: 0x7f0a0038
-			public const int data_no_connection_waring = 2131361848;
+			public const int connection_problems = 2131361848;
 			
-			// aapt resource value: 0x7f0a003f
-			public const int data_reading_error = 2131361855;
-			
-			// aapt resource value: 0x7f0a003b
-			public const int data_wait = 2131361851;
-			
-			// aapt resource value: 0x7f0a003c
-			public const int data_warning = 2131361852;
-			
-			// aapt resource value: 0x7f0a003d
-			public const int data_warning_advice = 2131361853;
-			
-			// aapt resource value: 0x7f0a0039
-			public const int data_wifi_warning = 2131361849;
-			
-			// aapt resource value: 0x7f0a002e
-			public const int enter_password = 2131361838;
-			
-			// aapt resource value: 0x7f0a0030
-			public const int incorrect_password = 2131361840;
-			
-			// aapt resource value: 0x7f0a0031
-			public const int incorrect_password_advice = 2131361841;
-			
-			// aapt resource value: 0x7f0a002a
-			public const int lan_english = 2131361834;
-			
-			// aapt resource value: 0x7f0a002b
-			public const int lan_holland = 2131361835;
-			
-			// aapt resource value: 0x7f0a0042
-			public const int logout_message = 2131361858;
-			
-			// aapt resource value: 0x7f0a0040
-			public const int logout_pref = 2131361856;
-			
-			// aapt resource value: 0x7f0a0033
-			public const int lorem = 2131361843;
-			
-			// aapt resource value: 0x7f0a0045
-			public const int openDrawer = 2131361861;
+			// aapt resource value: 0x7f0a0049
+			public const int content_not_found = 2131361865;
 			
 			// aapt resource value: 0x7f0a002d
-			public const int password = 2131361837;
+			public const int continue_btn = 2131361837;
+			
+			// aapt resource value: 0x7f0a0042
+			public const int data_button_content = 2131361858;
+			
+			// aapt resource value: 0x7f0a003b
+			public const int data_label = 2131361851;
+			
+			// aapt resource value: 0x7f0a003e
+			public const int data_mobile_warning = 2131361854;
+			
+			// aapt resource value: 0x7f0a003c
+			public const int data_no_connection_waring = 2131361852;
+			
+			// aapt resource value: 0x7f0a0043
+			public const int data_reading_error = 2131361859;
+			
+			// aapt resource value: 0x7f0a003f
+			public const int data_wait = 2131361855;
+			
+			// aapt resource value: 0x7f0a0040
+			public const int data_warning = 2131361856;
+			
+			// aapt resource value: 0x7f0a0041
+			public const int data_warning_advice = 2131361857;
+			
+			// aapt resource value: 0x7f0a003d
+			public const int data_wifi_warning = 2131361853;
+			
+			// aapt resource value: 0x7f0a0032
+			public const int enter_password = 2131361842;
+			
+			// aapt resource value: 0x7f0a0033
+			public const int incorrect_password = 2131361843;
+			
+			// aapt resource value: 0x7f0a0034
+			public const int incorrect_password_advice = 2131361844;
+			
+			// aapt resource value: 0x7f0a002f
+			public const int lan_english = 2131361839;
+			
+			// aapt resource value: 0x7f0a0030
+			public const int lan_holland = 2131361840;
+			
+			// aapt resource value: 0x7f0a002e
+			public const int lan_title = 2131361838;
+			
+			// aapt resource value: 0x7f0a0048
+			public const int logout_message = 2131361864;
+			
+			// aapt resource value: 0x7f0a0047
+			public const int nav_exit = 2131361863;
+			
+			// aapt resource value: 0x7f0a0044
+			public const int nav_home = 2131361860;
+			
+			// aapt resource value: 0x7f0a0045
+			public const int nav_map = 2131361861;
+			
+			// aapt resource value: 0x7f0a0046
+			public const int nav_settings = 2131361862;
+			
+			// aapt resource value: 0x7f0a002c
+			public const int no = 2131361836;
+			
+			// aapt resource value: 0x7f0a004b
+			public const int openDrawer = 2131361867;
+			
+			// aapt resource value: 0x7f0a0031
+			public const int password = 2131361841;
+			
+			// aapt resource value: 0x7f0a0037
+			public const int password_connection = 2131361847;
 			
 			// aapt resource value: 0x7f0a0024
 			public const int password_toggle_content_description = 2131361828;
 			
-			// aapt resource value: 0x7f0a002f
-			public const int password_was_changed = 2131361839;
+			// aapt resource value: 0x7f0a0035
+			public const int password_was_changed = 2131361845;
 			
 			// aapt resource value: 0x7f0a0025
 			public const int path_password_eye = 2131361829;
@@ -3348,26 +3366,26 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0028
 			public const int path_password_strike_through = 2131361832;
 			
-			// aapt resource value: 0x7f0a0035
-			public const int read_and_agree = 2131361845;
+			// aapt resource value: 0x7f0a003a
+			public const int read_and_agree = 2131361850;
 			
 			// aapt resource value: 0x7f0a0013
 			public const int search_menu_title = 2131361811;
 			
-			// aapt resource value: 0x7f0a0043
-			public const int select_category = 2131361859;
-			
-			// aapt resource value: 0x7f0a0041
-			public const int settings_pref = 2131361857;
+			// aapt resource value: 0x7f0a004a
+			public const int select_category = 2131361866;
 			
 			// aapt resource value: 0x7f0a0014
 			public const int status_bar_notification_info_overflow = 2131361812;
 			
-			// aapt resource value: 0x7f0a0034
-			public const int user_agreement = 2131361844;
+			// aapt resource value: 0x7f0a0039
+			public const int user_agreement = 2131361849;
 			
 			// aapt resource value: 0x7f0a0036
 			public const int wait = 2131361846;
+			
+			// aapt resource value: 0x7f0a002b
+			public const int yes = 2131361835;
 			
 			static String()
 			{
