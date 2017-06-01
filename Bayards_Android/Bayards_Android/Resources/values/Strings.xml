@@ -97,7 +97,8 @@ You will be returned to the Log In page.
     There is no content in this section.
   </string>
   <string name="select_category">Sections: </string>
-
+  <string name="risks">Risks</string>
+  <string name="tasks">Tasks</string>
 
 
   <string name="openDrawer">Drawer Open</string>

@@ -3087,94 +3087,97 @@ namespace Bayards_Android
 			public const int LanguageActivity = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int LocationsFragment = 2130903088;
+			public const int LocationsContainerFragment = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int LocationView = 2130903089;
+			public const int LocationsFragment = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int MainActivity = 2130903090;
+			public const int LocationView = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int Media_group_item = 2130903091;
+			public const int MainActivity = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int Media_item_layout = 2130903092;
+			public const int Media_group_item = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int nav_header = 2130903093;
+			public const int Media_item_layout = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int notification_action = 2130903094;
+			public const int nav_header = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int notification_action_tombstone = 2130903095;
+			public const int notification_action = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int notification_media_action = 2130903096;
+			public const int notification_action_tombstone = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int notification_media_cancel_action = 2130903097;
+			public const int notification_media_action = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int notification_template_big_media = 2130903098;
+			public const int notification_media_cancel_action = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int notification_template_big_media_custom = 2130903099;
+			public const int notification_template_big_media = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int notification_template_big_media_narrow = 2130903100;
+			public const int notification_template_big_media_custom = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int notification_template_big_media_narrow_custom = 2130903101;
+			public const int notification_template_big_media_narrow = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int notification_template_custom_big = 2130903102;
+			public const int notification_template_big_media_narrow_custom = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int notification_template_icon_group = 2130903103;
+			public const int notification_template_custom_big = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int notification_template_lines_media = 2130903104;
+			public const int notification_template_icon_group = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int notification_template_media = 2130903105;
+			public const int notification_template_lines_media = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int notification_template_media_custom = 2130903106;
+			public const int notification_template_media = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int notification_template_part_chronometer = 2130903107;
+			public const int notification_template_media_custom = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int notification_template_part_time = 2130903108;
+			public const int notification_template_part_chronometer = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int PasswordActivity = 2130903109;
+			public const int notification_template_part_time = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int RisksFragment = 2130903110;
+			public const int PasswordActivity = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int RiskView = 2130903111;
+			public const int RisksFragment = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int select_dialog_item_material = 2130903112;
+			public const int RiskView = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int select_dialog_multichoice_material = 2130903113;
+			public const int select_dialog_item_material = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int select_dialog_singlechoice_material = 2130903114;
+			public const int select_dialog_multichoice_material = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int SettingsActivity = 2130903115;
+			public const int select_dialog_singlechoice_material = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int support_simple_spinner_dropdown_item = 2130903116;
+			public const int SettingsActivity = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int toolbar = 2130903117;
+			public const int support_simple_spinner_dropdown_item = 2130903117;
+			
+			// aapt resource value: 0x7f03004e
+			public const int toolbar = 2130903118;
 			
 			static Layout()
 			{
@@ -3325,8 +3328,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a004d
 			public const int check_update = 2131361869;
 			
-			// aapt resource value: 0x7f0a0057
-			public const int closeDrawer = 2131361879;
+			// aapt resource value: 0x7f0a0059
+			public const int closeDrawer = 2131361881;
 			
 			// aapt resource value: 0x7f0a003c
 			public const int connection_problems = 2131361852;
@@ -3412,8 +3415,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a002d
 			public const int no = 2131361837;
 			
-			// aapt resource value: 0x7f0a0056
-			public const int openDrawer = 2131361878;
+			// aapt resource value: 0x7f0a0058
+			public const int openDrawer = 2131361880;
 			
 			// aapt resource value: 0x7f0a0035
 			public const int password = 2131361845;
@@ -3442,6 +3445,9 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a003e
 			public const int read_and_agree = 2131361854;
 			
+			// aapt resource value: 0x7f0a0056
+			public const int risks = 2131361878;
+			
 			// aapt resource value: 0x7f0a0013
 			public const int search_menu_title = 2131361811;
 			
@@ -3450,6 +3456,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f0a0014
 			public const int status_bar_notification_info_overflow = 2131361812;
+			
+			// aapt resource value: 0x7f0a0057
+			public const int tasks = 2131361879;
 			
 			// aapt resource value: 0x7f0a0051
 			public const int update_latest = 2131361873;

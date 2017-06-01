@@ -87,6 +87,8 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="content_not_found">
     Er is geen inhoud in deze sectie.
   </string>
+  <string name="risks">Risico\'s</string>
+  <string name="tasks">Taken</string>
 
   <string name="select_category">Selecteer categorie</string>
 

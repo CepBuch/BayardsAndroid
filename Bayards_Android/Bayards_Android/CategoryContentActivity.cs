@@ -42,8 +42,13 @@ namespace Bayards_Android
 
 
             //Showing content pages
+            var titles = new List<string>
+            {
+                GetString(Resource.String.risks),
+                GetString(Resource.String.tasks),
+            };
             viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-            viewPager.Adapter = new CategoryContentPagerAdapter(SupportFragmentManager, parent_category_id);
+            viewPager.Adapter = new CategoryContentPagerAdapter(SupportFragmentManager, parent_category_id,titles);
 
             TabLayout tabLayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
             tabLayout.SetupWithViewPager(viewPager);      
