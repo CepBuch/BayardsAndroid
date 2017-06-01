@@ -24,5 +24,7 @@ namespace Bayards_Android.Model
 
         public MediaObject []  MediaObjects { get; set; }
 
+        public int? Order { get; set; }
+
     }
 }

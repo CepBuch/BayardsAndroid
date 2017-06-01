@@ -26,5 +26,8 @@ namespace Bayards_Android.DTO
         
         [JsonProperty("subsections")]
         public Subcategory [] Subcategories { get; set; }
+
+        [JsonProperty("order")]
+        public int? Order { get; set; }
     }
 }

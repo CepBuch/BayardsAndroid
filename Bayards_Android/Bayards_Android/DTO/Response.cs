@@ -17,5 +17,11 @@ namespace Bayards_Android.DTO
     {
         [JsonProperty("sections")]
         public Category [] Categories { get; set; }
+
+        [JsonProperty("locations")]
+        public Location [] Locations { get; set; }
+
+        [JsonProperty("date")]
+        public DateTime UpdateDate { get; set; }
     }
 }

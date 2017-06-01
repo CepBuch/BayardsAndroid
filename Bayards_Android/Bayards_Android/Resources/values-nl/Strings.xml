@@ -2,9 +2,12 @@
 <resources>
   <string name="yes">Ja</string>
   <string name="no">Nee</string>
+  <string name="cancel">Annuleer</string>
   <string name="continue_btn">Verdergaan</string>
-  
-  
+  <string name="warning">Waarschuwing</string>
+  <string name="error">Fout</string>
+
+
   <!--Strings for choose language activity-->
   <string name="lan_title">Selecteer taal</string>
   
@@ -31,6 +34,21 @@
   <!--Strings for user-agreement activity-->
   <string name ="user_agreement">Gebruikersovereenkomst</string>
   <string name="read_and_agree">Ik heb de gebruikersovereenkomst gelezen en begrijp deze</string>
+  
+  <!--Data Loading-->
+  <string name="data_label">Gegevens laden:</string>
+  <string name ="data_no_connection_waring">
+    De applicatie heeft internet nodig gegevens te laden.
+  </string>
+  <string name ="data_download_warning">
+    De applicatie zal verbinding maken met het internet om deze te downloaden. Let er op dat uw dataprovider geld kan vragen voor de download op het mobiele netwerk.
+  </string>
+  <string name ="data_wait">Momentje, we zijn de gegevens aan het verzamelen</string>
+  <string name ="data_warning">Het is niet gelukt om de data te laden.</string>
+  <string name ="data_warning_advice">Controleer of uw internetverbinding werkt, of vraag uw supervisor om help.</string>
+  <string name ="data_button_content">Nog een keer</string>
+  <string name ="data_reading_error">Er is een probleem ontstaan. Herstart de applicatie alstublieft. </string>
+
 
   <!--Navigation menu (nav_menu.axml)-->
   <string name="nav_home">Thuis</string>
@@ -40,6 +58,25 @@
   <string name="logout_message">
 Je wordt teruggestuurd naar de inlogpagina.
 \n\nWeet je zeker dat je uit wil loggen?
+  </string>
+
+  <!--Settings-->
+  <string name="last_update">Laatste update</string>
+  <string name="check_update">Controleer de update</string>
+  <string-array name="languagesArray">
+    <item>Engels</item>
+    <item>Nederlands</item>
+  </string-array>
+  <string name="lan_aplied">Language was applied</string>
+  <string name="date_unknown">unknown</string>
+  <string name="update_message">
+    U kunt de informatie updaten
+  </string>
+  <string name="update_latest">
+    U gebruikt de meest recente gegevens.
+  </string>
+  <string name="update_no_connection">
+    De applicatie heeft internet nodig om op updates te checken.
   </string>
 
 

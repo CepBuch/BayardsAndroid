@@ -9,23 +9,20 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Newtonsoft.Json;
 
-namespace Bayards_Android.DTO
+namespace Bayards_Android.Model
 {
-    class Subcategory
+    class Location
     {
-        [JsonProperty("id_s")]
         public string Id { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        public double Latitude { get; set; }
 
-        [JsonProperty("risks")]
-        public Risk [] Risks { get; set; }
+        public double Longtitude { get; set; }
+        public string Language { get; set; }
 
-
-        [JsonProperty("order")]
         public int? Order { get; set; }
+
+
     }
 }

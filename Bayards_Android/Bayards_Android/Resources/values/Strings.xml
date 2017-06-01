@@ -2,11 +2,18 @@
 <resources>
   <string name="ApplicationName">BayardsSB</string>
   <string name="bayards">Bayards Nieuw - Lekkerland</string>
+  <string name="bayards_website">
+    <a href="http://www.bayards.nl">Bayards website</a>
+  </string>
   <string name="yes">Yes</string>
   <string name="no">No</string>
+  <string name="cancel">Cancel</string>
   <string name="continue_btn">Continue</string>
-  
-  
+  <string name="warning">Warning</string>
+  <string name="error">Error</string>
+
+
+
   <!--Strings for choose language activity-->
   <string name="lan_title">Choose language</string>
   <string name="lan_english">English</string>
@@ -34,18 +41,16 @@
   <string name="read_and_agree">I have read and agree to the user agreement</string>
 
 
-  <!--DATA LOAD LAYOUT-->
+  <!--Data Loading-->
   <string name="data_label">Data loading: </string>
-  <string name ="data_no_connection_waring">No internet connection was found.</string>
-
-  <string name ="data_wifi_warning">
-    The application needs to download about ## mb of data. Continue?
+  <string name ="data_no_connection_waring">
+    The app needs internet connection to load data.
   </string>
 
-  <string name ="data_mobile_warning">
-    The application needs to download about ## mb of data. However, since you are connected to a mobile network, your mobile operator may charge you for downloading them. Continue?\n\n
-    Otherwise, you can connect to any Wi-Fi network and try again.
+  <string name ="data_download_warning">
+    The application will use the internet connection to download new data. Please be aware that there may be a charge for data transfer over the mobile network.
   </string>
+
 
   <string name ="data_wait">Please, wait while we are loading data</string>
   <string name ="data_warning">Failed to load data.</string>
@@ -64,9 +69,29 @@ You will be returned to the Log In page.
 \n\nAre you sure you want to Log Out?
   </string>
 
-  
-  
-<!--Other strings -->
+  <!--Settings-->
+  <string name="last_update">Last update</string>
+  <string name="check_update">Check update</string>
+  <string-array name="languagesArray">
+    <item>English</item>
+    <item>Dutch</item>
+  </string-array>
+  <string name="lan_aplied">Language was applied</string>
+  <string name="date_unknown">unknown</string>
+  <string name="update_message">
+    You can update the information
+  </string>
+  <string name="update_latest">
+    You use the latest data.
+  </string>
+  <string name="update_no_connection">
+    The internet connection is needed to check updates.
+  </string>
+
+
+
+
+  <!--Other strings -->
   <string name="content_not_found">
     There is no content in this section.
   </string>

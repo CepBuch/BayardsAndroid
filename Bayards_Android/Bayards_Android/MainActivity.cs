@@ -18,6 +18,7 @@ using System;
 using Android.Support.V4.Widget;
 using Bayards_Android.Fragments;
 using Android.Support.Design.Widget;
+using Android.Runtime;
 
 namespace Bayards_Android
 {
@@ -37,13 +38,12 @@ namespace Bayards_Android
             prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             editor = prefs.Edit();
 
-
-
+            //--------------------------------------------------------------------------------
             //-----------------------PUTTING THE SERVER ADDRESS-------------------------------
             editor.PutString("hosting_address", "http://vhost29450.cpsite.ru");
             editor.Apply();
-
-
+            //--------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------
 
             //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
@@ -52,73 +52,40 @@ namespace Bayards_Android
             if (passedAllChecks && hasRecords)
             {
                 SetContentView(Resource.Layout.MainActivity);
-
-                //Accepting toolbar and drawerlayout
-                toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_main);
-                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-                SetSupportActionBar(toolbar);
-
-                drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                    Resource.String.openDrawer, Resource.String.closeDrawer);
-
-                drawerLayout.AddDrawerListener(drawerToggle);
-                SupportActionBar.SetHomeButtonEnabled(true);
-                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-                SupportActionBar.SetDisplayShowTitleEnabled(false);
-                drawerToggle.SyncState();
-                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-
-                SetupDrawerContent(navigationView);
-
+                CustomizeToolbarAndNavView();
                 ShowMainContent();
             }
         }
 
-        void SetupDrawerContent(NavigationView navigationView)
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
-            navigationView.NavigationItemSelected += (sender, e) =>
+            //This recreates activity to apply changes made in settingsactivity
+            //For example if language was changed or data was updated.
+            if (requestCode == 1 && resultCode == Result.Ok)
             {
-                switch (e.MenuItem.ItemId)
-                {
-                    case Resource.Id.nav_exit:
-                        {
-                            var dialog = new Android.App.AlertDialog.Builder(this);
-                            dialog.SetMessage(GetString(Resource.String.logout_message));
-
-                            dialog.SetPositiveButton("Yes", delegate { LogOut(); });
-                            dialog.SetNegativeButton("Cancel", delegate { });
-                            dialog.Show();
-                            break;
-                        }
-                    case Resource.Id.nav_locations:
-                        {
-                            Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
-                            break;
-                        }
-                    case Resource.Id.nav_home:
-                        {
-                            ShowMainContent();
-                            break;
-                        }
-                    case Resource.Id.nav_settings:
-                        {
-                            Toast.MakeText(this, "Settings clicked", ToastLength.Long).Show();
-                            break;
-                        }
-                }
-                e.MenuItem.SetChecked(true);
-                drawerLayout.CloseDrawers();
-            };
+                this.Recreate();
+            }
         }
-
-
-        private void ShowMainContent()
+        public void CustomizeToolbarAndNavView()
         {
-            var trans = SupportFragmentManager.BeginTransaction();
-            var categoriesContainerFragment = CategoriesContainerFragment.newInstance(string.Empty);
-            trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
-            trans.Commit();
+            //Accepting toolbar and drawerlayout
+            toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_main);
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            SetSupportActionBar(toolbar);
+
+            drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                Resource.String.openDrawer, Resource.String.closeDrawer);
+
+            drawerLayout.AddDrawerListener(drawerToggle);
+            SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayShowTitleEnabled(false);
+            drawerToggle.SyncState();
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+
+            navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
         }
+
 
 
         private bool CountCategories()
@@ -146,7 +113,7 @@ namespace Bayards_Android
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            navigationView.InflateMenu(Resource.Menu.nav_menu); //Navigation Drawer Layout Menu Creation  
+            navigationView.InflateMenu(Resource.Menu.nav_menu);  
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return base.OnPrepareOptionsMenu(menu);
         }
@@ -156,35 +123,59 @@ namespace Bayards_Android
             drawerToggle.OnOptionsItemSelected(item);
             switch (item.ItemId)
             {
-                case Resource.Id.nav_exit:
-                    {
-                        var dialog = new Android.App.AlertDialog.Builder(this);
-                        dialog.SetMessage(GetString(Resource.String.logout_message));
-
-                        dialog.SetPositiveButton("Yes", (s, e) => LogOut());
-                        dialog.SetNegativeButton("Cancel", delegate { });
-                        dialog.Show();
-                        return true;
-                    }
-                case Resource.Id.nav_locations:
-                    {
-                        Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
-                        return true;
-                    }
-                case Resource.Id.nav_home:
-                    {
-                        Toast.MakeText(this, "Home clicked", ToastLength.Long).Show();
-
-                        return true;
-                    }
-                case Resource.Id.nav_settings:
-                    {
-                        Toast.MakeText(this, "Settings clicked", ToastLength.Long).Show();
-                        return true;
-                    }
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+
+        private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
+        {
+            {
+                switch (e.MenuItem.ItemId)
+                {
+                    case Resource.Id.nav_exit:
+                        {
+                            var dialog = new Android.App.AlertDialog.Builder(this);
+                            dialog.SetMessage(GetString(Resource.String.logout_message));
+
+                            dialog.SetPositiveButton("Yes", delegate { LogOut(); });
+                            dialog.SetNegativeButton("Cancel", delegate { });
+                            dialog.Show();
+                            break;
+                        }
+                    case Resource.Id.nav_locations:
+                        {
+                            Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
+                            break;
+                        }
+                    case Resource.Id.nav_home:
+                        {
+                            ShowMainContent();
+                            break;
+                        }
+                    case Resource.Id.nav_settings:
+                        {
+                            ShowSettings();
+                            break;
+                        }
+                }
+                e.MenuItem.SetChecked(true);
+                drawerLayout.CloseDrawers();
+            };
+        }
+
+        private void ShowMainContent()
+        {
+            var trans = SupportFragmentManager.BeginTransaction();
+            var categoriesContainerFragment = CategoriesContainerFragment.newInstance(string.Empty);
+            trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+            trans.Commit();
+        }
+
+        public void ShowSettings()
+        {
+            var intent = new Intent(this, typeof(SettingsActivity));
+            StartActivityForResult(intent, 1);
         }
 
 
@@ -195,12 +186,12 @@ namespace Bayards_Android
             var isAuthorized = prefs.GetBoolean("isAuthorized", false);
             var isAcceptedAgreement = prefs.GetBoolean("isAcceptedAgreement", false);
             var isDataLoaded = prefs.GetBoolean("isDataLoaded", false);
-            isDataLoaded = true;
+
             //If language was chosen, setting the appropriate one.
             if (isLanguageChosen)
             {
                 language = prefs.GetString("languageCode", "eng");
-                ApplyAppLanguage(language);
+                AppManager.ApplyAppLanguage(this, language);
             }
 
             //Showing the corresponding authorizatin page.
@@ -225,14 +216,6 @@ namespace Bayards_Android
             return true;
         }
 
-        protected void ApplyAppLanguage(string language_code)
-        {
-            var res = this.Resources;
-            DisplayMetrics dm = res.DisplayMetrics;
-            var conf = res.Configuration;
-            conf.SetLocale(new Java.Util.Locale(language_code));
-            res.UpdateConfiguration(conf, dm);
-        }
 
         public void LogOut()
         {

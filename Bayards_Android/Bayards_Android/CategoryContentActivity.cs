@@ -103,6 +103,7 @@ namespace Bayards_Android
                 var dialog = new Android.App.AlertDialog.Builder(this);
                 string message = GetString(Resource.String.content_not_found);
                 dialog.SetMessage(message);
+                dialog.SetCancelable(false);
                 dialog.SetPositiveButton("Ok", delegate
                 {
                     this.Finish();

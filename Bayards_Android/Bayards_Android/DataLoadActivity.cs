@@ -15,18 +15,22 @@ using Mono.Data.Sqlite;
 using Android.Net;
 using System.Threading.Tasks;
 using Bayards_Android.Model;
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.V7.App;
 
 namespace Bayards_Android
 {
     [Activity(Theme = "@style/AppTheme")]
 
-    public class DataLoadActivity : Activity
+
+    public class DataLoadActivity : AppCompatActivity
     {
         ISharedPreferences _prefs;
         ISharedPreferencesEditor _editor;
         Button tryAgainButton;
         LinearLayout waitLayout;
         LinearLayout warningLayout;
+        SupportToolbar toolbar;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,15 +42,50 @@ namespace Bayards_Android
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             _editor = _prefs.Edit();
 
-            tryAgainButton = FindViewById<Button>(Resource.Id.data_load_button);
+            FindViews();
+            CustomizeToolbar();
             tryAgainButton.Click += delegate { DownloadData(); };
+            AskUserPermissionToDownload();
+        }
 
+        private void FindViews()
+        {
+            tryAgainButton = FindViewById<Button>(Resource.Id.data_load_button);
             warningLayout = FindViewById<LinearLayout>(Resource.Id.data_warningLayout);
             waitLayout = FindViewById<LinearLayout>(Resource.Id.data_waitLayout);
-
-            AskUserPermissionToDownload();
-
         }
+        
+        private void CustomizeToolbar()
+        {
+            var enableBackButton = Intent.GetBooleanExtra("enableBackButton", false);
+            if (enableBackButton)
+            {
+                //Enabling custom toolbar
+                toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar_dataload);
+                SetSupportActionBar(toolbar);
+
+                //Disabling default title;
+                SupportActionBar.SetDisplayShowTitleEnabled(false);
+                //Enabling BackButton
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                SupportActionBar.SetDisplayShowHomeEnabled(true);
+            }
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    {
+                        Finish();
+                        return true;
+                    }
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+
+
 
 
         //Checking internet connection, and, if it connected, asking user's permission to download data.
@@ -59,16 +98,14 @@ namespace Bayards_Android
             //If connected to the internet
             if (info != null && info.IsConnected)
             {
-                // Check if connection type is wifi
-                bool isConnectedWifi = info.Type == ConnectivityType.Wifi;
-
-                string message = GetString(
-                    isConnectedWifi ? Resource.String.data_wifi_warning : Resource.String.data_mobile_warning);
-
+                string message = GetString(Resource.String.data_download_warning);
+                string title = GetString(Resource.String.warning);
+                dialog.SetTitle(title);
                 dialog.SetMessage(message);
+
                 //Affter clicking yes button the data will be downloaded
-                dialog.SetPositiveButton("Yes", delegate { DownloadData(); });
-                dialog.SetNegativeButton("No", (sender, e) => { this.Finish(); });
+                dialog.SetPositiveButton(GetString(Resource.String.yes), delegate { DownloadData(); });
+                dialog.SetNegativeButton(GetString(Resource.String.no), (sender, e) => { this.Finish(); });
                 dialog.SetCancelable(false);
                 dialog.Show();
             }
@@ -76,6 +113,8 @@ namespace Bayards_Android
             {
                 //Show error message
                 string message = GetString(Resource.String.data_no_connection_waring);
+                string title = GetString(Resource.String.error);
+                dialog.SetTitle(title);
                 dialog.SetMessage(message);
                 dialog.SetPositiveButton("Ok", delegate { this.Finish(); });
                 dialog.Show();
@@ -88,35 +127,37 @@ namespace Bayards_Android
             warningLayout.Visibility = ViewStates.Gone;
             waitLayout.Visibility = ViewStates.Visible;
 
-
-            ApiProvider provider = new ApiProvider(_prefs.GetString("token", ""), _prefs.GetString("hosting_address", ""));
-
+            var host = _prefs.GetString("hosting_address", "");
+            var token = _prefs.GetString("token", "");
             string language = _prefs.GetString("languageCode", "eng");
+
+            ApiProvider provider = new ApiProvider(host, token);
 
             //Trying to download data and add it to local database
             try
             {
-
-                var last_correct_password = _prefs.GetString("lastPassword", "");
-                bool correctPassword = await provider.CheckPassword(last_correct_password);
+                bool correctPassword = await provider.CheckPassword(token);
 
                 if (correctPassword)
                 {
                     var data = await provider.GetData(new string[] { "eng", "nl" });
+                    var categories = data.Item1;
+                    var locations = data.Item2;
+                    var lastUpdateDate = data.Item3;
 
                     //Saving all the images onto device
-                    SaveAllImages(data);
-
+                    SaveAllImages(categories);
 
                     bool createStatus = Database.Manager.CreateDatabase();
 
                     if (createStatus)
                     {
-                        bool saveStatus = Database.Manager.SaveData(data);
+                        bool saveStatus = Database.Manager.SaveData(categories);
 
                         if (saveStatus)
                         {
                             _editor.PutBoolean("isDataLoaded", true);
+                            _editor.PutString("lastUpdateDate", lastUpdateDate.ToString());
                             _editor.Apply();
 
                             var intent = new Intent(this, typeof(MainActivity));
@@ -127,19 +168,26 @@ namespace Bayards_Android
                     }
                     else throw new SqliteException("Database was not created");
                 }
-                else
+                else throw new UnauthorizedAccessException();
+                
+            }
+            catch (UnauthorizedAccessException)
+            {
+                waitLayout.Visibility = ViewStates.Gone;
+                warningLayout.Visibility = ViewStates.Visible;
+                tryAgainButton.Visibility = ViewStates.Visible;
+                tryAgainButton.Enabled = true;
+
+                var dialog = new Android.App.AlertDialog.Builder(this);
+                string message = GetString(Resource.String.password_was_changed);
+                dialog.SetMessage(message);
+                dialog.SetPositiveButton("Ok", delegate
                 {
-                    var dialog = new Android.App.AlertDialog.Builder(this);
-                    string message = GetString(Resource.String.password_was_changed);
-                    dialog.SetMessage(message);
-                    dialog.SetPositiveButton("Ok", delegate
-                    {
-                        _editor.PutBoolean("isAuthorised", false);
-                        _editor.Apply();
-                        OpenPasswordActivity();
-                    });
-                    dialog.Show();
-                }
+                    OpenPasswordActivity();
+                });
+                dialog.SetNegativeButton(GetString(Resource.String.cancel), delegate { } );
+
+                dialog.Show();
             }
             catch
             {
@@ -165,7 +213,7 @@ namespace Bayards_Android
 
                 if (categories != null)
                 {
-                    //Selecting all mediaobject that have images
+                    //Selecting all mediaobjects that have images
                     foreach (var category in categories.Where(c => c != null))
                     {
                         if (category.Risks != null)
@@ -182,7 +230,8 @@ namespace Bayards_Android
                                             foreach (var media in risk.MediaObjects.Where(o => !string.IsNullOrWhiteSpace(o.Name) && o.Bytes != null && o.TypeMedia == Enums.TypeMedia.Image))
                                                 mediaWithImagesPaths.Add(media);
                     }
-
+                    
+                    //Save unique images (by path from the server)
                     foreach (var image in mediaWithImagesPaths.GroupBy(m => m.Name).Select(grp => grp.First()))
                     {
                         var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);

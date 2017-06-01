@@ -13,10 +13,11 @@ namespace Bayards_Android
     {
         private string _host;
         private string _token;
-        const string uriGetDataTemplate = "{0}/api/getAll?lang={1}";
+        const string uriGetDataTemplate = "{0}/api/getAll?apiKey={1}&lang={2}";
         const string uriImageUpload = "{0}/ui/images/{1}";
         const string uriCheckPassword = "{0}/api/checkPassword";
         const string uriGetUserAgreement = "{0}/api/getUserAgreement?apiKey={1}&lang={2}";
+        const string uriGetUpdateDate = "{0}/api/getUpdateDate";
 
 
 
@@ -25,6 +26,27 @@ namespace Bayards_Android
         {
             _host = host;
             _token = token;
+        }
+
+        public async Task<bool> CheckUpdates(DateTime lastUpdate)
+        {
+
+            DateTime? newUpdateDate = default(DateTime);
+            using (var client = new HttpClient())
+            {
+                string requestUri = string.Format(uriGetUpdateDate, _host);
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeAnonymousType(responseString, new { date = default(DateTime?) });
+                    newUpdateDate = result.date;
+                    return (newUpdateDate.HasValue && newUpdateDate.Value > lastUpdate);
+                }
+                else
+                    throw new WebException($"The server returned an error: {response.StatusCode}");
+            }
         }
         public async Task<bool> CheckPassword(string password)
         {
@@ -52,9 +74,9 @@ namespace Bayards_Android
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var result= JsonConvert.DeserializeAnonymousType(responseString, new { content = string.Empty });
+                    var result = JsonConvert.DeserializeAnonymousType(responseString, new { content = string.Empty });
                     var agreement = result.content;
-                    
+
                     if (agreement != null && !agreement.StartsWith("Error"))
                     {
                         return agreement;
@@ -69,35 +91,51 @@ namespace Bayards_Android
 
 
         //Returns categories from server for each language
-        public async Task<Model.Category[]> GetData(string[] languages)
+        public async Task<Tuple<Model.Category[],Model.Location[],DateTime>> GetData(string[] languages)
         {
-            if (languages == null || languages.Length == 0)
-                throw new NullReferenceException("Languages array is empty");
+            var categories = new List<Model.Category>();
+            var locations = new List<Model.Location>();
+            var lastUpdateDate = default(DateTime);
 
-            var result = new List<Model.Category>();
 
             using (var client = new HttpClient())
             {
                 foreach (var language in languages)
                 {
-                    string requestUri = string.Format(uriGetDataTemplate, _host, language);
+                    string requestUri = string.Format(uriGetDataTemplate, _host, _token, language);
                     HttpResponseMessage response = await client.GetAsync(requestUri);
 
                     if (response.IsSuccessStatusCode)
                     {
                         var resultForLanguageStr = await response.Content.ReadAsStringAsync();
-                        var resultForLanguage = JsonConvert.DeserializeObject<DTO.Response>(resultForLanguageStr);
 
+                        if (resultForLanguageStr.StartsWith("Error"))
+                            throw new UnauthorizedAccessException();
+
+                        var resultForLanguage = JsonConvert.DeserializeObject<DTO.Response>(resultForLanguageStr);
                         if (resultForLanguage != null)
                         {
+                            //Contents
                             var DTOCategories = resultForLanguage.Categories;
 
                             if (DTOCategories != null && DTOCategories.Length > 0)
                             {
-                                result.AddRange(await ConvertCatogories(DTOCategories, language));
+                                categories.AddRange(await ConvertCatogories(DTOCategories, language));
                             }
                             else
                                 throw new NullReferenceException("The answer is empty");
+
+                            //Loactions
+                            var DTOLocations = resultForLanguage.Locations;
+                            if (DTOLocations != null)
+                            {
+                                locations = ConvertLocations(DTOLocations, language).ToList();
+                            }
+
+                            //UpdateDate
+                            if (lastUpdateDate == default(DateTime) && resultForLanguage.UpdateDate != null &&
+                                resultForLanguage.UpdateDate != default(DateTime))
+                                lastUpdateDate = resultForLanguage.UpdateDate;
                         }
                         else
                             throw new NullReferenceException("There is no response from the server");
@@ -106,10 +144,23 @@ namespace Bayards_Android
                         throw new WebException($"The server returned an error: {response.StatusCode}");
                 }
             }
-            return result.ToArray();
+            return new Tuple<Model.Category[], Model.Location[], DateTime>(categories.ToArray(), locations.ToArray(), lastUpdateDate);
         }
 
 
+        private Model.Location[] ConvertLocations(DTO.Location[] locations, string language)
+        {
+            return locations
+                .Where(l => l != null && !string.IsNullOrWhiteSpace(l.Id))
+                .Select(l => new Model.Location
+                {
+                    Id = l.Id,
+                    Latitude = l.Latitude,
+                    Longtitude = l.Longtitude,
+                    Language = language,
+                    Order = l.Order
+                }).ToArray();
+        }
         private async Task<Model.Category[]> ConvertCatogories(DTO.Category[] catogoriesToConvert, string language)
         {
             var tasks = catogoriesToConvert
@@ -120,7 +171,8 @@ namespace Bayards_Android
                     Name = c.Name,
                     Risks = await ConvertRisks(c.Risks, language),
                     Subcategories = await ConvertSubcategories(c.Subcategories, language),
-                    Language = language
+                    Language = language,
+                    Order = c.Order
                 }).ToArray();
             return await Task.WhenAll(tasks);
         }
@@ -137,6 +189,7 @@ namespace Bayards_Android
                     Name = sc.Name,
                     Risks = await ConvertRisks(sc.Risks, language),
                     Subcategories = null,
+                    Order = sc.Order,
                     Language = language
                 }).ToArray();
             return await Task.WhenAll(tasks);
@@ -153,6 +206,7 @@ namespace Bayards_Android
                     Name = r.Name,
                     Content = r.Content,
                     Language = language,
+                    Order = r.Order,
                     MediaObjects = await ConvertMedia(r.MediaObjects, language)
                 }).ToList();
 

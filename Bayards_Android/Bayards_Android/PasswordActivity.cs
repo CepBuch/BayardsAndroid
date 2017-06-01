@@ -92,14 +92,12 @@ namespace Bayards_Android
             //Checking if password is correct, otherwise show "incorrect password" message
             if (correctPassword)
             {
-                await DownloadAgreement();
+                // Download user agreement to show it on the next page
+                 await DownloadAgreement();
                 //Remember that user is authorized and open main page
                 _editor.PutBoolean("isAuthorized", true);
                 _editor.PutString("token", encrypted_password);
                 _editor.Apply();
-
-                //Download user agreement to show it on the next page
-                
 
 
                 var intent = new Intent(this, typeof(MainActivity));
@@ -154,7 +152,5 @@ namespace Bayards_Android
             }
         }
     }
-
-
 
 }

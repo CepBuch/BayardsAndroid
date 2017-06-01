@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include
+        android:layout_centerHorizontal="true"
+        android:id="@+id/toolbar_settings"
+        layout="@layout/toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:layout_below="@+id/toolbar_settings"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="30">
+            <ImageView
+                android:src="@drawable/bayards"
+                android:maxWidth="400dp"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:scaleType="centerInside"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:text="@string/lan_title"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/languageButton"
+                style="@style/custom_button" />
+            <TextView
+                android:text="@string/last_update"
+                android:layout_marginTop="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:id="@+id/lastUpdateTextView" />
+            <Button
+                android:text="@string/check_update"
+                android:layout_height="60dp"
+                android:layout_width="200dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/updatesButton"
+                style="@style/custom_button" />
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/check_progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_in"
+                android:indeterminateTint="@color/dark_blue" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="20">
+            <TextView
+                android:text="@string/bayards_website"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_horizontal"
+                android:id="@+id/websiteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorLink="@color/dark_blue" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

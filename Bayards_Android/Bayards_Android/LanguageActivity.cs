@@ -14,34 +14,40 @@ using Android.Preferences;
 
 namespace Bayards_Android
 {
-    [Activity(Label = "Login page", Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
+    [Activity(Theme = "@android:style/Theme.DeviceDefault.Light.NoActionBar")]
     public class LanguageActivity : Activity
     {
 
         ISharedPreferences _prefs;
         ISharedPreferencesEditor _editor;
+        LinearLayout engLayout;
+        LinearLayout nlLayout;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LanguageActivity);
 
-
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             _editor = _prefs.Edit();
 
+            FindViews();
 
-            LinearLayout engLayout = FindViewById<LinearLayout>(Resource.Id.EngLayout);
-            LinearLayout nlLayout = FindViewById<LinearLayout>(Resource.Id.NlLayout);
-
-            engLayout.Click += (sender, e) => chooseLanguage("eng");
-            nlLayout.Click += (sender, e) => chooseLanguage("nl");
+            engLayout.Click += (sender, e) => ChooseLanguage("eng");
+            nlLayout.Click += (sender, e) => ChooseLanguage("nl");
         }
 
-        protected void chooseLanguage(string language_code)
+        protected void FindViews()
         {
-            applyAppLanguage(language_code);
-            Intent intent = new Intent(this, typeof(MainActivity));             
+            engLayout = FindViewById<LinearLayout>(Resource.Id.EngLayout);
+            nlLayout = FindViewById<LinearLayout>(Resource.Id.NlLayout);
+        }
 
+        protected void ChooseLanguage(string language_code)
+        {
+            //Applying chosen language
+            AppManager.ApplyAppLanguage(this, language_code);
+
+            Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
 
             //Remember that language is chosen.
@@ -51,14 +57,7 @@ namespace Bayards_Android
             this.Finish();
         }
 
-        protected void applyAppLanguage(string language_code)
-        {
-            var res = this.Resources;
-            DisplayMetrics dm = res.DisplayMetrics;
-            var conf = res.Configuration;
-            conf.SetLocale(new Java.Util.Locale(language_code));
-            res.UpdateConfiguration(conf, dm);
-        }
+
 
 
 

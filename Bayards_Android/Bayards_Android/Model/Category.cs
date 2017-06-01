@@ -24,5 +24,7 @@ namespace Bayards_Android.Model
          
         public Category [] Subcategories { get; set; }
 
+        public int? Order { get; set; }
+
     }
 }
