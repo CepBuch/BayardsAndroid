@@ -87,7 +87,12 @@ You will be returned to the Log In page.
   <string name="update_no_connection">
     The internet connection is needed to check updates.
   </string>
-
+  <string name="map_type">Map type</string>
+  <string-array name="mapTypesArray">
+    <item>Normal</item>
+    <item>Satellite</item>
+    <item>Hybrid </item>
+  </string-array>
 <!--Location fragment-->
   <string name="loc_position">Position</string>
 
@@ -99,7 +104,7 @@ You will be returned to the Log In page.
   <string name="select_category">Sections: </string>
   <string name="risks">Risks</string>
   <string name="tasks">Tasks</string>
-
+  <string name="show">Show</string>
 
   <string name="openDrawer">Drawer Open</string>
   <string name="closeDrawer">Drawer Closed</string>

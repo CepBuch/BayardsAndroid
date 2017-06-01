@@ -28,20 +28,28 @@
                 android:textSize="30sp" />
             <TextView
                 android:id="@+id/location_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/location_position"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/loc_position"/>
+                android:text="@string/loc_position" />
+            <Button
+                android:layout_gravity="center"
+                android:text="@string/show"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/showLocationButton"
+                style="@style/custom_button" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

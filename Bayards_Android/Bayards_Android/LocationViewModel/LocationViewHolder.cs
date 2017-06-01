@@ -20,13 +20,17 @@ namespace Bayards_Android.LocationViewModel
         public TextView ContentTextView { get; set; }
 
         public TextView PositionTextView { get; set; }
+
+        private Button ShowButton { get; set; }
         //Defining view of each RecycleView item
-        public LocationViewHolder(View itemView)
+        public LocationViewHolder(View itemView, Action<int> listener)
             :base(itemView)
         {
             NameTextView = itemView.FindViewById<TextView>(Resource.Id.location_name);
             ContentTextView = itemView.FindViewById<TextView>(Resource.Id.location_content);
             PositionTextView = itemView.FindViewById<TextView>(Resource.Id.location_position);
+            ShowButton = itemView.FindViewById<Button>(Resource.Id.showLocationButton);
+            ShowButton.Click += (sender, e) => listener(base.AdapterPosition);
         }
     }
 }

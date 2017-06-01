@@ -19,14 +19,24 @@ namespace Bayards_Android.LocationViewModel
     {
         List<Android.Support.V4.App.Fragment> fragments;
         List<string> titles;
+        public event Action<int> OnTabChage;
 
-        public LocationPagerAdapter(Android.Support.V4.App.FragmentManager fm, List<string> titles)
+        public LocationPagerAdapter(Android.Support.V4.App.FragmentManager fm, List<string> titles, Context context)
             : base(fm)
         {
+
+            var mapFragment = Fragments.MapFragment.newInstance();
+            var containerFragment = LocationsContainerFragment.newInstance();
+            containerFragment.ItemClick += (e, l) =>
+            {
+                OnTabChage?.Invoke(0);
+                mapFragment.ShowLocation(l);
+            };
+            
             fragments = new List<Android.Support.V4.App.Fragment>
             {
-                LocationsContainerFragment.newInstance(),
-                LocationsContainerFragment.newInstance()
+                mapFragment,
+                containerFragment
             };
             this.titles = titles;
         }
@@ -41,6 +51,7 @@ namespace Bayards_Android.LocationViewModel
         {
             return new Java.Lang.String(titles[position]);
         }
+
 
         public override int Count
         {

@@ -10,12 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Android.Locations;
 
 namespace Bayards_Android.LocationViewModel
 {
     class LocationAdapter : RecyclerView.Adapter
     {
         public LocationList _locationList;
+        public event EventHandler<Model.Location> ItemClick;
 
         public LocationAdapter(LocationList locations)
         {
@@ -31,7 +33,7 @@ namespace Bayards_Android.LocationViewModel
             RecyclerView.ViewHolder rh;
             View itemView = LayoutInflater.From(parent.Context).
                            Inflate(Resource.Layout.LocationView, parent, false);
-            rh = new LocationViewHolder(itemView);
+            rh = new LocationViewHolder(itemView, OnClick);
             return rh;
         }
 
@@ -45,6 +47,11 @@ namespace Bayards_Android.LocationViewModel
                 lh.ContentTextView.Text = _locationList[position].Content;
                 lh.PositionTextView.Text += $": ({_locationList[position].Latitude}; {_locationList[position].Longtitude})";
             }
+        }
+
+        void OnClick(int position)
+        {
+            ItemClick?.Invoke(this, _locationList[position]);
         }
 
 

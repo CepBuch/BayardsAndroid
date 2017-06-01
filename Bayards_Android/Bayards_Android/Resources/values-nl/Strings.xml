@@ -78,7 +78,12 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="update_no_connection">
     De applicatie heeft internet nodig om op updates te checken.
   </string>
-
+  <string name="map_type">Kaartsoort</string>
+  <string-array name="mapTypesArray">
+    <item>Normaal</item>
+    <item>Satelliet</item>
+    <item>Hybride</item>
+  </string-array>
   <!--Location fragment-->
   <string name="loc_position">Position</string>
 
@@ -91,6 +96,7 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="tasks">Taken</string>
 
   <string name="select_category">Selecteer categorie</string>
+  <string name="show">Tonen</string>
 
 
 </resources>

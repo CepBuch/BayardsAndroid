@@ -136,7 +136,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     Connection.Open();
 
                     ReplaceQuotes(categories);
-
+                    ReplaceQuotes(locations);
                     foreach (var cat in categories)
                     {
                         //List of commands.
@@ -210,7 +210,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return true;
                 }
-                catch 
+                catch  (Exception ex)
                 {
                     return false;
                 }
@@ -600,6 +600,15 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
 
                 }
+            }
+        }
+
+        private void ReplaceQuotes(Location[] locations)
+        {
+            foreach (var loc in locations)
+            {
+                loc.Name = loc.Name != null ? loc.Name.Replace("'", "''").Replace("\"", "\\\"") : loc.Name;
+                loc.Content = loc.Content != null ? loc.Content.Replace("'", "''").Replace("\"", "\\\"") : loc.Content;
             }
         }
 

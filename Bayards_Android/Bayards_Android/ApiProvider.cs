@@ -60,8 +60,11 @@ namespace Bayards_Android
                 var responseString = await response.Content.ReadAsStringAsync();
                 var res = JsonConvert.DeserializeAnonymousType(responseString, new { check = new int?() });
                 flag = res.check;
+                return flag == 1;
             }
-            return flag == 1;
+
+
+
         }
 
         public async Task<string> GetUserAgreement(string language)
@@ -91,7 +94,7 @@ namespace Bayards_Android
 
 
         //Returns data from server for each language
-        public async Task<Tuple<Model.Category[],Model.Location[],DateTime>> GetData(string[] languages)
+        public async Task<Tuple<Model.Category[], Model.Location[], DateTime>> GetData(string[] languages)
         {
             var categories = new List<Model.Category>();
             var locations = new List<Model.Location>();

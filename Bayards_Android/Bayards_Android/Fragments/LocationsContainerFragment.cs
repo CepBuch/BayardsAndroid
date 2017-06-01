@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 using Bayards_Android.LocationViewModel;
 using Android.Preferences;
+using Bayards_Android.Model;
 
 namespace Bayards_Android.Fragments
 {
@@ -22,6 +23,7 @@ namespace Bayards_Android.Fragments
         RecyclerView.LayoutManager layoutManager;
         LocationAdapter locationAdapter;
         LocationList locationList;
+        public event EventHandler<Model.Location> ItemClick;
 
 
         public static LocationsContainerFragment newInstance()
@@ -65,6 +67,7 @@ namespace Bayards_Android.Fragments
             {
                 locationList = new LocationList(locations);
                 locationAdapter = new LocationAdapter(locationList);
+                locationAdapter.ItemClick += (e,l) => ItemClick?.Invoke(e,l);
             }
         }
     }

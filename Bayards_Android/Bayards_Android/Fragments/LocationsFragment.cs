@@ -15,6 +15,7 @@ using Bayards_Android.LocationViewModel;
 using Android.Preferences;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
+using Android.Gms.Maps;
 
 namespace Bayards_Android.Fragments
 {
@@ -40,9 +41,16 @@ namespace Bayards_Android.Fragments
              };
             //Showing content pages
             viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
-            viewPager.Adapter = new LocationPagerAdapter(FragmentManager, titles);
+            var adapter = new LocationPagerAdapter(FragmentManager, titles,Context);
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabLayout);
+            adapter.OnTabChage += i =>
+            {
+                TabLayout.Tab tab = tabLayout.GetTabAt(i);
+                tab.Select();
+            };
+            viewPager.Adapter = adapter;
             tabLayout.SetupWithViewPager(viewPager);
+
             return view;
         }
 
@@ -50,6 +58,7 @@ namespace Bayards_Android.Fragments
         {
             base.OnCreate(savedInstanceState);
         }
+
 
     }
 }

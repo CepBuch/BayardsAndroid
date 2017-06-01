@@ -126,6 +126,7 @@ namespace Bayards_Android
             //Showing progress bar
             warningLayout.Visibility = ViewStates.Gone;
             waitLayout.Visibility = ViewStates.Visible;
+            tryAgainButton.Enabled = false;
 
             var host = _prefs.GetString("hosting_address", "");
             var token = _prefs.GetString("token", "");
@@ -189,7 +190,7 @@ namespace Bayards_Android
 
                 dialog.Show();
             }
-            catch
+            catch (Exception ex)
             {
                 waitLayout.Visibility = ViewStates.Gone;
                 warningLayout.Visibility = ViewStates.Visible;

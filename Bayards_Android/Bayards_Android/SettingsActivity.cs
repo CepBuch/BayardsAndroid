@@ -27,8 +27,10 @@ namespace Bayards_Android
         TextView lastUpdateTextView;
         Button languageSettingsButton;
         Button checkUpdatesButton;
+        Button mapTypeButton;
         ProgressBar checkProgressBar;
         string language;
+        string mapType;
         DateTime lastUpdateDate = default(DateTime);    
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -40,7 +42,8 @@ namespace Bayards_Android
             _prefs = PreferenceManager.GetDefaultSharedPreferences(ApplicationContext);
             _editor = _prefs.Edit();
             language = _prefs.GetString("languageCode", "eng");
-           
+            mapType = _prefs.GetString("mapType", "norm");
+
             FindViews();
             CustomizeToolbar();
             string date = _prefs.GetString("lastUpdateDate", GetString(Resource.String.date_unknown));
@@ -48,6 +51,7 @@ namespace Bayards_Android
             lastUpdateTextView.Text = $"{GetString(Resource.String.last_update)}: {date}";
             languageSettingsButton.Click += (e, s) => SelectLanguage();
             checkUpdatesButton.Click += (e, s) => CheckUpdates();
+            mapTypeButton.Click += (e, s) => SelectMapType();
         }
 
 
@@ -59,6 +63,7 @@ namespace Bayards_Android
             lastUpdateTextView = FindViewById<TextView>(Resource.Id.lastUpdateTextView);
             languageSettingsButton = FindViewById<Button>(Resource.Id.languageButton);
             checkUpdatesButton = FindViewById<Button>(Resource.Id.updatesButton);
+            mapTypeButton = FindViewById<Button>(Resource.Id.mapTypeButton);
             checkProgressBar = FindViewById<ProgressBar>(Resource.Id.check_progressBar);
 
         }
@@ -110,8 +115,56 @@ namespace Bayards_Android
                        ApplyLanguage("nl");
 
                    }
+
                    ((Dialog)o).Dismiss();
                });
+            builder.Show();
+        }
+
+        private void SelectMapType()
+        {
+            string[] types = Resources.GetStringArray(Resource.Array.mapTypesArray);
+            var builder = new Android.App.AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.map_type);
+            int selectedIndex;
+
+            switch (mapType)
+            {
+                case "norm":
+                    selectedIndex = 0;
+                    break;
+                case "sat":
+                    selectedIndex = 1;
+                    break;
+                case "hyb":
+                    selectedIndex = 2;
+                    break;
+                default:
+                    goto case "norm";
+            }
+
+            builder.SetSingleChoiceItems(types, selectedIndex, (o, e) =>
+            {
+                string type;
+                switch (e.Which)
+                {
+                    case 0:
+                        type = "norm";
+                        break;
+                    case 1:
+                        type = "sat";
+                        break;
+                    case 2:
+                        type = "hyb";
+                        break;
+                    default:
+                        goto case 0;
+                }
+                _editor.PutString("mapType", type);
+                _editor.Apply();
+
+                ((Dialog)o).Dismiss();
+            });
             builder.Show();
         }
 
