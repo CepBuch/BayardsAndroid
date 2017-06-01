@@ -7,32 +7,28 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Bayards_Android.Model;
-using Bayards_Android.RiskViewModel;
 using Android.Support.V7.Widget;
+using Bayards_Android.LocationViewModel;
 using Android.Preferences;
 
 namespace Bayards_Android.Fragments
 {
-    class RisksContainerFragment : Android.Support.V4.App.Fragment
+    public class LocationsFragment : Android.Support.V4.App.Fragment
     {
-
-        private static string CATEGORY_ID = "category_id";
         RecyclerView recyclerView;
         ISharedPreferences prefs;
         RecyclerView.LayoutManager layoutManager;
-        RisksAdapter risksAdapter;
-        RisksList risksList;
+        LocationAdapter locationAdapter;
+        LocationList locationList;
 
 
-        public static RisksContainerFragment newInstance(string category_id)
+        public static LocationsFragment newInstance()
         {
-            RisksContainerFragment fragment = new RisksContainerFragment();
+            LocationsFragment fragment = new LocationsFragment();
             Bundle args = new Bundle();
-            args.PutString(CATEGORY_ID, category_id);
-
             fragment.Arguments = args;
             return fragment;
         }
@@ -43,37 +39,37 @@ namespace Bayards_Android.Fragments
 
             //Getting current lunguage from application properties. 
             string language = prefs.GetString("languageCode", "eng");
-            string category_id = Arguments.GetString(CATEGORY_ID, string.Empty);
 
-            InitData(category_id, language);
+            InitData(language);
             base.OnCreate(savedInstanceState);
+
+            // Create your fragment here
         }
 
-
-        public override View OnCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.RisksFragment, container, false);
+            View view = inflater.Inflate(Resource.Layout.LocationsFragment, container, false);
 
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
-            recyclerView.SetAdapter(risksAdapter);
+            recyclerView.SetAdapter(locationAdapter);
 
             layoutManager = new LinearLayoutManager(Activity);
             recyclerView.SetLayoutManager(layoutManager);
-
             return view;
         }
 
-        private void InitData(string category_id, string language)
+        private void InitData(string language)
         {
-            List<Risk> risks = new List<Risk>();
-            risks = Database.Manager.GetRisks(category_id, language);
+            List<Model.Location> locations = new List<Model.Location>();
+            locations = Database.Manager.GetLocations(language);
 
-            if (risks != null && risks.Count > 0)
+            if (locations!= null && locations.Count > 0)
             {
-                risksList = new RisksList(risks);
-                risksAdapter = new RisksAdapter(risksList);
+                locationList = new LocationList(locations);
+                locationAdapter = new LocationAdapter(locationList);
             }
         }
+
+
     }
 }

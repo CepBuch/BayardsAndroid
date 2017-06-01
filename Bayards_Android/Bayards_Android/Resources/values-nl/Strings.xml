@@ -52,7 +52,7 @@
 
   <!--Navigation menu (nav_menu.axml)-->
   <string name="nav_home">Thuis</string>
-  <string name="nav_map">Kaart</string>
+  <string name="nav_map">Locaties</string>
   <string name="nav_settings">Instellingen</string>
   <string name="nav_exit">Uitloggen</string>
   <string name="logout_message">
@@ -78,6 +78,9 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="update_no_connection">
     De applicatie heeft internet nodig om op updates te checken.
   </string>
+
+  <!--Location fragment-->
+  <string name="loc_position">Position</string>
 
 
   <!--Other strings -->

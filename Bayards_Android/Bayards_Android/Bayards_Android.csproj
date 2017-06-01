@@ -135,7 +135,11 @@
     <Compile Include="DTO\Subcategory..cs" />
     <Compile Include="Enums\TypeMedia.cs" />
     <Compile Include="Fragments\CategoriesContainerFragment.cs" />
+    <Compile Include="Fragments\LocationsFragment.cs" />
     <Compile Include="LanguageActivity.cs" />
+    <Compile Include="LocationViewModel\LocationAdapter.cs" />
+    <Compile Include="LocationViewModel\LocationList.cs" />
+    <Compile Include="LocationViewModel\LocationViewHolder.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Location.cs" />
@@ -214,6 +218,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SettingsActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocationView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocationsFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

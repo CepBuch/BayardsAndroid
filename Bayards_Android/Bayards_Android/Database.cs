@@ -90,8 +90,9 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 [Id] INTEGER PRIMARY KEY AUTOINCREMENT,
 [Location_Id] ntext,
 [Location_Name] ntext,
-[Location_Lat] float,
-[Location_Long] float,
+[Location_Content] ntext,
+[Location_Lat] real,
+[Location_Long] real,
 [Location_Language] nvarchar(5),
 [Location_Order] int);"};
 
@@ -198,9 +199,10 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     {
                         using (var c = Connection.CreateCommand())
                         {
-                            string command = $"INSERT INTO [Location] ([Location_Id],  [Location_Name]," +
+                            string command = $"INSERT INTO [Location] ([Location_Id],  [Location_Name], [Location_Content], " +
                                 $" [Location_Lat], [Location_Long], [Location_Language], [Location_Order]) " +
-                                $"VALUES ('{loc.Id}', '{loc.Name}', '{loc.Latitude}', '{loc.Longtitude}','{loc.Language}', '{loc.Order}');";
+                                $"VALUES ('{loc.Id}', '{loc.Name}', '{loc.Content}', '{loc.Latitude.ToString().Replace(',','.')}'," +
+                                $" '{loc.Longtitude.ToString().Replace(',', '.')}','{loc.Language}', '{loc.Order}');";
                             c.CommandText = command;
                             query = command;
                             var rowcount = c.ExecuteNonQuery();
@@ -208,7 +210,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return true;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return false;
                 }
@@ -472,7 +474,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         contents.CommandType = System.Data.CommandType.Text;
 
                         contents.CommandText =
-                            "SELECT  [Location_Name], [Location_Lat], [Location_Long], [Location_Language] FROM [Location]" +
+                            "SELECT  [Location_Name], [Location_Content], [Location_Lat],  [Location_Long], [Location_Language] FROM [Location]" +
                             $"WHERE [Location_Language] = '{language}'" +
                             $"ORDER BY [Location_Order] ASC;";
 
@@ -480,10 +482,10 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
                         while (r.Read())
                         {
-
                             locations.Add(new Model.Location
                             {
                                 Name = r["Location_Name"].ToString(),
+                                Content = r["Location_Content"].ToString(),
                                 Latitude = double.Parse(r["Location_Lat"].ToString()),
                                 Longtitude = double.Parse(r["Location_Long"].ToString()),
                                 Language = r["Location_Language"].ToString()

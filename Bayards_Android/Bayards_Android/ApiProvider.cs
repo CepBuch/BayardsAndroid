@@ -90,7 +90,7 @@ namespace Bayards_Android
         }
 
 
-        //Returns categories from server for each language
+        //Returns data from server for each language
         public async Task<Tuple<Model.Category[],Model.Location[],DateTime>> GetData(string[] languages)
         {
             var categories = new List<Model.Category>();
@@ -157,6 +157,7 @@ namespace Bayards_Android
                     Id = l.Id,
                     Name = l.Name,
                     Latitude = l.Latitude,
+                    Content = l.Content,
                     Longtitude = l.Longtitude,
                     Language = language,
                     Order = l.Order

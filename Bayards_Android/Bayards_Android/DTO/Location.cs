@@ -24,6 +24,9 @@ namespace Bayards_Android.DTO
         [JsonProperty("latitude")]
         public double Latitude{ get; set; }
 
+        [JsonProperty("content")]
+        public string Content { get; set; }
+
         [JsonProperty("longitude")]
         public double Longtitude{ get; set; }
 

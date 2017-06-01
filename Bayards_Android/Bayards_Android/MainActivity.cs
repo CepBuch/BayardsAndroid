@@ -56,8 +56,6 @@ namespace Bayards_Android
                 CustomizeToolbarAndNavView();
                 ShowMainContent();
                 CheckUpdates();
-
-                var locations = Database.Manager.GetLocations("eng");
             }
         }
 
@@ -149,7 +147,7 @@ namespace Bayards_Android
                         }
                     case Resource.Id.nav_locations:
                         {
-                            Toast.MakeText(this, "Locations clicked", ToastLength.Long).Show();
+                            ShowLocations();
                             break;
                         }
                     case Resource.Id.nav_home:
@@ -173,6 +171,15 @@ namespace Bayards_Android
             var trans = SupportFragmentManager.BeginTransaction();
             var categoriesContainerFragment = CategoriesContainerFragment.newInstance(string.Empty);
             trans.Replace(Resource.Id.mainFragmentContainer, categoriesContainerFragment);
+            trans.Commit();
+        }
+
+
+        private void ShowLocations()
+        {
+            var trans = SupportFragmentManager.BeginTransaction();
+            var locationsFragment = LocationsFragment.newInstance();
+            trans.Replace(Resource.Id.mainFragmentContainer, locationsFragment);
             trans.Commit();
         }
 
