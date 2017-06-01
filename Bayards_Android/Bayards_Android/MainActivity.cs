@@ -56,6 +56,8 @@ namespace Bayards_Android
                 CustomizeToolbarAndNavView();
                 ShowMainContent();
                 CheckUpdates();
+
+                var locations = Database.Manager.GetLocations("eng");
             }
         }
 

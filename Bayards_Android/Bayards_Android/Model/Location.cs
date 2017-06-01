@@ -12,13 +12,16 @@ using Android.Widget;
 
 namespace Bayards_Android.Model
 {
-    class Location
+    public class Location
     {
         public string Id { get; set; }
+        public string Name { get; set; }
 
         public double Latitude { get; set; }
 
+
         public double Longtitude { get; set; }
+
         public string Language { get; set; }
 
         public int? Order { get; set; }

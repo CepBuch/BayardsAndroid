@@ -152,7 +152,7 @@ namespace Bayards_Android
 
                     if (createStatus)
                     {
-                        bool saveStatus = Database.Manager.SaveData(categories);
+                        bool saveStatus = Database.Manager.SaveData(categories, locations);
 
                         if (saveStatus)
                         {

@@ -18,6 +18,9 @@ namespace Bayards_Android.DTO
         [JsonProperty("id_l")]
         public string Id { get; set; }
 
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("latitude")]
         public double Latitude{ get; set; }
 

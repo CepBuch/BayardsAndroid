@@ -129,7 +129,7 @@ namespace Bayards_Android
                             var DTOLocations = resultForLanguage.Locations;
                             if (DTOLocations != null)
                             {
-                                locations = ConvertLocations(DTOLocations, language).ToList();
+                                locations.AddRange(ConvertLocations(DTOLocations, language).ToList());
                             }
 
                             //UpdateDate
@@ -155,6 +155,7 @@ namespace Bayards_Android
                 .Select(l => new Model.Location
                 {
                     Id = l.Id,
+                    Name = l.Name,
                     Latitude = l.Latitude,
                     Longtitude = l.Longtitude,
                     Language = language,
