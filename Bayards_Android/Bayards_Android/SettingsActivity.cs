@@ -182,7 +182,6 @@ namespace Bayards_Android
         {
             ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
             NetworkInfo info = connectivityManager.ActiveNetworkInfo;
-            var dialog = new Android.App.AlertDialog.Builder(this);
 
             return (info != null && info.IsConnected);
         }

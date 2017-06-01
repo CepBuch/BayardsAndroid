@@ -79,7 +79,7 @@ You will be returned to the Log In page.
   <string name="lan_aplied">Language was applied</string>
   <string name="date_unknown">unknown</string>
   <string name="update_message">
-    You can update the information
+    Update is available. Do you want to load it?
   </string>
   <string name="update_latest">
     You use the latest data.

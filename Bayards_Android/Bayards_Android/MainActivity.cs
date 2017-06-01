@@ -19,6 +19,7 @@ using Android.Support.V4.Widget;
 using Bayards_Android.Fragments;
 using Android.Support.Design.Widget;
 using Android.Runtime;
+using Android.Net;
 
 namespace Bayards_Android
 {
@@ -54,6 +55,7 @@ namespace Bayards_Android
                 SetContentView(Resource.Layout.MainActivity);
                 CustomizeToolbarAndNavView();
                 ShowMainContent();
+                CheckUpdates();
             }
         }
 
@@ -113,7 +115,7 @@ namespace Bayards_Android
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            navigationView.InflateMenu(Resource.Menu.nav_menu);  
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return base.OnPrepareOptionsMenu(menu);
         }
@@ -214,6 +216,48 @@ namespace Bayards_Android
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// This method checks for update asynchroneous when application starts
+        /// and device is connected to the internet
+        /// </summary>
+        public async void CheckUpdates()
+        {
+            ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            NetworkInfo info = connectivityManager.ActiveNetworkInfo;
+            DateTime lastUpdateDate = default(DateTime);
+            string date = prefs.GetString("lastUpdateDate", GetString(Resource.String.date_unknown));
+            
+            if (info != null && info.IsConnected && DateTime.TryParse(date, out lastUpdateDate))
+            {
+                var host = prefs.GetString("hosting_address", "");
+                var token = prefs.GetString("token", "");
+                ApiProvider provider = new ApiProvider(host, token);
+                try
+                {
+                    bool outdated = await provider.CheckUpdates(lastUpdateDate);
+                    if (outdated)
+                    {
+                        var dialog = new Android.App.AlertDialog.Builder(this);
+                        string message = GetString(Resource.String.update_message);
+                        dialog.SetMessage(message);
+
+                        //Affter clicking yes button the data will be downloaded
+                        dialog.SetPositiveButton(GetString(Resource.String.yes), (sender, e) => { OpenDataLoadActivity(); });
+                        dialog.SetNegativeButton(GetString(Resource.String.no), (sender, e) => { });
+                        dialog.SetCancelable(false);
+                        dialog.Show();
+                    }
+                }
+                catch { }
+            }
+        }
+        private void OpenDataLoadActivity()
+        {
+            Intent intent = new Intent(this, typeof(DataLoadActivity));
+            intent.PutExtra("enableBackButton", true);
+            StartActivity(intent);
         }
 
 

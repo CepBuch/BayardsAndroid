@@ -70,7 +70,7 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="lan_aplied">Language was applied</string>
   <string name="date_unknown">unknown</string>
   <string name="update_message">
-    U kunt de informatie updaten
+    Update is beschikbaar. Wilt u het laden?
   </string>
   <string name="update_latest">
     U gebruikt de meest recente gegevens.
