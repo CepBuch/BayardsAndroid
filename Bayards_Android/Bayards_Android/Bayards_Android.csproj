@@ -171,6 +171,7 @@
     <Compile Include="Fragments\RisksContainerFragment.cs" />
     <Compile Include="CategoryContentActivity.cs" />
     <Compile Include="RiskViewModel\RisksAdapter.cs" />
+    <Compile Include="RiskViewModel\RisksFilter.cs" />
     <Compile Include="RiskViewModel\RisksList.cs" />
     <Compile Include="CategoryContentPagerAdapter.cs" />
     <Compile Include="RiskViewModel\RiskViewHolder.cs" />

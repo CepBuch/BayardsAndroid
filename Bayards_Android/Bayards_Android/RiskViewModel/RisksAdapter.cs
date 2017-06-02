@@ -17,9 +17,11 @@ namespace Bayards_Android.RiskViewModel
     {
         public RisksList _risksList;
 
+
         public RisksAdapter(RisksList risksList)
         {
             _risksList = risksList;
+
         }
         public override int ItemCount
         {

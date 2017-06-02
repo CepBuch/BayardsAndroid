@@ -114,7 +114,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return true;
                 }
-                catch 
+                catch
                 {
                     return false;
                 }
@@ -127,7 +127,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
         }
 
         string query;
-        public bool SaveData(Category[] categories, Location [] locations)
+        public bool SaveData(Category[] categories, Location[] locations)
         {
             if (Connection != null)
             {
@@ -201,7 +201,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         {
                             string command = $"INSERT INTO [Location] ([Location_Id],  [Location_Name], [Location_Content], " +
                                 $" [Location_Lat], [Location_Long], [Location_Language], [Location_Order]) " +
-                                $"VALUES ('{loc.Id}', '{loc.Name}', '{loc.Content}', '{loc.Latitude.ToString().Replace(',','.')}'," +
+                                $"VALUES ('{loc.Id}', '{loc.Name}', '{loc.Content}', '{loc.Latitude.ToString().Replace(',', '.')}'," +
                                 $" '{loc.Longtitude.ToString().Replace(',', '.')}','{loc.Language}', '{loc.Order}');";
                             c.CommandText = command;
                             query = command;
@@ -210,7 +210,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return true;
                 }
-                catch  (Exception ex)
+                catch (Exception ex)
                 {
                     return false;
                 }
@@ -293,14 +293,14 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     Connection.Open();
                     using (var contents = Connection.CreateCommand())
                     {
-                        contents.CommandText ="SELECT COUNT(*) FROM [Risk]" +
+                        contents.CommandText = "SELECT COUNT(*) FROM [Risk]" +
                             $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}';";
                         var r = contents.ExecuteScalar();
                         return int.Parse(r.ToString());
                     }
                 }
                 catch (Exception ex)
-                { 
+                {
                     return null;
                 }
                 finally
@@ -407,9 +407,6 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
         public List<Risk> GetRisks(string parent_category_id, string language)
         {
-            if (string.IsNullOrWhiteSpace(parent_category_id))
-                throw new NullReferenceException("category_id cannot be null or whitespace");
-
             if (string.IsNullOrWhiteSpace(language))
                 throw new NullReferenceException("language cannot be null or whitespace");
 
@@ -424,10 +421,20 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     {
                         contents.CommandType = System.Data.CommandType.Text;
 
-                        contents.CommandText =
-                            "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
-                            $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}'" +
-                            $"ORDER BY [Risk_Order] ASC;";
+                        if (!string.IsNullOrWhiteSpace(parent_category_id))
+                        {
+                            contents.CommandText =
+                                "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
+                                $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}'" +
+                                $"ORDER BY [Risk_Order] ASC;";
+                        }
+                        else
+                        {
+                            contents.CommandText =
+                             "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
+                             $"WHERE [Risk_Language] = '{language}'" +
+                             $"ORDER BY [Risk_Order] ASC;";
+                        }
 
                         var r = contents.ExecuteReader();
 
@@ -541,7 +548,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     }
                     return foundMedia.Where(m => m != null && !string.IsNullOrWhiteSpace(m.Name) && m.TypeMedia != TypeMedia.Undefined).ToList();
                 }
-                catch 
+                catch
                 {
                     return null;
                 }

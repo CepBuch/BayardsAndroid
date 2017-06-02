@@ -10,24 +10,95 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V7.Widget;
+using Bayards_Android.RiskViewModel;
+using Bayards_Android.Model;
+using Android.Preferences;
 
 namespace Bayards_Android.Fragments
 {
-    public class SearchFragment : Fragment
+    public class SearchFragment : Android.Support.V4.App.Fragment
     {
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
+        RecyclerView recyclerView;
+        ISharedPreferences prefs;
+        RecyclerView.LayoutManager layoutManager;
+        RisksAdapter risksAdapter;
+        RisksList risksList;
+        string language;
 
-            // Create your fragment here
+        public static SearchFragment newInstance()
+        {
+            SearchFragment fragment = new SearchFragment();
+            Bundle args = new Bundle();
+            fragment.Arguments = args;
+            return fragment;
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override void OnCreate(Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            prefs = PreferenceManager.GetDefaultSharedPreferences(Activity.ApplicationContext);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            //Getting current lunguage from application properties. 
+            language = prefs.GetString("languageCode", "eng");
+
+            InitData(language);
+            base.OnCreate(savedInstanceState);
+        }
+
+
+        public override View OnCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View view = inflater.Inflate(Resource.Layout.RisksFragment, container, false);
+
+            recyclerView = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
+            recyclerView.SetAdapter(risksAdapter);
+            
+            layoutManager = new LinearLayoutManager(Activity);
+            recyclerView.SetLayoutManager(layoutManager);
+
+            return view;
+        }
+
+        public void PerformSearch(string query)
+        {
+            if (View != null)
+            {
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    var filteredData = risksList.Risks
+                        .Where(r => r.Name.Trim().ToLower().Contains(query.ToLower().Trim()))
+                        .ToList();
+                    risksList.Risks.Clear();
+                    risksList.Risks.AddRange(filteredData);
+                    risksAdapter.NotifyDataSetChanged();
+                }
+                else
+                {
+                    InitData(language);
+                }
+            }
+        }
+
+        private void InitData(string language)
+        {
+            List<Risk> risks = new List<Risk>();
+            risks = Database.Manager.GetRisks(string.Empty, language);
+
+            if (risks != null && risks.Count > 0)
+            {
+                if (risksList == null)
+                {
+                    risksList = new RisksList(risks);
+                    risksAdapter = new RisksAdapter(risksList);
+                }
+                else
+                {
+                    risksList.Risks.Clear();
+                    risksList.Risks.AddRange(risks);
+                    risksAdapter.NotifyDataSetChanged();
+                }
+            }
         }
     }
 }

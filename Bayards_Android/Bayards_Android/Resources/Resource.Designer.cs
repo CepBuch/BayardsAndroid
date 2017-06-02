@@ -2790,9 +2790,6 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a00a3
 			public const int mainFragmentContainer = 2131361955;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int main_search = 2131361999;
-			
 			// aapt resource value: 0x7f0a00c8
 			public const int mapTypeButton = 2131361992;
 			
@@ -2804,6 +2801,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f0a00ae
 			public const int media_actions = 2131361966;
+			
+			// aapt resource value: 0x7f0a00cf
+			public const int menu_search = 2131361999;
 			
 			// aapt resource value: 0x7f0a002d
 			public const int middle = 2131361837;

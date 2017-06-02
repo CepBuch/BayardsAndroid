@@ -32,6 +32,7 @@ namespace Bayards_Android
         private ActionBarDrawerToggle drawerToggle;
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
+        private SearchFragment searchFragment;
         string language;
         protected override void OnCreate(Bundle bundle)
         {
@@ -46,6 +47,7 @@ namespace Bayards_Android
             //--------------------------------------------------------------------------------
             //--------------------------------------------------------------------------------
 
+
             //Check user's authorization stage
             bool passedAllChecks = CheckStepsOfAuthorization();
             bool hasRecords = CountCategories();
@@ -59,6 +61,8 @@ namespace Bayards_Android
             }
         }
 
+
+
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             //This recreates activity to apply changes made in settingsactivity
@@ -68,6 +72,7 @@ namespace Bayards_Android
                 this.Recreate();
             }
         }
+
         public void CustomizeToolbarAndNavView()
         {
             //Accepting toolbar and drawerlayout
@@ -84,9 +89,9 @@ namespace Bayards_Android
             SupportActionBar.SetDisplayShowTitleEnabled(false);
             drawerToggle.SyncState();
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
         }
+        
 
 
 
@@ -117,18 +122,39 @@ namespace Bayards_Android
         {
             navigationView.InflateMenu(Resource.Menu.nav_menu);
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+            var menu_item_search = toolbar.Menu.FindItem(Resource.Id.menu_search);
+            var searchView = menu_item_search.ActionView.JavaCast<Android.Support.V7.Widget.SearchView>();
+            searchView.QueryTextChange += SearchView_QueryTextChange;
+            searchView.ViewDetachedFromWindow += delegate { ShowMainContent(); };
             return base.OnPrepareOptionsMenu(menu);
         }
+
+  
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             drawerToggle.OnOptionsItemSelected(item);
             switch (item.ItemId)
             {
+                case (Resource.Id.menu_search):
+                    {
+                        var trans = SupportFragmentManager.BeginTransaction();
+                        searchFragment = SearchFragment.newInstance();
+                        trans.Replace(Resource.Id.mainFragmentContainer, searchFragment);
+                        trans.Commit();
+                        return true;
+                    }
                 default:
                     return base.OnOptionsItemSelected(item);
             }
         }
+
+        private void SearchView_QueryTextChange(object sender, Android.Support.V7.Widget.SearchView.QueryTextChangeEventArgs e)
+        {
+            searchFragment.PerformSearch(e.NewText);
+        }
+
 
         private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
         {
@@ -237,7 +263,7 @@ namespace Bayards_Android
             NetworkInfo info = connectivityManager.ActiveNetworkInfo;
             DateTime lastUpdateDate = default(DateTime);
             string date = prefs.GetString("lastUpdateDate", GetString(Resource.String.date_unknown));
-            
+
             if (info != null && info.IsConnected && DateTime.TryParse(date, out lastUpdateDate))
             {
                 var host = prefs.GetString("hosting_address", "");
@@ -282,6 +308,7 @@ namespace Bayards_Android
             //and reload this (main) activity
             this.Recreate();
         }
+
     }
 }
 
