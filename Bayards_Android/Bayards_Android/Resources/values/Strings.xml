@@ -105,7 +105,7 @@ You will be returned to the Log In page.
   <string name="risks">Risks</string>
   <string name="tasks">Tasks</string>
   <string name="show">Show</string>
-
+  <string name="done">Done</string>
   <string name="openDrawer">Drawer Open</string>
   <string name="closeDrawer">Drawer Closed</string>
 

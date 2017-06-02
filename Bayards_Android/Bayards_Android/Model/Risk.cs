@@ -26,5 +26,7 @@ namespace Bayards_Android.Model
 
         public int? Order { get; set; }
 
+        public int Viewed { get; set; }
+
     }
 }

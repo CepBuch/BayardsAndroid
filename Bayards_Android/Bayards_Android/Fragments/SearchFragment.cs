@@ -91,6 +91,7 @@ namespace Bayards_Android.Fragments
                 {
                     risksList = new RisksList(risks);
                     risksAdapter = new RisksAdapter(risksList);
+                    risksAdapter.ItemClick += OnItemClick;
                 }
                 else
                 {
@@ -99,6 +100,11 @@ namespace Bayards_Android.Fragments
                     risksAdapter.NotifyDataSetChanged();
                 }
             }
+        }
+
+        void OnItemClick(Risk clickedRisk, int isChecked)
+        {
+            Database.Manager.CheckRiskAsViewed(clickedRisk.Id, isChecked);
         }
     }
 }

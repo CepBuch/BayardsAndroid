@@ -17,7 +17,7 @@ namespace Bayards_Android.RiskViewModel
     {
         public RisksList _risksList;
 
-
+        public event Action<Model.Risk, int> ItemClick;
         public RisksAdapter(RisksList risksList)
         {
             _risksList = risksList;
@@ -35,7 +35,7 @@ namespace Bayards_Android.RiskViewModel
             RecyclerView.ViewHolder rh;
             View itemView = LayoutInflater.From(parent.Context).
                            Inflate(Resource.Layout.RiskView, parent, false);
-            rh = new RiskViewHolder(itemView);
+            rh = new RiskViewHolder(itemView, OnClick);
             return rh;
         }
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -46,7 +46,13 @@ namespace Bayards_Android.RiskViewModel
                 RiskViewHolder rh = holder as RiskViewHolder;
                 rh.NameTextView.Text = _risksList[position].Name;
                 rh.ContentTextView.Text = _risksList[position].Content;
+                rh.DoneSwitch.Checked = _risksList[position].Viewed == 1;
             }
+        }
+
+        void OnClick(int position, int isChecked)
+        {
+            ItemClick?.Invoke(_risksList[position], isChecked);
         }
     }
 }

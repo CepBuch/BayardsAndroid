@@ -73,7 +73,12 @@ namespace Bayards_Android.Fragments
             {
                 risksList = new RisksList(risks);
                 risksAdapter = new RisksAdapter(risksList);
+                risksAdapter.ItemClick += OnItemClick;
             }
+        }
+        void OnItemClick(Risk clickedRisk, int isChecked)
+        {
+            Database.Manager.CheckRiskAsViewed(clickedRisk.Id, isChecked);
         }
     }
 }

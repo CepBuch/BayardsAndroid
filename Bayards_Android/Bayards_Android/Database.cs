@@ -75,6 +75,7 @@ FOREIGN KEY ([Parent_Id]) REFERENCES [Category]([Category_Id])
 [Risk_Language] nvarchar(5),
 [Category_Id] ntext,
 [Risk_Order] int,
+[Risk_Viewed] int,
 FOREIGN KEY ([Category_Id]) REFERENCES [Category]([Category_Id])
 );",
                 @"CREATE TABLE [Media] (
@@ -151,14 +152,14 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         foreach (var risk in cat.Risks)
                         {
                             commands.Add(
-                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_content], [Risk_Language], [Category_Id], [Risk_Order])" +
-                                    $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{cat.Id}', '{risk.Order}');");
+                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_content], [Risk_Language], [Risk_Viewed], [Category_Id], [Risk_Order])" +
+                                    $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{risk.Viewed}', '{cat.Id}', '{risk.Order}');");
 
                             foreach (var mediaObj in risk.MediaObjects)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
-                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}', '{risk.Language}', '{risk.Id}');");
+                                    $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language],  [Risk_Id])" +
+                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}', '{risk.Language}',  '{risk.Id}');");
                             }
                         }
 
@@ -173,8 +174,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             foreach (var risk in subcat.Risks)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_Content], [Risk_Language], [Category_Id], [Risk_Order])" +
-                                    $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{subcat.Id}', '{risk.Order}');");
+                                    $"INSERT INTO [Risk] ([Risk_Id],  [Risk_Name], [Risk_Content], [Risk_Language], [Risk_Viewed], [Category_Id], [Risk_Order])" +
+                                    $"VALUES ('{risk.Id}', '{risk.Name}', '{risk.Content}', '{risk.Language}', '{risk.Viewed}', '{subcat.Id}', '{risk.Order}');");
                                 foreach (var mediaObj in risk.MediaObjects)
                                 {
                                     commands.Add(
@@ -424,14 +425,14 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         if (!string.IsNullOrWhiteSpace(parent_category_id))
                         {
                             contents.CommandText =
-                                "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
+                                "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language], [Risk_Viewed] FROM [Risk]" +
                                 $" WHERE [Category_Id] = '{parent_category_id}' AND [Risk_Language] = '{language}'" +
                                 $"ORDER BY [Risk_Order] ASC;";
                         }
                         else
                         {
                             contents.CommandText =
-                             "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language] FROM [Risk]" +
+                             "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language], [Risk_Viewed] FROM [Risk]" +
                              $"WHERE [Risk_Language] = '{language}'" +
                              $"ORDER BY [Risk_Order] ASC;";
                         }
@@ -447,6 +448,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                                 Name = r["Risk_Name"].ToString(),
                                 Content = r["Risk_Content"].ToString(),
                                 Language = r["Risk_Language"].ToString(),
+                                Viewed = int.Parse(r["Risk_Viewed"].ToString())
                             });
                         }
                     }
@@ -558,6 +560,32 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                 }
             }
             else return null;
+        }
+
+        public void CheckRiskAsViewed(string risk_id, int isViewed)
+        {
+            if (Connection != null)
+            {
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandType = System.Data.CommandType.Text;
+
+                        contents.CommandText =
+                            $"UPDATE [Risk] SET [Risk_Viewed] = {isViewed} "  +
+                            $"WHERE [Risk_Id] = '{risk_id}';";
+
+                        var r = contents.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex) { }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
         }
 
         private TypeMedia ToTypeMedia(string str)

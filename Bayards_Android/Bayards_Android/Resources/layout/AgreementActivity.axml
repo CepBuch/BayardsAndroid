@@ -30,10 +30,9 @@
             android:scrollbars="vertical"
             android:fillViewport="true">
             <TextView
+                android:padding="30dp"
                 android:id="@+id/useragreementText"
                 android:maxWidth="400dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0" />
