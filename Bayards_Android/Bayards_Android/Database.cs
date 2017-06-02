@@ -82,6 +82,7 @@ FOREIGN KEY ([Category_Id]) REFERENCES [Category]([Category_Id])
 [Id] INTEGER PRIMARY KEY AUTOINCREMENT,
 [Media_Name] ntext,
 [Media_Type] ntext,
+[Media_Content] ntext,
 [Media_Language] nvarchar(5),
 [Risk_Id] ntext,
 FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
@@ -158,8 +159,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             foreach (var mediaObj in risk.MediaObjects)
                             {
                                 commands.Add(
-                                    $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language],  [Risk_Id])" +
-                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}', '{risk.Language}',  '{risk.Id}');");
+                                    $"INSERT INTO [Media] ([Media_Name], [Media_Content], [Media_Type], [Media_Language],  [Risk_Id])" +
+                                    $"VALUES ('{mediaObj.Name}', '{mediaObj.Content}', '{mediaObj.TypeMedia.ToString().ToLower()}', '{risk.Language}',  '{risk.Id}');");
                             }
                         }
 
@@ -179,8 +180,8 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                                 foreach (var mediaObj in risk.MediaObjects)
                                 {
                                     commands.Add(
-                                       $"INSERT INTO [Media] ([Media_Name], [Media_Type], [Media_Language], [Risk_Id])" +
-                                       $"VALUES ('{mediaObj.Name}', '{mediaObj.TypeMedia.ToString().ToLower()}',  '{risk.Language}', '{risk.Id}');");
+                                       $"INSERT INTO [Media] ([Media_Name], [Media_Content], [Media_Type], [Media_Language], [Risk_Id])" +
+                                       $"VALUES ('{mediaObj.Name}', '{mediaObj.Content}', '{mediaObj.TypeMedia.ToString().ToLower()}',  '{risk.Language}', '{risk.Id}');");
                                 }
                             }
                         }
@@ -536,15 +537,18 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         contents.CommandType = System.Data.CommandType.Text;
 
                         contents.CommandText =
-                            "SELECT [Media_Name], [Media_Type] FROM [Media]" +
+                            "SELECT [Media_Name], [Media_Content], [Media_Type] FROM [Media]" +
                             $"WHERE [Risk_Id] = '{parent_risk_id}' AND [Media_Language] = '{language}';";
 
                         var r = contents.ExecuteReader();
                         while (r.Read())
                         {
-                            var mo = new MediaObject();
-                            mo.Name = r["Media_Name"].ToString();
-                            mo.TypeMedia = ToTypeMedia(r["Media_Type"].ToString());
+                            var mo = new MediaObject()
+                            {
+                                Name = r["Media_Name"].ToString(),
+                                Content = r["Media_Content"].ToString(),
+                                TypeMedia = ToTypeMedia(r["Media_Type"].ToString())
+                            };
                             foundMedia.Add(mo);
                         }
                     }
@@ -574,7 +578,7 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         contents.CommandType = System.Data.CommandType.Text;
 
                         contents.CommandText =
-                            $"UPDATE [Risk] SET [Risk_Viewed] = {isViewed} "  +
+                            $"UPDATE [Risk] SET [Risk_Viewed] = {isViewed} " +
                             $"WHERE [Risk_Id] = '{risk_id}';";
 
                         var r = contents.ExecuteNonQuery();
@@ -614,6 +618,15 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                     {
                         risk.Name = risk.Name != null ? risk.Name.Replace("'", "''").Replace("\"", "\\\"") : risk.Name;
                         risk.Content = risk.Content != null ? risk.Content.Replace("'", "''").Replace("\"", "\\\"") : risk.Content;
+
+                        if (risk.MediaObjects != null)
+                        {
+                            foreach (var media in risk.MediaObjects.Where(o => o != null))
+                            {
+                                media.Name = media.Name != null ? media.Name.Replace("'", "''").Replace("\"", "\\\"") : media.Name;
+                                media.Content = media.Content != null ? media.Content.Replace("'", "''").Replace("\"", "\\\"") : media.Content;
+                            }
+                        }
                     }
                 }
 
@@ -629,6 +642,15 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                             {
                                 risk.Name = risk.Name != null ? risk.Name.Replace("'", "''").Replace("\"", "\\\"") : risk.Name;
                                 risk.Content = risk.Content != null ? risk.Content.Replace("'", "''").Replace("\"", "\\\"") : risk.Content;
+
+                                if (risk.MediaObjects != null)
+                                {
+                                    foreach (var media in risk.MediaObjects.Where(o => o != null))
+                                    {
+                                        media.Name = media.Name != null ? media.Name.Replace("'", "''").Replace("\"", "\\\"") : media.Name;
+                                        media.Content = media.Content != null ? media.Content.Replace("'", "''").Replace("\"", "\\\"") : media.Content;
+                                    }
+                                }
                             }
                         }
                     }

@@ -20,6 +20,8 @@ namespace Bayards_Android.Model
 
         public  TypeMedia  TypeMedia { get; set; }
 
+        public string Content { get; set; }
+
         public byte [] Bytes { get; set; }
     }
 }

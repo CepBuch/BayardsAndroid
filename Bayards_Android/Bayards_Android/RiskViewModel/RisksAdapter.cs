@@ -16,11 +16,13 @@ namespace Bayards_Android.RiskViewModel
     class RisksAdapter : RecyclerView.Adapter
     {
         public RisksList _risksList;
+        public Context context;
 
         public event Action<Model.Risk, int> ItemClick;
-        public RisksAdapter(RisksList risksList)
+        public RisksAdapter(Context context, RisksList risksList)
         {
             _risksList = risksList;
+            this.context = context;
 
         }
         public override int ItemCount
@@ -47,8 +49,29 @@ namespace Bayards_Android.RiskViewModel
                 rh.NameTextView.Text = _risksList[position].Name;
                 rh.ContentTextView.Text = _risksList[position].Content;
                 rh.DoneSwitch.Checked = _risksList[position].Viewed == 1;
+                rh.ExpandableImagesLayout.Visibility = ViewStates.Gone;
+                rh.ExpandableVideosLayout.Visibility = ViewStates.Gone;
+
+
+                //Getting media for this risk
+                var media = Database.Manager.GetMedia(_risksList[position].Id, _risksList[position].Language);
+
+                if (media != null)
+                {
+                    var images = media.Where(m => m.TypeMedia == Enums.TypeMedia.Image).ToList();
+                    var videos = media.Where(m => m.TypeMedia == Enums.TypeMedia.Video).ToList();
+
+                    rh.HeaderImagesLayout.Visibility = images.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
+                    rh.HeaderVideosLayout.Visibility = videos.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
+
+
+                }
+
+
             }
         }
+
+
 
         void OnClick(int position, int isChecked)
         {

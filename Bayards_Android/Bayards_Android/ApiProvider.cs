@@ -54,7 +54,6 @@ namespace Bayards_Android
             using (HttpClient hc = new HttpClient())
             {
                 var values = new Dictionary<string, string> { { "password", password } };
-
                 var content = new FormUrlEncodedContent(values);
                 var response = await hc.PostAsync(string.Format(uriCheckPassword, _host), content);
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -245,6 +244,7 @@ namespace Bayards_Android
                 resultObjects.Add(new Model.MediaObject
                 {
                     Name = DTOmediaObj.Uri,
+                    Content = DTOmediaObj.Content,
                     TypeMedia = mediaType,
                     Bytes = mediaType == TypeMedia.Image ? await DownloadImage(DTOmediaObj.Uri) : null
                 });

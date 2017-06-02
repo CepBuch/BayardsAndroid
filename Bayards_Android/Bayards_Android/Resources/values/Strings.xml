@@ -35,7 +35,7 @@
     There are problems with connecting to the server.
     \nMake sure, your internet connection is working or ask your supervisor for help.
   </string>
-  
+
   <!--Strings for user-agreement activity-->
   <string name ="user_agreement">User agreement</string>
   <string name="read_and_agree">I have read and agree to the user agreement</string>
@@ -57,7 +57,7 @@
   <string name ="data_warning_advice">Make sure, your internet connection is working or ask your supervisor for help.</string>
   <string name ="data_button_content">Try again</string>
   <string name ="data_reading_error">An error occurred while reading the data. Try to download it again. </string>
-  
+
 
   <!--Navigation menu (nav_menu.axml) -->
   <string name="nav_home">Home</string>
@@ -65,8 +65,8 @@
   <string name="nav_settings">Settings</string>
   <string name="nav_exit">Logout</string>
   <string name="logout_message">
-You will be returned to the Log In page.
-\n\nAre you sure you want to Log Out?
+    You will be returned to the Log In page.
+    \n\nAre you sure you want to Log Out?
   </string>
 
   <!--Settings-->
@@ -93,7 +93,7 @@ You will be returned to the Log In page.
     <item>Satellite</item>
     <item>Hybrid </item>
   </string-array>
-<!--Location fragment-->
+  <!--Location fragment-->
   <string name="loc_position">Position</string>
 
 
@@ -109,9 +109,6 @@ You will be returned to the Log In page.
   <string name="not_done">Not done</string>
   <string name="openDrawer">Drawer Open</string>
   <string name="closeDrawer">Drawer Closed</string>
-
-
-
-
-
+  <string name ="images">Images</string>
+  <string name="videos">Videos</string>
 </resources>

@@ -231,9 +231,10 @@ namespace Bayards_Android
                                             foreach (var media in risk.MediaObjects.Where(o => !string.IsNullOrWhiteSpace(o.Name) && o.Bytes != null && o.TypeMedia == Enums.TypeMedia.Image))
                                                 mediaWithImagesPaths.Add(media);
                     }
-                    
+
                     //Save unique images (by path from the server)
-                    foreach (var image in mediaWithImagesPaths.GroupBy(m => m.Name).Select(grp => grp.First()))
+                    var uniqueImages = mediaWithImagesPaths.GroupBy(m => m.Name).Select(grp => grp.First());
+                    foreach (var image in uniqueImages)
                     {
                         var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                         var localFilename = image.Name;

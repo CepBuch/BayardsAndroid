@@ -90,7 +90,7 @@ namespace Bayards_Android.Fragments
                 if (risksList == null)
                 {
                     risksList = new RisksList(risks);
-                    risksAdapter = new RisksAdapter(risksList);
+                    risksAdapter = new RisksAdapter(Context,risksList);
                     risksAdapter.ItemClick += OnItemClick;
                 }
                 else
