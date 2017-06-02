@@ -106,6 +106,7 @@ You will be returned to the Log In page.
   <string name="tasks">Tasks</string>
   <string name="show">Show</string>
   <string name="done">Done</string>
+  <string name="not_done">Not done</string>
   <string name="openDrawer">Drawer Open</string>
   <string name="closeDrawer">Drawer Closed</string>
 
