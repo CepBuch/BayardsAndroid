@@ -11,11 +11,21 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using Android.Animation;
+using Android.Text.Method;
+using Android.Graphics;
+using Bayards_Android.Model;
+using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Load.Engine;
 
 namespace Bayards_Android.RiskViewModel
 {
     class RiskViewHolder : RecyclerView.ViewHolder
     {
+        public Context context;
+
+        public List<MediaObject> images;
+        public List<MediaObject> videos;
+
         public Switch DoneSwitch;
 
         public TextView NameTextView { get; set; }
@@ -58,12 +68,14 @@ namespace Bayards_Android.RiskViewModel
             {
                 if (++i % 2 == 0)
                 {
+                    FillImages(ExpandableImagesLayout, images);
                     ExpandableImagesLayout.Visibility = ViewStates.Visible;
                     ImageHeader.SetImageResource(Resource.Drawable.ic_collapse);
                 }
                 else
                 {
                     ExpandableImagesLayout.Visibility =  ViewStates.Gone;
+                    ExpandableImagesLayout.RemoveAllViews();
                     ImageHeader.SetImageResource(Resource.Drawable.ic_expand);
                 }
             };
@@ -77,18 +89,75 @@ namespace Bayards_Android.RiskViewModel
             {
                 if (++j % 2 == 0)
                 {
+                    FillVideos(ExpandableVideosLayout, videos);
                     ExpandableVideosLayout.Visibility = ViewStates.Visible;
                     VideoHeader.SetImageResource(Resource.Drawable.ic_collapse);
                 }
                 else
                 {
+                    ExpandableVideosLayout.RemoveAllViews();
                     ExpandableVideosLayout.Visibility = ViewStates.Gone;
                     VideoHeader.SetImageResource(Resource.Drawable.ic_expand);
                 }
             };
         }
 
+        public void FillImages(LinearLayout layout, List<MediaObject> media)
+        {
+            foreach (var obj in media)
+            {
+                try
+                {
+                    var view = LayoutInflater.From(context).Inflate(Resource.Layout.MediaImageView, null);
+                    TextView contentTextView = view.FindViewById<TextView>(Resource.Id.media_image_content);
+                    contentTextView.Text = obj.Content;
+                    ImageView image = view.FindViewById<ImageView>(Resource.Id.media_image_img);
+                    string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    string localPath = System.IO.Path.Combine(documentsPath, obj.Name);
 
+                    Glide
+                     .With(context)
+                     .Load(localPath)
+                     .SkipMemoryCache(true).DiskCacheStrategy(DiskCacheStrategy.All)
+                     .Into(image);
+
+
+                    layout.AddView(view);
+                }
+                catch { }
+            }
+        }
+
+        public void FillVideos(LinearLayout layout, List<MediaObject> media)
+        {
+            int i = 1;
+            foreach (var obj in media)
+            {
+                try
+                {
+                    var view = LayoutInflater.From(context).Inflate(Resource.Layout.MediaVideoView, null);
+                    TextView contentTextView = view.FindViewById<TextView>(Resource.Id.media_video_content);
+                    contentTextView.Text = "Video: " + (!string.IsNullOrWhiteSpace(obj.Content) ? obj.Content : $"number {i++}");
+                    contentTextView.PaintFlags = PaintFlags.UnderlineText;
+                    contentTextView.MovementMethod = LinkMovementMethod.Instance;
+                    contentTextView.Click += delegate
+                    {
+                        var appIntent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("vnd.youtube:" + obj.Name));
+                        var webIntent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("http://www.youtube.com/watch?v=" + obj.Name));
+                        try
+                        {
+                            context.StartActivity(appIntent);
+                        }
+                        catch (ActivityNotFoundException ex)
+                        {
+                            context.StartActivity(webIntent);
+                        }
+                    };
+                    layout.AddView(view);
+                }
+                catch { }
+            }
+        }
 
         private void UpdateTextViews()
         {

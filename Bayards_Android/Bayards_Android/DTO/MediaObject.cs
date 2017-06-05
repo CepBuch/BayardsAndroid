@@ -21,7 +21,7 @@ namespace Bayards_Android.DTO
         [JsonProperty("type_media")]
         public string TypeMedia { get; set; }
 
-        [JsonProperty("content")]
+        [JsonProperty("text")]
         public string Content { get; set; }
     }
 }

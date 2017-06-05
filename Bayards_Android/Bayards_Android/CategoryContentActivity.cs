@@ -88,14 +88,14 @@ namespace Bayards_Android
             //Remove empty tabs (if this category doesn't have risks or subcategories
             if (!numSubcategories.HasValue || numSubcategories.Value < 1)
             {
-                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Tasks");
+                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage(GetString(Resource.String.tasks));
                 removedTasksTab = true;
                 
             }
 
             if (!numRisks.HasValue || numRisks.Value < 1)
             {
-                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage("Risks");
+                (viewPager.Adapter as CategoryContentPagerAdapter).RemovePage(GetString(Resource.String.risks));
                 removedRisksTab = true;
 
             }

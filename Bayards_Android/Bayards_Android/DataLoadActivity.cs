@@ -210,6 +210,7 @@ namespace Bayards_Android
         {
             try
             {
+                ClearPersonnelFolder();
                 List<MediaObject> mediaWithImagesPaths = new List<MediaObject>();
 
                 if (categories != null)
@@ -250,7 +251,23 @@ namespace Bayards_Android
             catch { }
 
         }
+
+        private void ClearPersonnelFolder()
+        {
+            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            Java.IO.File dir = new Java.IO.File(documentsPath);
+            if (dir.IsDirectory)
+            {
+                string[] children = dir.List();
+                for (int i = 0; i < children.Length; i++)
+                {
+                    new Java.IO.File(dir, children[i]).Delete();
+                }
+            }
+        }
     }
+
+
 
 
 

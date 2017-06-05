@@ -10,6 +10,13 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Bayards_Android.Model;
+using Android.Graphics;
+using Android.Gms.Tasks;
+using Java.Lang;
+using Com.Bumptech.Glide;
+using Android.Text.Method;
+using Com.Bumptech.Glide.Load.Engine;
 
 namespace Bayards_Android.RiskViewModel
 {
@@ -17,6 +24,7 @@ namespace Bayards_Android.RiskViewModel
     {
         public RisksList _risksList;
         public Context context;
+
 
         public event Action<Model.Risk, int> ItemClick;
         public RisksAdapter(Context context, RisksList risksList)
@@ -27,8 +35,12 @@ namespace Bayards_Android.RiskViewModel
         }
         public override int ItemCount
         {
-
             get { return _risksList.NumRisks; }
+        }
+
+        public override void OnViewDetachedFromWindow(Java.Lang.Object holder)
+        {
+            //Glide.Clear(holder)
         }
 
 
@@ -63,14 +75,16 @@ namespace Bayards_Android.RiskViewModel
 
                     rh.HeaderImagesLayout.Visibility = images.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
                     rh.HeaderVideosLayout.Visibility = videos.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
-
-
+                    rh.images = images;
+                    rh.videos = videos;
+                    rh.context = context;
                 }
 
 
             }
         }
 
+        
 
 
         void OnClick(int position, int isChecked)
