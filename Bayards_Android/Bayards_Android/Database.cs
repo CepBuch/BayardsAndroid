@@ -409,10 +409,6 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
 
         public List<Risk> GetRisks(string parent_category_id, string language)
         {
-            if (string.IsNullOrWhiteSpace(language))
-                throw new NullReferenceException("language cannot be null or whitespace");
-
-
             if (Connection != null)
             {
                 List<Risk> foundRisks = new List<Risk>();
@@ -454,6 +450,50 @@ FOREIGN KEY ([Risk_Id]) REFERENCES [Risk]([Risk_Id])
                         }
                     }
                     return foundRisks.Where(risk => risk != null && !string.IsNullOrWhiteSpace(risk.Id) && !string.IsNullOrWhiteSpace(risk.Name)).ToList();
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+            else return null;
+        }
+
+        public Risk FindRisk(string risk_id, string language)
+        {
+            if (Connection != null)
+            {
+                List<Risk> foundRisks = new List<Risk>();
+                try
+                {
+                    Connection.Open();
+                    using (var contents = Connection.CreateCommand())
+                    {
+                        contents.CommandType = System.Data.CommandType.Text;
+
+                        contents.CommandText =
+                            "SELECT [Risk_Id], [Risk_Name], [Risk_Content], [Risk_Language], [Risk_Viewed] FROM [Risk]" +
+                            $" WHERE [Risk_Id] = '{risk_id}' AND [Risk_Language] = '{language}';";
+
+                        var r = contents.ExecuteReader();
+
+                        while (r.Read())
+                        {
+                            return new Model.Risk
+                            {
+                                Id = r["Risk_Id"].ToString(),
+                                Name = r["Risk_Name"].ToString(),
+                                Content = r["Risk_Content"].ToString(),
+                                Language = r["Risk_Language"].ToString(),
+                                Viewed = int.Parse(r["Risk_Viewed"].ToString())
+                            };
+                        }
+                        return null;
+                    }
                 }
                 catch
                 {

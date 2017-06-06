@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/coordinatorLayout"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:layout_centerHorizontal="true"
+            android:id="@+id/toolbar_risks"
+            layout="@layout/toolbar" />
+    </android.support.design.widget.AppBarLayout>
+  
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+      <android.support.v7.widget.CardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          app:cardElevation="4dp"
+          app:cardUseCompatPadding="true"
+          app:contentPadding="10dp"
+          app:cardCornerRadius="3dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+          <TextView
+              android:layout_marginTop="10dp"
+              android:id="@+id/risk_name"
+              android:padding="5dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:textColor="@color/dark_blue"
+              android:textAppearance="@android:style/TextAppearance.Large"
+              android:textSize="30sp"
+              android:text="Name goes here" />
+          <TextView
+              android:id="@+id/risk_content"
+              android:layout_marginTop="15dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <RelativeLayout
+              android:id="@+id/image_header"
+              android:clickable="true"
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/header_layout_shape"
+              android:orientation="horizontal">
+            <TextView
+                android:text="@string/images"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+            <ImageView
+                android:id="@+id/ic_image_header"
+                android:src="@drawable/ic_expand"
+                android:layout_width="24dp"
+                android:adjustViewBounds="true"
+                android:layout_marginRight="15dp"
+                android:scaleType="centerInside"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+          </RelativeLayout>
+          <LinearLayout
+              android:id="@+id/image_expandable"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/header_layout_shape"
+              android:orientation="vertical"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp" />
+          <RelativeLayout
+              android:id="@+id/video_header"
+              android:clickable="true"
+              android:layout_width="match_parent"
+              android:layout_marginTop="25dp"
+              android:layout_height="wrap_content"
+              android:background="@drawable/header_layout_shape"
+              android:orientation="horizontal">
+            <TextView
+                android:text="@string/videos"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+            <ImageView
+                android:id="@+id/ic_video_header"
+                android:src="@drawable/ic_expand"
+                android:layout_width="24dp"
+                android:adjustViewBounds="true"
+                android:layout_marginRight="15dp"
+                android:scaleType="centerInside"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+          </RelativeLayout>
+          <LinearLayout
+              android:id="@+id/video_expandable"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/header_layout_shape"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="25dp"
+              android:gravity="center"
+              android:orientation="horizontal">
+            <TextView
+                android:text="@string/done"
+                android:textColor="@color/dark_blue"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginRight="30dp"
+                android:id="@+id/done_info" />
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track"
+                android:showText="false"
+                android:id="@+id/done_switch" />
+          </LinearLayout>
+        </LinearLayout>
+      </android.support.v7.widget.CardView>
+  </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

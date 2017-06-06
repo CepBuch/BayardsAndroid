@@ -53,6 +53,8 @@ namespace Bayards_Android.RiskViewModel
             DoneInfoTextView = itemView.FindViewById<TextView>(Resource.Id.done_info);
             UpdateTextViews();
 
+
+
             DoneSwitch.CheckedChange += (sender, e) =>
             {
                 listener(base.AdapterPosition, DoneSwitch.Checked ? 1 : 0);
@@ -68,14 +70,14 @@ namespace Bayards_Android.RiskViewModel
             {
                 if (++i % 2 == 0)
                 {
-                    FillImages(ExpandableImagesLayout, images);
+                    
                     ExpandableImagesLayout.Visibility = ViewStates.Visible;
                     ImageHeader.SetImageResource(Resource.Drawable.ic_collapse);
                 }
                 else
                 {
                     ExpandableImagesLayout.Visibility =  ViewStates.Gone;
-                    ExpandableImagesLayout.RemoveAllViews();
+                    //ExpandableImagesLayout.RemoveAllViews();
                     ImageHeader.SetImageResource(Resource.Drawable.ic_expand);
                 }
             };
@@ -89,22 +91,21 @@ namespace Bayards_Android.RiskViewModel
             {
                 if (++j % 2 == 0)
                 {
-                    FillVideos(ExpandableVideosLayout, videos);
                     ExpandableVideosLayout.Visibility = ViewStates.Visible;
                     VideoHeader.SetImageResource(Resource.Drawable.ic_collapse);
                 }
                 else
                 {
-                    ExpandableVideosLayout.RemoveAllViews();
+                    //ExpandableVideosLayout.RemoveAllViews();
                     ExpandableVideosLayout.Visibility = ViewStates.Gone;
                     VideoHeader.SetImageResource(Resource.Drawable.ic_expand);
                 }
             };
         }
 
-        public void FillImages(LinearLayout layout, List<MediaObject> media)
+        public void FillImages()
         {
-            foreach (var obj in media)
+            foreach (var obj in images)
             {
                 try
                 {
@@ -122,22 +123,22 @@ namespace Bayards_Android.RiskViewModel
                      .Into(image);
 
 
-                    layout.AddView(view);
+                    ExpandableImagesLayout.AddView(view);
                 }
                 catch { }
             }
         }
 
-        public void FillVideos(LinearLayout layout, List<MediaObject> media)
+        public void FillVideos()
         {
             int i = 1;
-            foreach (var obj in media)
+            foreach (var obj in videos)
             {
                 try
                 {
                     var view = LayoutInflater.From(context).Inflate(Resource.Layout.MediaVideoView, null);
                     TextView contentTextView = view.FindViewById<TextView>(Resource.Id.media_video_content);
-                    contentTextView.Text = "Video: " + (!string.IsNullOrWhiteSpace(obj.Content) ? obj.Content : $"number {i++}");
+                    contentTextView.Text = "Video: " + (!string.IsNullOrWhiteSpace(obj.Content) ? obj.Content : $"{i++}");
                     contentTextView.PaintFlags = PaintFlags.UnderlineText;
                     contentTextView.MovementMethod = LinkMovementMethod.Instance;
                     contentTextView.Click += delegate
@@ -153,7 +154,7 @@ namespace Bayards_Android.RiskViewModel
                             context.StartActivity(webIntent);
                         }
                     };
-                    layout.AddView(view);
+                    ExpandableVideosLayout.AddView(view);
                 }
                 catch { }
             }
@@ -161,7 +162,6 @@ namespace Bayards_Android.RiskViewModel
 
         private void UpdateTextViews()
         {
-
             DoneInfoTextView.Text = ItemView.Context.GetString(DoneSwitch.Checked ? Resource.String.done : Resource.String.not_done);
         }
 

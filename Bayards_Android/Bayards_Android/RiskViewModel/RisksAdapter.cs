@@ -78,6 +78,8 @@ namespace Bayards_Android.RiskViewModel
                     rh.images = images;
                     rh.videos = videos;
                     rh.context = context;
+                    rh.FillImages();
+                    rh.FillVideos();
                 }
 
 

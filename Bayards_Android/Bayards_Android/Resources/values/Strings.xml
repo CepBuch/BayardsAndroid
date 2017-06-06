@@ -102,6 +102,7 @@
     There is no content in this section.
   </string>
   <string name="select_category">Sections: </string>
+  <string name="found_risks">Found risks: </string>
   <string name="risks">Risks</string>
   <string name="tasks">Tasks</string>
   <string name="show">Show</string>

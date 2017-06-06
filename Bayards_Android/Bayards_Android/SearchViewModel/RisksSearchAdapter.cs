@@ -10,78 +10,85 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using Bayards_Android.Model;
+using Bayards_Android.RiskViewModel;
+using Bayards_Android.CategoryViewModel;
 
-namespace Bayards_Android.CategoryViewModel
+namespace Bayards_Android.SearchViewModel
 {
-    class CategoriesAdapter : RecyclerView.Adapter
+    class RisksSearchAdapter : RecyclerView.Adapter
     {
-
-        public event EventHandler<Category> ItemClick;
-
-        public CategoriesList _categoriesList;
-
+        public RisksList _risksList;
+        Context context;
         private const int TYPE_HEADER = 0;
         private const int TYPE_ITEM = 1;
 
 
-        public CategoriesAdapter(CategoriesList categoriesList)
+        public event Action<Model.Risk> ItemClick;
+        public RisksSearchAdapter(RisksList risksList, Context context)
         {
-            _categoriesList = categoriesList;
+            _risksList = risksList;
+            this.context = context;
         }
+        public override int ItemCount
+        {
+            get { return _risksList.NumRisks + 1; }
+        }
+
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            //Accepting base view of category
+            //Accepting base view of item
             //Also checking wether new item in List is header or general item. 
-            RecyclerView.ViewHolder ch;
+            RecyclerView.ViewHolder rh;
             View itemView;
+
+
             if (viewType == TYPE_ITEM)
             {
                 itemView = LayoutInflater.From(parent.Context).
-                           Inflate(Resource.Layout.CategoryView, parent, false);
-                ch = new CategoryViewHolder(itemView, OnClick);
+                           Inflate(Resource.Layout.RisksSearchView, parent, false);
+                rh = new SearchRiskViewHolder(itemView, OnClick);
             }
             else
             {
                 itemView = LayoutInflater.From(parent.Context).
                            Inflate(Resource.Layout.HeaderView, parent, false);
-                ch = new HeaderViewHolder(itemView);
+                rh = new SearchHeaderViewHolder(itemView);
 
             }
-            return ch;
+            return rh;
         }
-
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             //Modifying base view with exact data
-            if (holder is CategoryViewHolder)
+            if (holder is SearchRiskViewHolder)
             {
-                CategoryViewHolder ch = holder as CategoryViewHolder;
-                ch.ContentButton.Text = _categoriesList[position-1].Name;
+                SearchRiskViewHolder rh = holder as SearchRiskViewHolder;
+                rh.ContentButton.Text = _risksList[position - 1].Name;
+            }
+            else if(holder is SearchHeaderViewHolder)
+            {
+                SearchHeaderViewHolder hh = holder as SearchHeaderViewHolder;
+                hh.TextView.Text = context.GetString(Resource.String.found_risks);
             }
         }
 
         private bool IsPoitionHeader(int position)
-            => position == 0;
+     => position == 0;
 
         public override int GetItemViewType(int position)
         {
             if (IsPoitionHeader(position))
                 return TYPE_HEADER;
-            else 
+            else
                 return TYPE_ITEM;
- 
+
         }
 
-        public override int ItemCount
-        {
-            get { return _categoriesList.NumCategories + 1; }
-        }
 
         void OnClick(int position)
         {
-            ItemClick?.Invoke(this, _categoriesList[position -1]);
+            ItemClick?.Invoke(_risksList[position - 1]);
         }
     }
 }

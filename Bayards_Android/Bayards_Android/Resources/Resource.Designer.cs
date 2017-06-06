@@ -1230,44 +1230,44 @@ namespace Bayards_Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080058
-			public const int abc_background_cache_hint_selector_material_dark = 2131230808;
-			
 			// aapt resource value: 0x7f080059
-			public const int abc_background_cache_hint_selector_material_light = 2131230809;
+			public const int abc_background_cache_hint_selector_material_dark = 2131230809;
 			
 			// aapt resource value: 0x7f08005a
-			public const int abc_btn_colored_borderless_text_material = 2131230810;
+			public const int abc_background_cache_hint_selector_material_light = 2131230810;
 			
 			// aapt resource value: 0x7f08005b
-			public const int abc_btn_colored_text_material = 2131230811;
+			public const int abc_btn_colored_borderless_text_material = 2131230811;
 			
 			// aapt resource value: 0x7f08005c
-			public const int abc_color_highlight_material = 2131230812;
+			public const int abc_btn_colored_text_material = 2131230812;
 			
 			// aapt resource value: 0x7f08005d
-			public const int abc_hint_foreground_material_dark = 2131230813;
+			public const int abc_color_highlight_material = 2131230813;
 			
 			// aapt resource value: 0x7f08005e
-			public const int abc_hint_foreground_material_light = 2131230814;
+			public const int abc_hint_foreground_material_dark = 2131230814;
+			
+			// aapt resource value: 0x7f08005f
+			public const int abc_hint_foreground_material_light = 2131230815;
 			
 			// aapt resource value: 0x7f08000d
 			public const int abc_input_method_navigation_guard = 2131230733;
 			
-			// aapt resource value: 0x7f08005f
-			public const int abc_primary_text_disable_only_material_dark = 2131230815;
-			
 			// aapt resource value: 0x7f080060
-			public const int abc_primary_text_disable_only_material_light = 2131230816;
+			public const int abc_primary_text_disable_only_material_dark = 2131230816;
 			
 			// aapt resource value: 0x7f080061
-			public const int abc_primary_text_material_dark = 2131230817;
+			public const int abc_primary_text_disable_only_material_light = 2131230817;
 			
 			// aapt resource value: 0x7f080062
-			public const int abc_primary_text_material_light = 2131230818;
+			public const int abc_primary_text_material_dark = 2131230818;
 			
 			// aapt resource value: 0x7f080063
-			public const int abc_search_url_text = 2131230819;
+			public const int abc_primary_text_material_light = 2131230819;
+			
+			// aapt resource value: 0x7f080064
+			public const int abc_search_url_text = 2131230820;
 			
 			// aapt resource value: 0x7f08000e
 			public const int abc_search_url_text_normal = 2131230734;
@@ -1278,32 +1278,32 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080010
 			public const int abc_search_url_text_selected = 2131230736;
 			
-			// aapt resource value: 0x7f080064
-			public const int abc_secondary_text_material_dark = 2131230820;
-			
 			// aapt resource value: 0x7f080065
-			public const int abc_secondary_text_material_light = 2131230821;
+			public const int abc_secondary_text_material_dark = 2131230821;
 			
 			// aapt resource value: 0x7f080066
-			public const int abc_tint_btn_checkable = 2131230822;
+			public const int abc_secondary_text_material_light = 2131230822;
 			
 			// aapt resource value: 0x7f080067
-			public const int abc_tint_default = 2131230823;
+			public const int abc_tint_btn_checkable = 2131230823;
 			
 			// aapt resource value: 0x7f080068
-			public const int abc_tint_edittext = 2131230824;
+			public const int abc_tint_default = 2131230824;
 			
 			// aapt resource value: 0x7f080069
-			public const int abc_tint_seek_thumb = 2131230825;
+			public const int abc_tint_edittext = 2131230825;
 			
 			// aapt resource value: 0x7f08006a
-			public const int abc_tint_spinner = 2131230826;
+			public const int abc_tint_seek_thumb = 2131230826;
 			
 			// aapt resource value: 0x7f08006b
-			public const int abc_tint_switch_thumb = 2131230827;
+			public const int abc_tint_spinner = 2131230827;
 			
 			// aapt resource value: 0x7f08006c
-			public const int abc_tint_switch_track = 2131230828;
+			public const int abc_tint_switch_thumb = 2131230828;
+			
+			// aapt resource value: 0x7f08006d
+			public const int abc_tint_switch_track = 2131230829;
 			
 			// aapt resource value: 0x7f080011
 			public const int accent_material_dark = 2131230737;
@@ -1323,8 +1323,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080016
 			public const int background_material_light = 2131230742;
 			
-			// aapt resource value: 0x7f080057
-			public const int black = 2131230807;
+			// aapt resource value: 0x7f080058
+			public const int black = 2131230808;
 			
 			// aapt resource value: 0x7f080017
 			public const int bright_foreground_disabled_material_dark = 2131230743;
@@ -1362,8 +1362,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f08000b
 			public const int cardview_shadow_start_color = 2131230731;
 			
-			// aapt resource value: 0x7f08006d
-			public const int common_google_signin_btn_text_dark = 2131230829;
+			// aapt resource value: 0x7f08006e
+			public const int common_google_signin_btn_text_dark = 2131230830;
 			
 			// aapt resource value: 0x7f080000
 			public const int common_google_signin_btn_text_dark_default = 2131230720;
@@ -1377,8 +1377,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080003
 			public const int common_google_signin_btn_text_dark_pressed = 2131230723;
 			
-			// aapt resource value: 0x7f08006e
-			public const int common_google_signin_btn_text_light = 2131230830;
+			// aapt resource value: 0x7f08006f
+			public const int common_google_signin_btn_text_light = 2131230831;
 			
 			// aapt resource value: 0x7f080004
 			public const int common_google_signin_btn_text_light_default = 2131230724;
@@ -1392,8 +1392,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080007
 			public const int common_google_signin_btn_text_light_pressed = 2131230727;
 			
-			// aapt resource value: 0x7f08006f
-			public const int common_google_signin_btn_tint = 2131230831;
+			// aapt resource value: 0x7f080070
+			public const int common_google_signin_btn_tint = 2131230832;
 			
 			// aapt resource value: 0x7f080052
 			public const int dark_blue = 2131230802;
@@ -1401,8 +1401,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080047
 			public const int design_bottom_navigation_shadow_color = 2131230791;
 			
-			// aapt resource value: 0x7f080070
-			public const int design_error = 2131230832;
+			// aapt resource value: 0x7f080071
+			public const int design_error = 2131230833;
 			
 			// aapt resource value: 0x7f080048
 			public const int design_fab_shadow_end_color = 2131230792;
@@ -1434,8 +1434,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080051
 			public const int design_textinput_error_color_light = 2131230801;
 			
-			// aapt resource value: 0x7f080071
-			public const int design_tint_password_toggle = 2131230833;
+			// aapt resource value: 0x7f080072
+			public const int design_tint_password_toggle = 2131230834;
 			
 			// aapt resource value: 0x7f08001f
 			public const int dim_foreground_disabled_material_dark = 2131230751;
@@ -1455,8 +1455,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080024
 			public const int foreground_material_light = 2131230756;
 			
-			// aapt resource value: 0x7f080056
-			public const int gray_disabled = 2131230806;
+			// aapt resource value: 0x7f080057
+			public const int gray_disabled = 2131230807;
 			
 			// aapt resource value: 0x7f080025
 			public const int highlighted_text_material_dark = 2131230757;
@@ -1464,8 +1464,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080026
 			public const int highlighted_text_material_light = 2131230758;
 			
-			// aapt resource value: 0x7f080055
-			public const int light = 2131230805;
+			// aapt resource value: 0x7f080056
+			public const int light = 2131230806;
+			
+			// aapt resource value: 0x7f080053
+			public const int light_blue = 2131230803;
 			
 			// aapt resource value: 0x7f080027
 			public const int material_blue_grey_800 = 2131230759;
@@ -1536,8 +1539,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f08003c
 			public const int primary_text_disabled_material_light = 2131230780;
 			
-			// aapt resource value: 0x7f080053
-			public const int red_warning = 2131230803;
+			// aapt resource value: 0x7f080054
+			public const int red_warning = 2131230804;
 			
 			// aapt resource value: 0x7f08003d
 			public const int ripple_material_dark = 2131230781;
@@ -1563,11 +1566,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080044
 			public const int switch_thumb_disabled_material_light = 2131230788;
 			
-			// aapt resource value: 0x7f080072
-			public const int switch_thumb_material_dark = 2131230834;
-			
 			// aapt resource value: 0x7f080073
-			public const int switch_thumb_material_light = 2131230835;
+			public const int switch_thumb_material_dark = 2131230835;
+			
+			// aapt resource value: 0x7f080074
+			public const int switch_thumb_material_light = 2131230836;
 			
 			// aapt resource value: 0x7f080045
 			public const int switch_thumb_normal_material_dark = 2131230789;
@@ -1575,8 +1578,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f080046
 			public const int switch_thumb_normal_material_light = 2131230790;
 			
-			// aapt resource value: 0x7f080054
-			public const int white = 2131230804;
+			// aapt resource value: 0x7f080055
+			public const int white = 2131230805;
 			
 			static Color()
 			{
@@ -2607,8 +2610,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a003c
 			public const int center_vertical = 2131361852;
 			
-			// aapt resource value: 0x7f0a00d4
-			public const int check_progressBar = 2131362004;
+			// aapt resource value: 0x7f0a00d6
+			public const int check_progressBar = 2131362006;
 			
 			// aapt resource value: 0x7f0a0065
 			public const int checkbox = 2131361893;
@@ -2679,11 +2682,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a001e
 			public const int disableHome = 2131361822;
 			
-			// aapt resource value: 0x7f0a00cd
-			public const int done_info = 2131361997;
-			
 			// aapt resource value: 0x7f0a00ce
-			public const int done_switch = 2131361998;
+			public const int done_info = 2131361998;
+			
+			// aapt resource value: 0x7f0a00cf
+			public const int done_switch = 2131361999;
 			
 			// aapt resource value: 0x7f0a00a0
 			public const int drawer_layout = 2131361952;
@@ -2736,11 +2739,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a000f
 			public const int hybrid = 2131361807;
 			
-			// aapt resource value: 0x7f0a00c8
-			public const int ic_image_header = 2131361992;
+			// aapt resource value: 0x7f0a00c9
+			public const int ic_image_header = 2131361993;
 			
-			// aapt resource value: 0x7f0a00cb
-			public const int ic_video_header = 2131361995;
+			// aapt resource value: 0x7f0a00cc
+			public const int ic_video_header = 2131361996;
 			
 			// aapt resource value: 0x7f0a0053
 			public const int icon = 2131361875;
@@ -2760,11 +2763,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a009a
 			public const int imageView1 = 2131361946;
 			
-			// aapt resource value: 0x7f0a00c9
-			public const int image_expandable = 2131361993;
+			// aapt resource value: 0x7f0a00ca
+			public const int image_expandable = 2131361994;
 			
-			// aapt resource value: 0x7f0a00c7
-			public const int image_header = 2131361991;
+			// aapt resource value: 0x7f0a00c8
+			public const int image_header = 2131361992;
 			
 			// aapt resource value: 0x7f0a00b6
 			public const int info = 2131361974;
@@ -2772,14 +2775,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0000
 			public const int item_touch_helper_previous_elevation = 2131361792;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int languageButton = 2131362000;
+			// aapt resource value: 0x7f0a00d2
+			public const int languageButton = 2131362002;
 			
 			// aapt resource value: 0x7f0a008d
 			public const int largeLabel = 2131361933;
 			
-			// aapt resource value: 0x7f0a00d2
-			public const int lastUpdateTextView = 2131362002;
+			// aapt resource value: 0x7f0a00d4
+			public const int lastUpdateTextView = 2131362004;
 			
 			// aapt resource value: 0x7f0a003e
 			public const int left = 2131361854;
@@ -2811,14 +2814,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a00a3
 			public const int mainFragmentContainer = 2131361955;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int mapTypeButton = 2131362001;
+			// aapt resource value: 0x7f0a00d3
+			public const int mapTypeButton = 2131362003;
 			
 			// aapt resource value: 0x7f0a00a5
 			public const int mapView = 2131361957;
 			
-			// aapt resource value: 0x7f0a00d7
-			public const int masked = 2131362007;
+			// aapt resource value: 0x7f0a00d9
+			public const int masked = 2131362009;
 			
 			// aapt resource value: 0x7f0a00af
 			public const int media_actions = 2131361967;
@@ -2832,8 +2835,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a00a8
 			public const int media_video_content = 2131361960;
 			
-			// aapt resource value: 0x7f0a00d8
-			public const int menu_search = 2131362008;
+			// aapt resource value: 0x7f0a00da
+			public const int menu_search = 2131362010;
 			
 			// aapt resource value: 0x7f0a002d
 			public const int middle = 2131361837;
@@ -2844,17 +2847,17 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0025
 			public const int multiply = 2131361829;
 			
-			// aapt resource value: 0x7f0a00dc
-			public const int nav_exit = 2131362012;
-			
-			// aapt resource value: 0x7f0a00d9
-			public const int nav_home = 2131362009;
-			
-			// aapt resource value: 0x7f0a00da
-			public const int nav_locations = 2131362010;
+			// aapt resource value: 0x7f0a00de
+			public const int nav_exit = 2131362014;
 			
 			// aapt resource value: 0x7f0a00db
-			public const int nav_settings = 2131362011;
+			public const int nav_home = 2131362011;
+			
+			// aapt resource value: 0x7f0a00dc
+			public const int nav_locations = 2131362012;
+			
+			// aapt resource value: 0x7f0a00dd
+			public const int nav_settings = 2131362013;
 			
 			// aapt resource value: 0x7f0a00a4
 			public const int nav_view = 2131361956;
@@ -2913,11 +2916,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a00b3
 			public const int right_side = 2131361971;
 			
-			// aapt resource value: 0x7f0a00c6
-			public const int risk_content = 2131361990;
-			
 			// aapt resource value: 0x7f0a00c5
-			public const int risk_name = 2131361989;
+			public const int riskButton = 2131361989;
+			
+			// aapt resource value: 0x7f0a00c7
+			public const int risk_content = 2131361991;
+			
+			// aapt resource value: 0x7f0a00c6
+			public const int risk_name = 2131361990;
 			
 			// aapt resource value: 0x7f0a0012
 			public const int satellite = 2131361810;
@@ -2963,6 +2969,9 @@ namespace Bayards_Android
 			
 			// aapt resource value: 0x7f0a0076
 			public const int search_plate = 2131361910;
+			
+			// aapt resource value: 0x7f0a00d0
+			public const int search_recycler_view = 2131362000;
 			
 			// aapt resource value: 0x7f0a0077
 			public const int search_src_text = 2131361911;
@@ -3084,8 +3093,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0084
 			public const int toolbar_risks = 2131361924;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int toolbar_settings = 2131361999;
+			// aapt resource value: 0x7f0a00d1
+			public const int toolbar_settings = 2131362001;
 			
 			// aapt resource value: 0x7f0a00a2
 			public const int toolbar_title = 2131361954;
@@ -3108,8 +3117,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a0009
 			public const int up = 2131361801;
 			
-			// aapt resource value: 0x7f0a00d3
-			public const int updatesButton = 2131362003;
+			// aapt resource value: 0x7f0a00d5
+			public const int updatesButton = 2131362005;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int useLogo = 2131361827;
@@ -3117,11 +3126,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a007e
 			public const int useragreementText = 2131361918;
 			
-			// aapt resource value: 0x7f0a00cc
-			public const int video_expandable = 2131361996;
+			// aapt resource value: 0x7f0a00cd
+			public const int video_expandable = 2131361997;
 			
-			// aapt resource value: 0x7f0a00ca
-			public const int video_header = 2131361994;
+			// aapt resource value: 0x7f0a00cb
+			public const int video_header = 2131361995;
 			
 			// aapt resource value: 0x7f0a0086
 			public const int viewPager = 2131361926;
@@ -3129,8 +3138,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a000e
 			public const int view_offset_helper = 2131361806;
 			
-			// aapt resource value: 0x7f0a00d6
-			public const int visible = 2131362006;
+			// aapt resource value: 0x7f0a00d8
+			public const int visible = 2131362008;
 			
 			// aapt resource value: 0x7f0a00c3
 			public const int waitLayout = 2131361987;
@@ -3138,8 +3147,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f0a00c4
 			public const int warningLayout = 2131361988;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int websiteTextView = 2131362005;
+			// aapt resource value: 0x7f0a00d7
+			public const int websiteTextView = 2131362007;
 			
 			// aapt resource value: 0x7f0a0018
 			public const int wide = 2131361816;
@@ -3426,25 +3435,34 @@ namespace Bayards_Android
 			public const int RisksFragment = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int RiskView = 2130903113;
+			public const int RisksSearchView = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int select_dialog_item_material = 2130903114;
+			public const int RiskView = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int select_dialog_multichoice_material = 2130903115;
+			public const int SearchFragment = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int select_dialog_singlechoice_material = 2130903116;
+			public const int SearchRiskInfoActivity = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int SettingsActivity = 2130903117;
+			public const int select_dialog_item_material = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int support_simple_spinner_dropdown_item = 2130903118;
+			public const int select_dialog_multichoice_material = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int toolbar = 2130903119;
+			public const int select_dialog_singlechoice_material = 2130903119;
+			
+			// aapt resource value: 0x7f030050
+			public const int SettingsActivity = 2130903120;
+			
+			// aapt resource value: 0x7f030051
+			public const int support_simple_spinner_dropdown_item = 2130903121;
+			
+			// aapt resource value: 0x7f030052
+			public const int toolbar = 2130903122;
 			
 			static Layout()
 			{
@@ -3595,8 +3613,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07005e
 			public const int check_update = 2131165278;
 			
-			// aapt resource value: 0x7f07006e
-			public const int closeDrawer = 2131165294;
+			// aapt resource value: 0x7f07006f
+			public const int closeDrawer = 2131165295;
 			
 			// aapt resource value: 0x7f070001
 			public const int common_google_play_services_enable_button = 2131165185;
@@ -3685,8 +3703,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f070060
 			public const int date_unknown = 2131165280;
 			
-			// aapt resource value: 0x7f07006b
-			public const int done = 2131165291;
+			// aapt resource value: 0x7f07006c
+			public const int done = 2131165292;
 			
 			// aapt resource value: 0x7f070047
 			public const int enter_password = 2131165255;
@@ -3694,8 +3712,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f070042
 			public const int error = 2131165250;
 			
-			// aapt resource value: 0x7f07006f
-			public const int images = 2131165295;
+			// aapt resource value: 0x7f070068
+			public const int found_risks = 2131165288;
+			
+			// aapt resource value: 0x7f070070
+			public const int images = 2131165296;
 			
 			// aapt resource value: 0x7f070048
 			public const int incorrect_password = 2131165256;
@@ -3742,11 +3763,11 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07003e
 			public const int no = 2131165246;
 			
-			// aapt resource value: 0x7f07006c
-			public const int not_done = 2131165292;
-			
 			// aapt resource value: 0x7f07006d
-			public const int openDrawer = 2131165293;
+			public const int not_done = 2131165293;
+			
+			// aapt resource value: 0x7f07006e
+			public const int openDrawer = 2131165294;
 			
 			// aapt resource value: 0x7f070046
 			public const int password = 2131165254;
@@ -3775,8 +3796,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07004f
 			public const int read_and_agree = 2131165263;
 			
-			// aapt resource value: 0x7f070068
-			public const int risks = 2131165288;
+			// aapt resource value: 0x7f070069
+			public const int risks = 2131165289;
 			
 			// aapt resource value: 0x7f070024
 			public const int search_menu_title = 2131165220;
@@ -3784,14 +3805,14 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f070067
 			public const int select_category = 2131165287;
 			
-			// aapt resource value: 0x7f07006a
-			public const int show = 2131165290;
+			// aapt resource value: 0x7f07006b
+			public const int show = 2131165291;
 			
 			// aapt resource value: 0x7f070025
 			public const int status_bar_notification_info_overflow = 2131165221;
 			
-			// aapt resource value: 0x7f070069
-			public const int tasks = 2131165289;
+			// aapt resource value: 0x7f07006a
+			public const int tasks = 2131165290;
 			
 			// aapt resource value: 0x7f070062
 			public const int update_latest = 2131165282;
@@ -3805,8 +3826,8 @@ namespace Bayards_Android
 			// aapt resource value: 0x7f07004e
 			public const int user_agreement = 2131165262;
 			
-			// aapt resource value: 0x7f070070
-			public const int videos = 2131165296;
+			// aapt resource value: 0x7f070071
+			public const int videos = 2131165297;
 			
 			// aapt resource value: 0x7f07004b
 			public const int wait = 2131165259;

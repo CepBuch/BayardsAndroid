@@ -97,6 +97,7 @@ Je wordt teruggestuurd naar de inlogpagina.
   <string name="done">Klaar</string>
   <string name="not_done">Niet klaar</string>
   <string name="select_category">Selecteer categorie</string>
+  <string name="found_risks">Gevonden risico\'s: </string>
   <string name="show">Tonen</string>
   <string name ="images">Afbeeldingen</string>
   <string name="videos">Videos</string>

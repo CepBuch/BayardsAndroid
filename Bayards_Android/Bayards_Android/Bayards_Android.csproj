@@ -174,10 +174,12 @@
     <Compile Include="Fragments\RisksContainerFragment.cs" />
     <Compile Include="CategoryContentActivity.cs" />
     <Compile Include="RiskViewModel\RisksAdapter.cs" />
-    <Compile Include="RiskViewModel\RisksFilter.cs" />
     <Compile Include="RiskViewModel\RisksList.cs" />
     <Compile Include="CategoryContentPagerAdapter.cs" />
     <Compile Include="RiskViewModel\RiskViewHolder.cs" />
+    <Compile Include="SearchRiskInfoActivity.cs" />
+    <Compile Include="SearchViewModel\RisksSearchAdapter.cs" />
+    <Compile Include="SearchViewModel\SearchRiskViewHolder.cs" />
     <Compile Include="SettingsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +253,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MediaVideoView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RisksSearchView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchRiskInfoActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
