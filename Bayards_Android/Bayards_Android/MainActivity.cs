@@ -94,7 +94,11 @@ namespace Bayards_Android
         
 
 
-
+        /// <summary>
+        /// Counts number of sections, loaded from database. If there is 0 sections, 
+        /// opens the DataLoadActivity to load data.
+        /// </summary>
+        /// <returns></returns>
         private bool CountCategories()
         {
             var numCategories = Database.Manager.CountCategories(language);
@@ -118,6 +122,8 @@ namespace Bayards_Android
             }
         }
 
+
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             navigationView.InflateMenu(Resource.Menu.nav_menu);
@@ -130,8 +136,12 @@ namespace Bayards_Android
             return base.OnPrepareOptionsMenu(menu);
         }
 
-  
 
+        /// <summary>
+        /// Event handler for a click on a menu item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             drawerToggle.OnOptionsItemSelected(item);
@@ -254,7 +264,7 @@ namespace Bayards_Android
         }
 
         /// <summary>
-        /// This method checks for update asynchroneous when application starts
+        /// This method checks for updates asynchronous when application starts
         /// and device is connected to the internet
         /// </summary>
         public async void CheckUpdates()
