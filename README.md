@@ -6,14 +6,14 @@ Russian (development) and Dutch (coordination and analytics) students worked tog
 
 [Here is](https://drive.google.com/open?id=1cfqwkNCCmX5LBs97ift-lcyqnUCeOFOX) APK with the final version of Android application that was sent to the client.
 
-Unfortunately, now it works until the first request to the server as we used free web hosting that now, after a year, is not available. Client uses their own server and didn't want to publish this app to Play, App and Windows Stores (for security purposes).
+Unfortunately, now it works until the first request to the server as we used free web hosting that now, after a year, is not available. Client uses their own hosting and didn't want to publish this app to Play, App and Windows Stores (for security purposes).
 
 Due to absence of Xamarin on my PC right now (unable to change API requests to offline data as I did with [2018 project](https://github.com/CepBuch/ProduvarForCV)), I want to demonstrate very *basic* functionalities of this app through [PDF with screenshots](https://drive.google.com/open?id=1UKNKBNVyD2PZsEmzsJrFD3kSuiDj1oA9) that I am able to find in my archives now.
 
-Main function (to display information) is very poorly described on these pictures that is why I am going to add some words.
+Main function (to display information) is very poorly described in these pictures that is why I am going to add some words.
 
 There can also be:
-- subcategories (Near the "Risks" tab) and subcategories can also have subcategories and so on.
+- subcategories (near the "Risks" tab) and subcategories can also have subcategories and so on.
 - pictures in instructions.
 - expandable views to gather additional information (for example, links to youtube videos)
 - checkboxes to ensure that user have looked through some necessary articles.
