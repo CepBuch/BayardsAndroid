@@ -1,5 +1,7 @@
 **Bayards pocket manual app**
 
+[Certificate](https://drive.google.com/open?id=0B5n1qcET5D7DM1F6X1BIREg0aWs)
+
 This application should help new employees of Bayards company with safety and teach them basics of working in factories of the company. In other words, this is a guide application that makes employees get used to the company. Information is added by administrations through the web and displayed in iOS, Android and WP apps. All data is downloaded once and cached on the device with later auto-update checks.
 
 Russian (development) and Dutch (coordination and analytics) students worked together on this project for Dutch company. My role was to create design and Android application (Xamarin). We've also developed iOS app, Windows Phone app, API, back-end and backing interface.
